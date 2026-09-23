@@ -1,187 +1,504 @@
 # 山区洪涝灾害下无人机运输与通信协同优化
 
-当前完成第一阶段数据审计、公共基础模块、Q1单点往返优化、Q2-v1基准、Q2-v2双主目标搜索及Q3通信约束联合排程。Q4尚未实现。原始题目与附件不改写；项目路径由代码位置推导，没有固定盘符。
-
-## 运行环境
-
-**统一使用现有Miniconda `dl` 环境**：
-
-```powershell
-conda activate dl
-python --version
-python -m pip install -r requirements.txt
-```
-
-PowerShell无法识别 `conda activate` 时，先初始化PowerShell，再重新打开终端：
-
-```powershell
-conda init powershell
-# 重新打开PowerShell后：
-conda activate dl
-python --version
-```
-
-**不要创建 `.venv`**。`requirements.txt`包含业务模块、审计脚本、图表及测试所需依赖。已有审计JS文件只用于第一阶段历史审计工作簿，正式业务模块全为Python。
-
-## 当前模块
-
-| 路径 | 已实现内容 |
-|---|---|
-| `src/relief_uav/data/` | 严格表头与分块读取；节点、53条需求、80箱、三型运输机、8架实体机、14组电池、2架中继及6组组件、通信参数的不可变数据对象；外键与需求对账；百分数转为0–1 SOC |
-| `src/relief_uav/geo/dem.py` | 以GeoTIFF读取EPSG:4326 DEM；按附件识别−32767 NoData（即使TIF元数据为None）；像元中心、边界、点位与航段覆盖；WGS84椭球水平距离 |
-| `src/relief_uav/geo/segments.py` | O01及S001–S015全部16×16有向航段的DEM最高值、距离、作业/巡航海拔与爬升下降；带源指纹的JSON缓存 |
-| `src/relief_uav/physics/flight.py` | 原题等效航程、爬升/巡航/下降飞行时间；固定准备+逐箱装载、基础交接+逐箱交接时间 |
-| `src/relief_uav/physics/battery.py` | SOC核算与0–90% / 90–100%两阶段充满时间 |
-| `src/relief_uav/physics/energy.py` | 可替换的项目假设能耗模型；水平与爬升分项、单段总能耗 |
-| `src/relief_uav/physics/sortie.py` | 多点架次逐段载荷、能耗、SOC和作业时间统一评估 |
-| `src/relief_uav/q1/` | 45格最大连续安全载荷、真实货箱子集枚举、精确bitmask DP及报告 |
-| `src/relief_uav/validation/q1.py` | 独立重算货箱覆盖、容量、能耗、SOC、时间与总指标 |
-| `src/relief_uav/q2/` | Q1及截止时限多种种子、组批/路线/机型邻域搜索、实体机与电池CP-SAT排程、逐阶段时间轴及结果导出 |
-| `src/relief_uav/validation/q2.py` | 从原始货箱及路线/资源/准备时刻独立重建Q2方案，核对时限、资源占用、SOC与汇总 |
-| `src/relief_uav/communication/` | 运输三维分段轨迹、30m DEM栅格相交视线、双向链路预算、DIRECT/RELAY/OUTAGE时间区间与切换细分 |
-| `src/relief_uav/q3/` | Q2-v2仅直连审计、粗到细中继悬停点候选、通信导向路线ALNS、运输与中继联合CP-SAT排程、完整快照及报告 |
-| `src/relief_uav/validation/q3.py` | 重新读取DEM与附件，独立核验Q2运输约束、中继几何/能量/资源和通信时间区间 |
-
-内部使用m、s、kg、m³、kWh；经纬度保留°，通信频率MHz，FSPL中的三维距离换算为km。SOC用0–1比例，原表的20%读取为0.2。电池和组件原附件只有各型号库存数，**没有逐块编号**；资源时间轴里的`A-BAT-xx`和`R-COMP-xx`均为确定性的项目内部编号，不是附件官方ID。
-
-### 航段几何口径
-
-题目规定两节点间水平直线。当前以原始EPSG:4326经纬坐标中的两端点连线定义航迹；仿射变换后求该线与栅格线的全部交点，并纳入各区间与交点触及的像元，包括恰好沿栅格边和经过角点的情况，不按稀疏点采样。水平长度由WGS84椭球反算，单位米；这项口径选择已写入缓存元数据。地理范围较小，但经纬坐标与椭球测地线并非严格同一曲线，后续论文应明确此方法口径；如对“直线”有更具体投影要求，应统一调整航迹和距离定义并重建缓存。
-
-巡航海拔=相交有效像元最高高程+50 m。O01起终作业海拔是**附件节点表**中的127.7 m；服务区作业海拔是附件海拔+30 m，不用所在DEM像元覆盖附件值。每一有向段单独计算。矩阵含16个自身到自身记录以保持16×16结构；这些对角记录不是实际运输航段。
-
-缓存路径：`outputs/cache/node_pair_geometry.json`。内容带DEM文件哈希、节点数据和算法版本指纹，源变化自动重算，写入使用临时文件替换。强制重算参数见下方命令。缓存里的距离/DEM最高值在反向航段相同，爬升与下降依起终节点互换。
-
-## 运行和核验
-
-在项目根目录且激活 `dl` 后：
-
-```powershell
-python -m pytest tests -q --basetemp outputs/test_tmp
-python scripts/build_base_physics_check.py --force-recompute
-python scripts/build_base_physics_check.py
-```
-
-第一次生成256条有向航段与Excel核验表，第二次复用缓存。结果在 `outputs/validation/base_physics_check.xlsx`，包含O01→S001→O01和O01→S001→S005→O01，逐航段列出距离、DEM最高值、巡航及作业海拔、爬升/下降、相交像元数和A/B/C机型的三阶段时间。不会填造能耗或返航SOC。
-
-测试覆盖真实场景对象数量及对账、起终方向、多点段、真实缓存强制重建与复用、人工构造DEM的尖峰/NoData/边界、像元覆盖与独立矩形裁剪结果比对、等效航程端点、飞行三阶段、准备/交接时间、SOC=0/0.5/0.9/1充电边界和连续性。`--basetemp outputs/test_tmp`是为了避开本机系统临时目录对pytest的访问权限限制；仅测试运行时使用。该目录已加入`.gitignore`。
-
-## Q1数学模型与规则来源
-
-**① 原题明确规则：** 单点架次严格为 `O01→Si→O01`，每箱不可拆、恰好交付一次且不能跨服务区；各架次可选不同机型，质量、体积、返航电量必须满足附件限制。等效航程 `L(q)=L0−(L0−LF)(q/Q)^(3/2)`；单段能耗为水平与爬升附加能耗之和、下降不单列能耗；架次总能耗不超过 `(1−ρ)Euse`。O01作业海拔取节点附件值，服务区取附件海拔+30m，巡航海拔取沿段DEM最高值+50m。每段按爬升、巡航、下降分别算时。
-
-**② 由附件字段直接整理的时间：** 准备秒数=固定准备+每箱装载×箱数；交接秒数=基础交接+每箱增加交接×本站箱数。Q1累计作业时间为所有架次的准备、去程飞行、交接、回程飞行时间之和，不是并行调度的makespan。不计Q1未涉及的充电、等待或实体无人机周转。输出官方模板中的“往返时间（s）”映射为**去程飞行+回程飞行**，完整作业时间见`q1_plan.xlsx`。这是本项目对模板列名的映射口径。
-
-**③ 经用户授权采用的项目建模假设，不是原题给出的分项公式：**
-
-```text
-E_hor = E_use × d / L(q)
-E_up  = (m_empty + q) × 9.80665 × h_up / (eta_up × 3,600,000)
-E_down = 0
-```
-
-`E_hor`、`E_up`的单位是kWh；`m_empty`取附件“含电池空载总质量”，q是该航段未投送货物的质量。公式只封装在`physics/energy.py`的`RangeGravityEnergyModel`中，公共架次评估器允许注入其他模型。若得到正式勘误，可替换该策略并重新计算全部结果。当前Q1数值以这组项目假设为条件。
-
-## Q1求解和多目标
-
-对每个服务区单独枚举非空货箱子集，按A/B/C机型检查结构重量、体积，并对实际组合调用完整架次评估器检查返航SOC。卸货前去程载荷为该组全部货箱质量，回程载荷为0。对同一个货箱子集只保留能耗和时间字典序最优的可行机型；其余机型没有实体资源约束，不能改进该子集的Q1字典序目标。然后使用锚定未覆盖货箱的bitmask动态规划，精确找出该服务区的最优不重叠分区。15区彼此独立，其最优分区合并即全局Q1最优分区。
-
-本项目选择的默认目标为 `min(总架次数, 总运输能耗kWh, 累计作业时间s)`，按字典序依次比较。**原题要求说明权衡，但没有指定目标权重或优先级**，此优先顺序是项目选择。接口保留`objective_mode`，当前只实现`lexicographic`；`weighted`和`pareto`尚未实现，指定时明确报错，不会暗中退化为默认模式。最大连续安全载荷在0到结构载荷间二分，能量受限时返回可行下界，区间宽度小于0.0001kg；实际组批仍按真实箱组重新计算能耗。
-
-## Q1运行、输出与验证
-
-在项目根目录并激活`dl`后运行：
-
-```powershell
-python -m pytest tests -q --basetemp outputs/test_tmp
-python main.py --question q1 --force-recompute
-python main.py --validate q1
-```
-
-省略`--force-recompute`可复用`outputs/cache/node_pair_geometry.json`。主命令同时重新计算返航安全余量10%、15%、20%、25%、30%的45格安全载荷和组批；20%作为基准输出。无资源时间轴，因此Q1不处理实体机、共享电池竞争、充电、开始时刻、通信或配送时限。
-
-| 文件 | 内容 |
-|---|---|
-| `outputs/q1/q1_safe_payload_matrix.xlsx` | 20%时45个机型×服务区连续安全载荷、几何、能耗、SOC和限制类型 |
-| `outputs/q1/q1_plan.xlsx` | 基准货箱组批与逐架次去回能耗/飞行/地面作业明细 |
-| `outputs/q1/q1_summary.json` | 基准总指标、逐区机型及完整计划，供CLI重新加载验证 |
-| `outputs/q1/q1_sensitivity.xlsx` | 5档目标、225格安全载荷和每档实际组批 |
-| `outputs/figures/q1_safe_payload_sensitivity.png` | 各机型各区安全载荷曲线 |
-| `outputs/figures/q1_objective_sensitivity.png` | 三目标随安全余量变化 |
-| `outputs/validation/q1_validation.xlsx/.txt` | 独立重算与违例报告 |
-| `outputs/q1/结果提交_Q1.xlsx` | 复制官方模板，仅填`Q1_单点组批`，其他sheet保持原样 |
-
-独立validator从原始箱ID重建每架次，不接受求解器保存的能耗/时间作为真实值；验证重复、遗漏、跨区、机型、载重、体积、返航SOC、时间和汇总指标。测试还故意注入这些故障，检查validator能识别。其覆盖箱数从加载的数据取得，没有硬编码80。
-
-## Q2模型、求解与时间口径
-
-原题允许多点架次，医疗物资（附件类别字符串为“医疗物资”）须在逐箱期望时刻前交付；附件逐箱标记的首批保障箱须在对应首批截止时刻前交付，两者重叠时同时检查。其他箱的期望时刻是软目标。每架次一次在O01装完货，中途只卸货，逐航段剩余载荷及地形、飞行、等效航程、能耗仍调用公共`evaluate_transport_sortie`，不复制或更换Q1能耗模型。**水平能耗与爬升能耗沿用用户授权的 project modeling assumption，不是原题给出的官方分项公式。**
-
-项目内部定义`preparation_start`为架次开始；无人机和电池从该时刻占用。官方模板“开始时刻（s）”映射为`preparation_start`，另保存`takeoff_time`。同一服务区本架次的所有箱在**整个交接结束**时统一计为交付完成；这是项目时间口径，不是原题逐箱卸载规则。无人机返O01后无需额外周转即可开始新任务；电池从返航时按实际SOC立即按原题两阶段公式充电至100%才可复用，不添加充电桩数量约束；同型另一块满电电池可立即装到已返航无人机。电池ID如`A-BAT-01`、`B-BAT-01`、`C-BAT-01`由项目按附件库存数确定性生成，**不是附件官方编号**。
-
-项目多目标定义`J1=Σ优先系数×max(0,交付完成−期望时刻)`，另输出归一化`Σ优先系数×max(0,(交付完成−期望时刻)/期望时刻)/Σ优先系数`；`J2`为最晚运输机**返航**时刻，`J3`为总运输能耗，`J4`为架次数。Q2-v1按`(J1,J2,J3,J4)`字典序比较，保留为历史基准；其旧`weighted`模式直接混合量纲，只用于兼容，**不是v2正式目标**。Q2-v2默认把J1/J2作为双主目标，经Pareto与ε约束搜索，仅在主目标相近时用J3/J4择优。这些目标与选择规则是项目多目标建模定义，不是原题指定公式。由于80箱路线空间巨大，两版均使用启发式路线搜索与CP-SAT固定路线排程，**不宣称全局路线最优**。搜索阶段的list scheduler只作候选估算，最终方案经过CP-SAT及原始浮点时间独立重建验证。CP-SAT用毫秒，阶段时长和交付偏移向上取整，截止时刻向下取整；最终输出与校验使用浮点秒，FEASIBLE状态不代表数学最优。
-
-```powershell
-conda activate dl
-python -m pip install -r requirements.txt
-python main.py --question q2 --q2-algorithm v2 --seed 20260923 --q2-time-limit 300 --q2-iterations 3000 --q2-restarts 8 --q2-cp-candidates 20 --q2-tardiness-slack 0.05 --q2-selection epsilon_makespan
-python main.py --validate q2
-python -m pytest tests -q --basetemp outputs/test_tmp
-```
-
-省略Q2选项使用上述v2默认值；`--force-recompute`强制重算共享DEM航段矩阵。`--q2-epsilon-levels "0,0.02,0.05,0.10"`配置扫描档位；`--q2-absolute-epsilon`处理最佳J1为零时的绝对容差。若最佳J1=0且绝对容差也为0，四档相对ε的及时性上界均为0，程序会如实呈现重合档位，另用无J1上界的CP-SAT最短完工探索前沿的另一端。`--q2-selection ideal_distance`按前沿中J1/J2各自min-max归一化后的理想点距离择优；默认`epsilon_makespan`在最佳已发现J1的5%范围内选最短J2，再以J3/J4打破平局。绝对/相对ε与理想点距离是项目折中规则。Q2-v2按seed依次重启ALNS，针对迟到箱、最晚返航无人机、电池充电链、相近服务区成组移除，再以best/regret-2/deadline/makespan四类插入修复；算子权重、奖励和destroy规模在`Q2AlgorithmConfig`中配置。反复出现的架次使用物理评估缓存，但最终校验不读缓存。若无`q1_summary.json`可内部生成Q1种子，不要求预先制作中间Excel。validator失败会异常退出，不保存“最终答案”。
-
-Q2-v1输出原样保留在`outputs/q2/`，已提交的基准JSON另存于`outputs/q2_v2/baseline_v1/`。v2运行**只写`outputs/q2_v2/`**：原有架次、逐箱、无人机/电池时间轴、完整JSON、Pareto表、官方模板Q2副本及validation、logs、figures子目录均在此处；新增`q2_algorithm_comparison.xlsx`、`q2_benchmark.json`、`q2_timeliness_makespan_pareto.png`、`q2_epsilon_sensitivity.png`、`q2_operator_weights.png`。`q2_pareto.xlsx`保留全体CP候选、真正J1/J2非支配前沿和ε档方案。运行`python scripts/benchmark_q2_v2.py`会重新读取保存的v1/v2结果并独立验证后生成对比JSON。完整阶段时间轴与箱/资源关系保存在v2 JSON，供后续Q3读取。
-
-如确需重跑历史v1，显式使用`python main.py --question q2 --q2-algorithm v1`及`python main.py --validate q2 --q2-algorithm v1`；该命令会重写v1输出，普通v2运行不会触碰它们。
-
-Q1仍仅支持字典序目标；`weighted`与`pareto`尚未实现，不能把Q2的模式误认为Q1功能。
-
-## Q3通信、联合调度与验证
-
-Q3以Q2-v2已提交的运输解为种子，先分析26架次在无中继时的直接通信缺口，再从失联轨迹、服务区、中间位置和局部粗网格生成悬停候选，经回传链路、飞行能量及覆盖度筛选。通信导向ALNS可修改组批、访问顺序和机型；联合CP-SAT重新决定运输机、电池和起飞时间，并分配中继悬停点、服务区间及实体。最终方案未必改变Q2的货箱路线，但**运输排程并非固定后处理**。ALNS及候选覆盖采用近似，最后由独立validator重算。
-
-从运输机起飞至返回O01，爬升、巡航、下降和交接均要求通信。优先检查与G01直连；失败时只允许一架已完成建链且正在服务的中继同时满足运输机—中继接入与中继—G01回传；禁止多跳。一个中继可以同时服务多架运输机，附件没有给并发用户上限。G01经纬度取O01，天线MSL海拔由O01附件高程加网关离地高度计算。链路使用附件参数、三维距离、双向最小允许损耗及`FSPL=32.45+20log10(f_MHz)+20log10(D_km)`；地形遮挡增加附件给定的10dB损耗，**不直接等同失联**。LOS对通信线穿过的每个DEM像元计算视线海拔，对栅格边和角点采用保守相交，并拒绝NoData。
-
-中继服务时固定悬停；`hover_msl=DEM(hover_xy)+hover_agl`，官方模板“悬停海拔”填MSL。为处理悬停点高于`maxDEM+50m`的情况，项目采用扩展几何约定`H_flight=max(maxDEM+50m,hover_msl,O01海拔)`；这**不是原题显式公式**。中继巡航能耗由附件巡航功率×巡航时间计算，爬升附加能耗沿用已授权的`mgh/η`项目假设，下降附加能耗为0。建链30秒默认按悬停功率+通信功率计能，可用`--q3-setup-energy-mode hover_only`切换；这个建链能耗口径并非原题明确规定。实体返航后满300秒周转才可开始下次准备；组件返航立即可充电，能与实体周转并行，复用前须按原题两阶段充满至100%。当前联合CP每个中继架次使用一组不同组件，因此不会依赖组件复用来建立可行性，仍在输出中记录充电结束时刻。
-
-Q3主目标是配送加权逾期`J1`与所有运输机和中继机的最晚返航`J2`；运输+中继能耗`J3`和两类总架次数`J4`作次目标。Pareto/ε优先级是项目建模选择，非原题指定。若最优已发现`J1=0`且绝对ε也为0，相对ε不会放宽逾期。CP-SAT对给定有限悬停候选和路线可报告`OPTIMAL`，但整个连续位置/路线问题不宣称全局最优。
-
-在已激活的Miniconda `dl`环境中运行：
-
-```powershell
-python main.py --question q3 --seed 20260923 --q3-time-limit 600 --q3-iterations 2000 --q3-restarts 6 --q3-search-step 1.0 --q3-validation-step 0.25 --q3-transition-tolerance 0.05 --q3-tardiness-slack 0.05 --q3-selection epsilon_makespan
-python main.py --validate q3
-python -m pytest tests -q --basetemp outputs/test_tmp
-```
-
-可调悬停粗网格`--q3-hover-grid-m`、初始AGL档位`--q3-hover-altitudes "50,100,150,200,250,300"`、候选数量`--q3-hover-top-k`、CP候选数`--q3-cp-candidates`、绝对ε`--q3-absolute-epsilon`。中继候选缓存位于`outputs/q3/cache/relay_candidates.json`，由运输方案、审计区间和候选参数指纹控制；最终validator**不读取优化器缓存**。Q2-v2已提交种子单独复制到`outputs/q3/baseline_q2_v2_summary.json`，不读取或覆盖本地可能改动的Q2工作表。
-
-所有Q3结果位于`outputs/q3/`：`baseline_q2_direct_audit.xlsx/.json`记录仅直连失联，`q3_transport_sorties.xlsx`与`q3_box_deliveries.xlsx`保存Q3运输决策，`q3_relay_sorties.xlsx`、`q3_relay_resource_timeline.xlsx`及`q3_communication_coverage.xlsx`保存中继、组件和链路预算；`q3_pareto.xlsx`、`q3_algorithm_comparison.xlsx`、日志和六张图供比较。`q3_summary.json`保留完整运输及中继快照、通信关系、目标及项目假设，供Q4继承。`结果提交_Q3.xlsx`复制官方模板，只填`Q3_中继架次`与`Q3_通信保障`；其中“开始时刻”映射为中继准备开始，悬停海拔填MSL。官方没有Q3专用运输sheet，因此完整运输方案在补充文件和JSON中。验证文件在`outputs/q3/validation/`。
-
-最终通信报告表述为**按配置最大时间步与切换定位精度进行数值连续性核验**；它不是解析意义上的全时刻数学证明。短时中断、精确阶段边界、地形像元角点和NoData均在测试中专门覆盖。
-
-## 第一阶段资料与后续边界
-
-见 [题目与数据审计](docs/题目与数据审计.md) 和 [字段与模板字典](docs/输入字段与模板.md)。审计证据和汇总在 `outputs/data_audit/`，原始提交模板没有修改。
-
-原题未给出运输能耗分项公式，所以Q1–Q3运输能耗以用户授权的项目建模假设为条件；与正式勘误不一致时须整体重算。中继建链能耗在Q3提供两种可选项目口径。Q4共享中继跨组关系仍需澄清；本阶段未开始Q4。
+本仓库以原题 DOCX、装备与需求 Excel、30 m DEM 和官方结果模板为依据，研究山区救援物资的无人机运输、资源排程与通信中继保障。本文档描述**当前已实现的程序和已保存结果**；原题规则、项目建模假设和优化策略分别说明。输入字段及题面公式的审计证据见 [题目与数据审计](docs/题目与数据审计.md) 和 [输入字段与模板](docs/输入字段与模板.md)。
 
 ## 目录
 
+- [项目简介](#intro)
+- [当前完成状态](#status)
+- [运行环境](#environment)
+- [项目目录结构](#structure)
+- [数据与统一建模约定](#data-model)
+- [统一约束条件](#constraints)
+- [规则来源与建模假设](#provenance)
+- [Q1：单点往返组批](#q1)
+- [Q2：多点运输调度](#q2)
+- [Q3：通信与中继联合调度](#q3)
+- [Q4：任务分区与资源配置](#q4)
+- [测试与独立验证](#verification)
+- [输出文件总览](#outputs)
+- [模型局限性](#limitations)
+- [完整复现流程](#reproduction)
+
+<a id="intro"></a>
+## 项目简介
+
+题目为《山区洪涝灾害下无人机运输与通信协同优化》。标准场景包含 O01 调度中心、15 个服务区、80 个不可拆货箱、A/B/C 三种运输机型、8 架实体运输机、14 组共享运输电池、G01 通信网关、2 架中继机及 6 组中继能源组件。飞行高度依赖数字高程模型（DEM，Digital Elevation Model），通信链路也受地形遮挡影响。
+
 ```text
-docs/                          题意和字段审计
-src/relief_uav/data/           数据对象与读取
-src/relief_uav/geo/            DEM、距离、航段矩阵和缓存
-src/relief_uav/physics/        飞行、能耗、统一架次评估、SOC
-src/relief_uav/q1/             Q1精确求解与报告
-src/relief_uav/q2/             Q2路线、排程、时间轴及报告
-src/relief_uav/communication/  通信链路与连续性判定
-src/relief_uav/q3/             Q3联合搜索、调度、报告
-src/relief_uav/q4/             后续求解目录
-src/relief_uav/validation/     Q1/Q2/Q3独立验证
-tests/                         基础和Q1–Q3单元/集成测试
-scripts/                       审计脚本及基础物理核验表生成
-outputs/cache/                 可重建几何缓存
-outputs/validation/            人工核验表
+原题与附件审计 → 公共 DEM / 飞行 / 能耗 / SOC 模型
+              → Q1 单点往返组批
+              → Q2 多点运输与资源调度
+              → Q3 通信约束下运输—中继联合调度
+              → Q4 分区及独立资源配置（尚未实现）
 ```
+
+<a id="status"></a>
+## 当前完成状态
+
+| 问题 | 状态 | 算法定位 | 已保存结果 |
+|---|---|---|---|
+| Q1 | 已完成 | 枚举可行箱组，bitmask 动态规划；在当前离散模型和字典序目标下精确 | 18 架次、59.130 kWh、累计作业 32776.016 s；validator PASS |
+| Q2-v1 | 已完成，历史基准 | 多起点路线邻域搜索＋固定路线 CP-SAT 排程 | J1=25785.315，J2=10714.143 s，J3=90.689 kWh，J4=32；validator PASS |
+| Q2-v2 | 已完成，正式 Q2 方案 | ALNS＋CP-SAT，J1/J2 Pareto 与 ε 约束 | J1=0，J2=7265.435 s，J3=78.480 kWh，J4=26；validator PASS、CP-SAT FEASIBLE |
+| Q3 | 已完成 | 有限中继点与运输路线搜索、联合 CP-SAT、独立通信验证 | J1=0，J2=7368.139 s，J3=82.079 kWh，J4=31；validator PASS、CP-SAT FEASIBLE |
+| Q4 | 尚未实现 | — | 无 solver、CLI、正式输出或 validator |
+
+Q1 的“累计作业时间”是各架次时长之和，**不是** Q2/Q3 的并行调度最晚返航时间。Q2-v1、v2 和 Q3 也不是同一可行域，不宜把表中数值当作同一问题的全局最优排名。
+
+<a id="environment"></a>
+## 运行环境
+
+项目使用已有的 Miniconda `dl` 环境，不创建 `.venv`。在仓库根目录运行：
+
+```powershell
+conda activate dl
+python --version
+python -m pip install -r requirements.txt
+python -m pytest tests -q --basetemp outputs/test_tmp
+```
+
+`requirements.txt` 是 Python 依赖清单。`main.py` 从自身位置推导仓库根目录，命令不依赖本机固定盘符。`outputs/test_tmp/` 是 pytest 临时目录，不是模型结果。本文所有路径均相对于仓库根目录。
+
+<a id="structure"></a>
+## 项目目录结构
+
+```text
+docs/                          原题与输入字段审计
+数据/                           原始 Excel、地理说明和 DEM 等附件
+src/relief_uav/data/           原始表读取、单位转换和数据对象
+src/relief_uav/geo/            GeoTIFF、距离、航段栅格分析与缓存
+src/relief_uav/physics/        飞行、运输能耗、架次评估、SOC 与充电
+src/relief_uav/communication/  三维轨迹、DEM LOS、双向链路和保障状态
+src/relief_uav/q1/             Q1 组批、精确 DP 与报告
+src/relief_uav/q2/             Q2 搜索、资源排程与报告
+src/relief_uav/q3/             Q3 中继候选、联合排程与报告
+src/relief_uav/q4/             占位目录；尚无业务代码
+src/relief_uav/validation/     Q1/Q2/Q3 独立方案验证
+tests/                         公式、边界和求解/验证行为测试
+scripts/                       审计、基准比较、基础物理核验脚本
+outputs/                       结果、图、日志与可重建缓存
+main.py                        Q1–Q3 求解及已保存方案验证入口
+```
+
+<a id="data-model"></a>
+## 数据与统一建模约定
+
+数据加载器把原始 Excel 转为清晰的数据对象；后续算法不直接依赖单元格。当前场景有 16 个任务节点、53 条需求汇总、80 个货箱、3 种运输机型、8 架实体运输机、14 组电池、2 架中继机、6 组中继组件。逐字段含义见 `docs/输入字段与模板.md`。道路、水体、村镇与行政界用于解释或展示；题目未把它们规定为禁飞区。
+
+| 原始输入（仓库相对位置） | 用途 |
+|---|---|
+| `数据/无人机应急物资运输基础数据/调度中心与服务区.xlsx`、`物资需求与配送时限.xlsx` | 节点、80 箱、优先系数、期望与首批截止 |
+| 同目录的 `运输无人机数据.xlsx`、`中继无人机数据.xlsx`、`通信链路参数.xlsx` | 机型、实体和能源库存、飞行/作业参数及双向链路参数 |
+| `数据/镇龙乡地理空间数据/` 下的 GeoTIFF、说明 PDF 和其他地理附件 | 航段 DEM、LOS；其他图层用于审计及展示 |
+| 根目录 `结果提交模板.xlsx` | 六张官方结果 sheet 的字段与导出格式 |
+
+| 量 | 内部单位或口径 |
+|---|---|
+| 水平/垂直距离、高程 | m；绝对高程 MSL 与悬停离地高度 AGL 分开 |
+| 时间 | s，从任务计时零点起 |
+| 质量、体积、能量 | kg、m³、kWh |
+| 经纬度、通信频率 | °、MHz；FSPL 中三维距离换算为 km |
+| SOC | 0–1；结果表标 `%` 时乘以 100 |
+
+**地形和飞行几何。** 主要 DEM 计算源是 EPSG:4326 GeoTIFF；地理说明给出的 NoData 哨兵值为 −32767，程序也拒绝无效值。节点间航迹取经纬坐标中的两端点水平直线，栅格分析完整遍历线段触及的 DEM 像元，包括边界与角点，不用稀疏取样猜最高点。水平长度用 WGS84 椭球反算为米；经纬度直线与椭球测地线不是严格同一曲线，这是项目实现口径。16×16 个有向节点对缓存在 `outputs/cache/node_pair_geometry.json`，源指纹变化自动重建，`--force-recompute` 可强制重算。
+
+普通运输航段 `i→j` 的原题高度规则为
+
+$$
+H_{ij}=\max_{c\cap\overline{ij}\ne\varnothing}\operatorname{DEM}(c)+50\ \mathrm{m},\qquad
+h^+_{ij}=H_{ij}-z_i,\quad h^-_{ij}=H_{ij}-z_j.
+$$
+
+O01 作业海拔取附件 O01 高程；服务区作业海拔取附件该服务区高程再加 30 m，**不以节点所在 DEM 像元值替换附件海拔**。多点运输的每段独立计算 DEM、巡航海拔、爬升及下降；服务区交接后从其作业海拔重新起飞。时间为
+
+$$
+t_{gij}=\frac{h^+_{ij}}{v_g^\uparrow}
+       +\frac{d_{ij}}{v_g^c}
+       +\frac{h^-_{ij}}{v_g^\downarrow}.
+$$
+
+**航程、电池和作业时间。** 原题等效航程为
+
+$$
+L_g(q)=L_g^0-(L_g^0-L_g^F)\left(\frac{q}{Q_g}\right)^{3/2},
+$$
+
+其中 `q` 为当前航段剩余载荷；逐站卸货后必须更新。返航 SOC 按 `1-E_{\mathrm{task}}/E_{\mathrm{use}}` 核算，标准运输和中继下限均为 20%。返航 SOC 为 `s`，附件等效完全充电时间为 `T_{\mathrm{full}}` 时，两阶段充满时间为
+
+$$
+t_{\mathrm{chg}}(s)=
+\begin{cases}
+T_{\mathrm{full}}\!\left[0.65(0.90-s)/0.90+0.35\right],&0\le s<0.90,\\
+T_{\mathrm{full}}\,0.35(1-s)/0.10,&0.90\le s\le1.
+\end{cases}
+$$
+
+准备时间按“固定准备＋箱数×每箱装载时间”，交接时间按“基础交接＋本站箱数×每箱增量”；系数从附件读取。
+
+<a id="constraints"></a>
+## 统一约束条件
+
+Q1 使用公共货箱与飞行约束；Q2 继承它们并增加时间资源，Q3 再继承 Q2 并增加中继和通信。
+
+| 范围 | 硬约束 |
+|---|---|
+| Q1–Q3 货箱与飞行 | 货箱不可拆、每箱恰好交付一次、只在所属服务区交付；架次 O01 起飞并回 O01；载重、体积、逐段能耗与返航 SOC 均可行 |
+| Q1 单点 | 一个架次只访问一个服务区，严格 `O01→Si→O01` |
+| Q2–Q3 多点及时限 | 可串行访问多个服务区；医疗箱的期望时刻及首批标记箱的首批截止时刻是硬截止；其余期望时刻进入软及时性指标 |
+| Q2–Q3 运输资源 | 实体机任务不重叠；同型号电池可跨实体共享、异型号不可混用；电池占用和充电互斥，复用前充至 100% |
+| Q3 连续通信 | 运输机起飞至返航的爬升、巡航、下降及交接期间须有直连或有效单跳中继；中继须已建链且接入、回传均可用；最终检测 OUTAGE 时长为 0 |
+| Q3 中继资源 | 悬停点在有效 DEM 范围，`0<AGL≤300 m`；满足能量和返航 SOC；实体任务互斥且返航后周转 300 s；组件占用、充电及复用时序合法 |
+
+附件未给单个中继的并发用户上限，也未给充电桩数量；当前程序未自行添加这两类容量约束。一个中继服务区间可同时保障多架运输机。
+
+<a id="provenance"></a>
+## 规则来源与建模假设
+
+| 类型 | 内容 |
+|---|---|
+| **原题明确规则** | 单点/多点路线、作业和巡航高度、等效航程、返航安全余量、两阶段充电、双向通信预算、DEM 遮挡附加损耗、中继悬停上限等 |
+| **项目能耗假设** | 原题给出水平能耗与爬升附加能耗相加，但未给两项完整公式。下列具体关系经用户授权采用，**不是原题显式公式**；正式勘误若补充原式，Q1–Q3 应整体重算 |
+| **项目时间/几何口径** | Q2/Q3“开始时刻”指准备开始，资源从此时占用；同站全部箱在整站交接结束时统一记为交付；运输机返航无需额外周转，电池可立即充电；Q3 中继高度和建链能耗另述 |
+| **项目优化选择** | Q1 字典序；Q2-v2、Q3 的 J1/J2 主目标与 Pareto/ε、J3/J4 次级择优；ALNS 邻域及搜索预算。原题没有规定这些目标权重或优先级 |
+
+当前运输能耗实现为
+
+$$
+E_{\mathrm{hor}}=E_{\mathrm{use}}\frac{d}{L_g(q)},\qquad
+E_{\mathrm{up}}=
+\frac{(m_{\mathrm{empty}}+q)\,g\,h^+}
+{\eta_\uparrow\,3.6\times10^6},\qquad
+E_{\mathrm{down}}=0,
+$$
+
+其中 `g=9.80665 m/s²`。下降仍计飞行时间；“下降附加能耗为 0”不表示瞬时下降。以上分项关系属于项目假设，不能在论文里写作题面已给公式。
+
+<a id="q1"></a>
+## Q1：单点往返组批
+
+**任务要求与决策变量。** 对 15 个服务区分别安排不可拆货箱的批次，每批选 A/B/C 一种机型，每架次严格 `O01→Si→O01`。决策是“哪些箱同批”和“该批使用什么机型”。Q1 不决定实体机、电池编号、起飞时刻、充电、通信或配送时限排程。
+
+**新增约束与优化目标。** 继承公共货箱、质量、体积、能耗和 SOC 约束，加上单区往返限制。项目按三元组**字典序**最小化：
+
+$$
+\min\bigl(N_{\mathrm{trip}},E_{\mathrm{transport}},T_{\mathrm{operation}}\bigr).
+$$
+
+先比架次数，持平再比运输能耗，再持平比各架次累计作业时间。这是项目目标选择；Q1 当前没有实现 `weighted` 或 `pareto` 模式。
+
+**求解算法与流程。** 每个服务区枚举所有非空货箱子集及 A/B/C 机型；逐组调用完整架次评估器检查质量、体积、逐段能耗和 SOC；同一箱组只保留字典序最优机型。随后以尚未覆盖的首箱为锚点，做 bitmask 集合划分动态规划，再合并各区结果并由独立 validator 重算。在当前离散货箱、物理模型与目标下，这一 DP 是精确求解，不表示能耗假设是唯一正确的物理模型。
+
+连续质量安全载荷矩阵通过二分求机型—服务区组合的结构/能量载荷上界，用于能力分析和预筛；真实组批**仍对每个箱组调用完整评估器**，体积单独校验，不能只凭“总质量≤安全载荷”判可行。
+
+**运行方法与参数。**
+
+```powershell
+python main.py --question q1
+python main.py --validate q1
+```
+
+Q1 只使用共用 `--force-recompute`（默认关闭），用来强制重建 DEM 航段缓存。主程序固定计算 10%、15%、20%、25%、30% 五档返航安全余量；20% 是 `q1_plan.xlsx` 与 `q1_summary.json` 的基准，档位目前**不是 CLI 参数**。基准结果为 18 架次、59.130 kWh、累计作业 32776.016 s，validator PASS。
+
+**输出文件、作用和阅读方法。**
+
+| 文件 | 内容、用途与输出原因 |
+|---|---|
+| `outputs/q1/q1_safe_payload_matrix.xlsx` | 45 个“机型×服务区”的最大连续安全载荷、结构上限、距离、DEM、能耗及返航 SOC；判断哪一组合受结构载荷或能量约束，**不是**最终箱组清单 |
+| `outputs/q1/q1_plan.xlsx` | **正式可读组批清单**：每行一个往返架次，列出服务区、机型、货箱 ID、箱数、质量/体积、去返程能耗、准备/飞行/交接时间和返航 SOC；可直接核查哪些货箱同机送、成本和时长是多少 |
+| `outputs/q1/q1_summary.json` | 可机器读取的 20% 基准快照、总指标、逐区统计、载荷矩阵及验证标记；供程序或论文表格读取，不依赖 Excel 单元格 |
+| `outputs/q1/q1_sensitivity.xlsx` | `汇总`、`安全载荷`、`逐档组批` 三张表，分别记录五档余量的总架次/能耗/时间、载荷变化及箱组变化；核查提高安全余量是否触发载荷下降、重组批次或增加架次 |
+| `outputs/figures/q1_safe_payload_sensitivity.png` | 横轴返航安全余量、纵轴最大安全载荷，分 A/B/C 机型画各服务区曲线；看哪些区域最先因能量约束失去载货能力，以及为何要做余量比较 |
+| `outputs/figures/q1_objective_sensitivity.png` | 同一余量横轴下并列展示架次数、总能耗与累计作业时间；揭示安全余量与运输成本的权衡。曲线来自五档**重新求解**，不是简单改写已选方案 SOC |
+| `outputs/validation/q1_validation.xlsx`、`q1_validation.txt` | 独立核验总体结论及违例明细：检查箱覆盖、跨区、机型、质量/体积、能量、SOC、时间和汇总一致性 |
+| `outputs/q1/结果提交_Q1.xlsx` | 官方 `结果提交模板.xlsx` 的副本，只填 `Q1_单点组批`；安全载荷矩阵和敏感性分析不在官方 sheet 中，故另存上述文件 |
+
+**验证方式与重点。** `python main.py --validate q1` 从保存的 JSON 和源箱重新构造批次并计算物理量。Q1 的“精确”仅指当前定义下的离散组批优化；五档敏感性文件用于判断结论对返航余量是否稳健。
+
+<a id="q2"></a>
+## Q2：多点运输调度
+
+**任务要求与决策变量。** 允许一架次 `O01→Si→Sj→…→O01` 串行访问多个服务区，联合决定箱组、站点顺序、机型、实体无人机、同型共享电池和准备开始时刻。Q1 结果可作为种子，Q2 仍能重新组批，不固定 Q1 箱组。
+
+**新增约束与优化指标。** 继承公共运输物理约束，新增实体机/电池的时间互斥、充满后复用和逐箱时限。医疗箱在期望时刻前、首批标记箱在首批截止时刻前交付；其他期望时刻是软目标。同站多箱统一在整站交接结束时计为交付。四项指标为
+
+$$
+J_1=\sum_b w_b\max(0,t_b^{\mathrm{delivery}}-d_b),\quad
+J_2=\max_{r\in T}t_r^{\mathrm{return}},\quad
+J_3=E_{\mathrm{transport}},\quad
+J_4=N_{\mathrm{transport\ sorties}}.
+$$
+
+另报告无量纲归一化 J1：逐箱逾期除以其期望时刻，再以优先系数加权并除以系数之和；它只作展示，不替代 J1。Q2-v1 按 `(J1,J2,J3,J4)` 字典序；Q2-v2 将 J1/J2 作为双主目标，以 Pareto/ε 选择，J3/J4 次级择优，**不是**把四项不同量纲直接线性相加。这些优先结构为项目选择。
+
+**求解算法与流程。** v1 是历史多起点路线邻域搜索＋CP-SAT 固定路线资源排程；v2 使用 ALNS（自适应大邻域搜索）对迟到箱、最晚返航机、充电链及邻近区域做破坏/修复搜索，并缓存重复架次评估。对较有希望的路线，CP-SAT 分配实体机、电池和开始时间，处理资源 NoOverlap、充电及硬截止；独立重建验证后形成 J1/J2 前沿与 ε 档结果。路线和组批空间很大，两版整体均不保证全局最优；固定候选的 CP-SAT 状态也不能推广成整个 Q2 的最优性证明。
+
+CP-SAT 排程使用毫秒整数，阶段时长与交付偏移向上取整、截止时刻向下取整；最终输出和独立验证重建浮点秒时间轴。快速列表排程只是候选估值。Q2 可自行生成 Q1 种子，运行时不要求预先存在 `q1_summary.json`。
+
+```text
+原始箱与种子 → 组批、顺序、机型邻域搜索
+→ 快速物理/排程估值 → 路线候选
+→ CP-SAT 精排实体机、电池和时间 → 独立 validator
+→ Pareto / ε 比较 → 选定 Q2-v2 方案
+```
+
+**运行方法与参数。** `--q2-algorithm` 默认 `v2`；只有显式指定 `v1` 才会运行历史算法并写 `outputs/q2/`。下列默认值来自 `main.py` 的 argparse 和分支处理：
+
+```powershell
+python main.py --question q2 --q2-algorithm v2
+python main.py --validate q2 --q2-algorithm v2
+```
+
+历史 v1 如需重跑，使用 `python main.py --question q2 --q2-algorithm v1`；它会重写 `outputs/q2/`，正常 v2 运行只写 `outputs/q2_v2/`。
+
+| 参数 | v2 默认值 | 作用 |
+|---|---:|---|
+| `--seed` | 20260923 | 随机种子 |
+| `--q2-time-limit` | 300 s | 搜索与候选精排预算；验证/导出可增加总墙钟时间 |
+| `--q2-iterations` | 3000 | 搜索迭代上限 |
+| `--q2-restarts` | 8 | ALNS 重启次数 |
+| `--q2-cp-candidates` | 20 | 进入 CP-SAT 精排的候选数上限 |
+| `--q2-tardiness-slack` | 0.05 | 选解时 J1 相对容差；J1=0 且绝对容差=0 时不产生放宽 |
+| `--q2-absolute-epsilon` | 0.0 | J1 绝对容差，补足零基准下相对 ε 无效的问题 |
+| `--q2-selection` | `epsilon_makespan` | 允许 J1 范围内择较小 J2；另一选项 `ideal_distance` 使用归一化理想点距离 |
+| `--q2-epsilon-levels` | `0,0.02,0.05,0.10` | 相对 ε 扫描档位 |
+| `--q2-algorithm` | `v2` | `v1` 或 `v2`，决定算法和输出/验证目录 |
+| `--force-recompute` | 关闭 | 强制重建公共 DEM 航段缓存 |
+
+v1 的 `--q2-time-limit` 与 `--q2-iterations` 默认分别是 **60 s、400 次**；`--q2-objective` 默认 `lexicographic`，另支持 `weighted`，仅作用于 v1，后者是历史兼容模式而非 v2 正式目标。v2 不使用 `--q2-objective`。已保存 v2 方案 J1=0、归一化 J1=0、J2=7265.435 s、J3=78.480 kWh、J4=26，validator PASS，CP-SAT `FEASIBLE`。
+
+**输出文件、作用和阅读方法。** 下表的 `q2_*` 基础文件分别位于历史 `outputs/q2/` 和正式 `outputs/q2_v2/`；应以 v2 目录的同名文件作为当前 Q2 结论。v1 的日志、图与验证在 `outputs/logs/`、`outputs/figures/`、`outputs/validation/`，v2 则集中在 `outputs/q2_v2/` 内。
+
+| 文件（位于对应 Q2 结果目录） | 内容、用途与输出原因 |
+|---|---|
+| `q2_transport_sorties.xlsx` | 一行一架次的机型、实体机、电池、路线、逐站箱组、准备/起飞/返回、质量/体积、能耗及 SOC；复核调度与官方模板映射 |
+| `q2_box_deliveries.xlsx` | 一行一箱的架次、服务区、交付完成、期望/首批截止和加权逾期；定位硬时限、软逾期和 J1 来源 |
+| `q2_drone_timeline.xlsx` | `航段时间轴` 按段给载荷、DEM、高度、能耗和爬升/巡航/下降时刻；`交接时间轴` 给到站及交接时刻；追溯各箱交付时间和飞行物理 |
+| `q2_battery_timeline.xlsx` | 内部电池 ID 的占用、返航 SOC、充电起止；人工核查同型共享、无重叠和复用前满电 |
+| `q2_summary.json` | 完整运输路线、逐箱交付、资源时间轴与目标值的机器快照；v2 还存选解、Pareto、配置和搜索统计，供 Q3 或复核程序读取 |
+| `q2_pareto.xlsx` | v1 含 CP 非支配候选及快速搜索档案；v2 含 `J1-J2 Pareto前沿`、`全部CP候选`、`ε扫描` 三表；检查双主目标权衡及最终选择，不等于穷尽全局路线 |
+| `结果提交_Q2.xlsx` | 官方模板副本，仅填 `Q2_运输架次` 与 `Q2_逐箱交付`；“开始时刻”映射准备开始，其余 sheet 保持原样 |
+| `validation/q2_validation.xlsx`、`q2_validation.txt` | 已保存方案的独立核验结论及违例，检查 80 箱、物理、时限、实体/电池、充电和汇总；v1 对应文件在 `outputs/validation/` |
+
+v1 辅助文件：`outputs/logs/q2_search_history.csv` 记录邻域迭代和快速估值；`outputs/figures/q2_drone_gantt.png` 以横条展示实体机从准备到返航的占用；`q2_delivery_tardiness.png` 对比逐箱实际完成与期望时间；`q2_objective_history.png` 展示快速排程下搜索已知最好加权逾期，用于观察进展，**不是**最优性证明。
+
+v2 额外文件和图：
+
+| 文件（位于 `outputs/q2_v2/`） | 内容、用途与输出原因 |
+|---|---|
+| `baseline_v1/q2_summary.json` | 冻结的 v1 基准，避免本地重跑 v1 覆盖对比口径 |
+| `q2_algorithm_comparison.xlsx` | v1、各 ε 档及 v2 最终方案的 J1–J4、运行时间、CP 状态及相对变化；量化方案改进与代价 |
+| `q2_benchmark.json` | 从已保存 v1/v2 结果重新生成的机器可读对比，可由 `scripts/benchmark_q2_v2.py` 单独重建 |
+| `logs/q2_search_history.csv` | 各重启/迭代的破坏、修复算子、接受原因、近似目标、温度及权重；复查 ALNS 行为 |
+| `figures/q2_drone_gantt.png` | v2 实体机占用图；查看并行、空闲和完工瓶颈 |
+| `figures/q2_delivery_tardiness.png` | v2 逐箱交付和期望时刻图；识别靠近或超过软目标的箱 |
+| `figures/q2_timeliness_makespan_pareto.png` | 横轴归一化 J1、纵轴 J2，叠加 v1 与选定方案；展示“及时性—完工时间”权衡和选解位置 |
+| `figures/q2_epsilon_sensitivity.png` | 相对 ε 档下的 J1、J2、能耗和架次数；检验容差变化能否换来更短完工时间。当前最佳 J1=0 且绝对 ε=0，曲线可能重合；这是相对 ε 在零基准下不起放宽作用的证据 |
+| `figures/q2_operator_weights.png` | ALNS 破坏/修复算子的最终自适应权重；解释搜索偏向的邻域，不作因果效果证明 |
+| `figures/q2_objective_history.png` | 快速排程的迭代最佳 J1；观察搜索是否停滞，不能代替最终独立核验 |
+
+**验证方式与重点。** `python main.py --validate q2` 默认验证 v2 保存方案；验证历史 v1 需加 `--q2-algorithm v1`。validator 从源附件与保存决策重算，不直接相信求解器写出的能耗、时间和 SOC。`FEASIBLE` 仅表示相应 CP-SAT 候选排程找到可行解。
+
+<a id="q3"></a>
+## Q3：通信与中继联合调度
+
+**任务要求与决策变量。** 在 Q2 全部运输约束上，要求运输机从起飞至返航的爬升、巡航、下降和交接全过程保持通信。优先走 `Transport↔G01` 直连；失败时可使用一架已完成建链的固定悬停中继，形成 `Transport↔Relay↔G01`，禁止中继—中继多跳。联合决策可包括运输箱组、路线、机型、实体机、电池、准备开始时刻，以及中继悬停经纬度、离地高度、服务区间、实体和能源组件。Q2-v2 保存解只是种子，**不是固定 Q3 运输方案**。
+
+**新增约束、通信模型与目标。** 继承 Q2 运输约束，增加中继飞行/悬停/能量/资源、双向接入与回传，以及通信连续性硬约束。网关 G01 取 O01 经纬度，天线 MSL 海拔由附件 O01 高程＋附件网关离地高度计算。运输机端点随三维飞行阶段移动；中继服务期间固定悬停。DEM 视线（LOS，Line of Sight）分析检查通信线触及的像元。自由空间路径损耗（FSPL，Free-Space Path Loss）为
+
+$$
+L_{\mathrm{FSPL}}=32.45+20\log_{10}(f_{\mathrm{MHz}})
+                       +20\log_{10}(D_{\mathrm{km}}).
+$$
+
+`D` 是三维距离。接收门限及双向允许损耗依附件发射功率、增益、系统损耗、灵敏度和衰落裕量计算：
+
+$$
+P_{\mathrm{th}}^b=P_{\mathrm{sens}}^b+M^b,\quad
+L_{\max}^{a\to b}=P_t^a+G_t^a+G_r^b-L_{\mathrm{sys}}-P_{\mathrm{th}}^b,\quad
+L_{\max}^{a\leftrightarrow b}=\min(L_{\max}^{a\to b},L_{\max}^{b\to a}).
+$$
+
+**地形遮挡不直接等于失联。** 遮挡时增加附件规定的 10 dB，再将 `L_{\mathrm{path}}=L_{\mathrm{FSPL}}+L_{\mathrm{obs}}b` 与双向允许损耗比较；链路裕量为 `L_{\max}-L_{\mathrm{path}}`。状态优先级依次为 `DIRECT`（直连可用）、`RELAY`（直连失败，但已建链中继接入与回传都可用）、`OUTAGE`（其余）。`T_{\mathrm{OUTAGE}}=0` 是最终方案**硬可行性条件**，不是新增的第五个优化目标。
+
+Q3 沿用 Q2 的 J1，其他指标扩展为
+
+$$
+J_2=\max\!\left(\max_{r\in T}t_r^{\mathrm{return}},
+                \max_{k\in R}t_k^{\mathrm{return}}\right),\qquad
+J_3=E_T+E_R,\qquad J_4=N_T+N_R.
+$$
+
+J1/J2 主目标、J3/J4 次级择优及 Pareto/ε 选择是项目优化策略，不是题目规定的权重。
+
+**中继物理与项目补充口径。** 悬停绝对海拔 `z_P=\operatorname{DEM}(P)+AGL`，要求 `0<AGL≤300 m`。中继往返巡航高度采用
+
+$$
+H_{\mathrm{relay}}=
+\max\!\left(H_{\max,\mathrm{DEM}}+50,\ z_P,\ z_{O01}\right).
+$$
+
+这是处理高悬停点的**项目扩展几何约定**，并非原题显式公式。中继巡航能耗按附件巡航功率×巡航秒数/3600，服务能耗按“悬停功率＋通信附加功率”×服务秒数/3600；爬升附加能耗沿用 `mgh/\eta` 项目假设，下降附加能耗为 0。建链 30 s 默认按悬停＋通信功率计能（`hover_plus_comm`），也可选 `hover_only`；这是项目能耗口径。实体返航后周转 300 s 才能开始下一次准备；组件返航即可充电，能与实体周转并行。组件 `R-COMP-xx` 与电池 `A/B/C-BAT-xx` 都是按库存生成的**项目内部编号**，不是附件官方编号。当前联合 CP 为每个中继架次分配不同组件，属于搜索范围限制；独立验证器仍按组件占用、充电及复用规则检查。
+
+**求解算法与流程。**
+
+```text
+读取已保存 Q2-v2 基准运输快照
+→ 全部运输轨迹仅直连审计，提取失联区间
+→ 从失联轨迹、服务区、中间位置及局部网格生成悬停候选
+→ 筛查回传、接入、飞行/悬停能量及返航 SOC
+→ 通信导向 ALNS 搜索箱组、路线和机型
+→ 对有限候选用 CP-SAT 联合安排运输机/电池/开始时刻、
+  中继实体/组件/位置与服务区间
+→ 独立读取附件和 DEM，细粒度核验全部运输、中继与通信约束
+```
+
+ALNS 负责发现有希望的运输组织，关注失联较长、链路裕量低和中继共享困难的路线；CP-SAT 负责有限候选下的资源与时间排程。搜索估值可近似，最终 validator 不把优化器缓存当作链路真值。
+
+**运行方法与参数。**
+
+```powershell
+python main.py --question q3 --seed 20260923
+python main.py --validate q3
+```
+
+| 参数 | 默认值 | 作用 |
+|---|---:|---|
+| `--seed` | 20260923 | 搜索随机种子 |
+| `--q3-time-limit` | 600 s | 搜索/候选精排预算；最终独立验证会使实际墙钟时间更长 |
+| `--q3-iterations` | 2000 | ALNS 迭代上限 |
+| `--q3-restarts` | 6 | ALNS 重启次数 |
+| `--q3-search-step` | 1.0 s | 候选运输方案的直连审计实际采用 `max(2 s, 此值)`；同时决定中继覆盖区间保护量 `max(5 s, 2×此值)`。Q2 基准仅直连审计固定用 2 s |
+| `--q3-validation-step` | 0.25 s | 最终独立通信核验最大时间步，也用于 `--validate q3` |
+| `--q3-transition-tolerance` | 0.05 s | 状态切换二分定位精度 |
+| `--q3-hover-grid-m` | 600 m | 悬停候选粗网格尺度 |
+| `--q3-hover-altitudes` | `50,100,150,200,250,300` m | 接收逗号分隔高度列表；**当前粗筛仅使用列表最大 AGL**，优秀候选可再尝试降低 25 m 的局部细化，并未逐档穷举 |
+| `--q3-hover-top-k` | 20 | 保留的候选悬停点数 |
+| `--q3-cp-candidates` | 12 | 进入联合精排的运输路线候选上限 |
+| `--q3-tardiness-slack` | 0.05 | J1 相对容差；零 J1 时单靠它不会放宽 |
+| `--q3-absolute-epsilon` | 0.0 | J1 绝对容差 |
+| `--q3-selection` | `epsilon_makespan` | 当前唯一可选的前沿选解方式 |
+| `--q3-setup-energy-mode` | `hover_plus_comm` | 建链能耗口径；另可选 `hover_only` |
+| `--force-recompute` | 关闭 | 强制重建公共 DEM 航段缓存 |
+
+**最终结果与最优性边界。** 已保存 Q3 方案交付 **80/80 箱**，J1=0（归一化 J1=0）、运输及联合最晚返航均为 **7368.139 s**；运输 78.480 kWh、中继 3.600 kWh、联合 J3=**82.079 kWh**；运输 26 架次、中继 5 架次、联合 J4=**31**。通信需求总时长 **42100.585 s**，DIRECT **23655.430 s**，RELAY **18445.154 s**，检测到的 OUTAGE **0 s**。使用 2 架中继实体、5 组组件；保存的 CP-SAT 状态为 **FEASIBLE**，已验证 Pareto 候选数为 1。最终运输箱组/访问路线与 Q2-v2 基准相同，但运输资源和准备时刻重新排定；这仍是联合搜索的决策结果，不是固定时间表事后加中继。
+
+独立 validator 为 **PASS**。在最大核验间隔 **0.25 s**、切换定位精度 **0.05 s** 下，未检测到通信中断；这不是对所有实数时刻的解析证明。ALNS、有限悬停点与有限候选 CP-SAT 都不支持宣称整个连续位置/路由空间全局最优。
+
+**输出文件、作用和阅读方法。** Q3 文件集中在 `outputs/q3/`，不覆盖 Q1/Q2 结果。
+
+| 文件（位于 `outputs/q3/`） | 内容、用途与输出原因 |
+|---|---|
+| `baseline_q2_v2_summary.json` | 已提交 Q2-v2 基准的副本，固定 Q3 种子与对比口径；Q3 不依赖重跑 Q2 后的本地工作表 |
+| `baseline_q2_direct_audit.xlsx` / `.json` | 无中继时逐架次直连比例、分阶段失联起止、最低裕量及地形/距离原因；说明哪里、何时需要中继，JSON 也供候选点生成读取 |
+| `q3_transport_sorties.xlsx` | Q3 最终运输架次、箱组、路线、实体机、电池、准备/起飞/返航及能耗；对比 Q2 的运输决策是否改变 |
+| `q3_box_deliveries.xlsx` | 一箱一行的交付时间、期望/首批截止、优先系数与逾期；重算 J1 和硬截止 |
+| `q3_relay_sorties.xlsx` | 中继架次的实体/组件、准备至返航各阶段、悬停经纬度、DEM/AGL/MSL、分项能耗及 SOC；检查选点、建链时序和能量 |
+| `q3_relay_resource_timeline.xlsx` | 中继实体周转、组件占用、返航 SOC 及充电起止；核对实体和组件无冲突 |
+| `q3_communication_coverage.xlsx` | `通信保障区间` 展示每段 DIRECT/RELAY、保障中继、最低裕量及遮挡；`链路预算明细` 在各区间中点列直连及有关接入/回传预算，便于人工抽查。明细**不是全部 0.25 s 验证采样** |
+| `q3_pareto.xlsx` | 经验证候选的 J1–J4、直连/中继/中断秒数、CP 和 validator 状态；当前只保存 1 个已验证前沿点，不应解读为完整全局前沿 |
+| `q3_algorithm_comparison.xlsx` | Q2-v2 基准、Q3 运输部分和 Q3 联合方案的时间、能量、架次及通信比例；解释通信硬约束新增的中继成本 |
+| `q3_summary.json` | 完整运输、逐箱、中继、通信区间、目标、验证和项目口径快照；供 Q4 后续继承。含建链能耗替代口径的**同排程**敏感性核算，未重新优化 |
+| `cache/relay_candidates.json` | 带来源指纹的候选悬停点缓存，加速重复搜索，不是最终可行性证据。局部 `.pkl` 临时缓存不属于正式提交结果 |
+| `logs/q3_search_history.csv` | ALNS 迭代、算子、近似分数/J1/J2 和估计失联；复查搜索过程，不作最终通信证明 |
+| `validation/q3_validation.xlsx` / `.txt` | 从源附件及 DEM 独立重建后的约束统计、违例与验证精度；判断最终合法性应看这里 |
+| `结果提交_Q3.xlsx` | 官方模板副本，只填 `Q3_中继架次` 和 `Q3_通信保障`；“悬停海拔”填 MSL、“开始时刻”填准备开始。官方没有 Q3 专用运输 sheet，完整运输方案在补充文件中 |
+
+| 图（位于 `outputs/q3/figures/`） | 读图目的 |
+|---|---|
+| `q3_transport_relay_map.png` | DEM 背景上的 O01/G01、服务区、运输路线与中继悬停点；解释空间覆盖安排 |
+| `q3_communication_timeline.png` | 每个运输架次的 DIRECT/RELAY 时间条；检查切换及共享保障时段 |
+| `q3_relay_gantt.png` | 中继实体从准备到返航及其中正式服务的横条；观察任务重叠与周转压力 |
+| `q3_link_margin.png` | 以区间中点为横坐标、该区间最低链路裕量为纵坐标；找出接近 0 dB 的薄弱保障段 |
+| `q3_pareto.png` | 已验证候选的 J1–J2 散点；目前只有一点，主要核对选解，不能展示完整权衡曲线 |
+| `q3_objective_history.png` | ALNS 迭代中的最佳**近似**分数；显示搜索进展，不等于最终高精度目标或最优性证明 |
+
+**验证方式与重点。** `python main.py --validate q3` 读取 `q3_summary.json`，从附件/DEM 重算运输、电池、中继物理、SOC、资源时间、直连与两段中继链路；所有硬约束成立且数值核验 OUTAGE=0 才 PASS。
+
+<a id="q4"></a>
+## Q4：任务分区与资源配置
+
+**任务要求。** 原题要求在**固定 Q3 最终联合方案**下，分别将 15 个服务区分成 `K=2` 与 `K=3` 个非空任务组，比较各组独立执行所需资源、冗余、工作量均衡和现有库存缺口。相比 Q3，新增“每区恰好归一组”“同一多点运输架次访问的所有服务区归同组”“组间运输机、电池、中继实体及组件不动态共享”等条件；不得为降低资源数量改动 Q3 已定箱组、访问顺序、任务时间或通信保障关系。
+
+**待建模决策变量与约束。** 服务区组别、固定任务的组归属、每组各型实体/能源库存需求，以及共享中继跨组关系和固定任务下资源重新编号的具体口径，均待 Q4 建模时确认。现有审计已指出跨组中继及资源编号的题意歧义，不能在 README 中假称已经解决。
+
+**优化目标、算法、流程、运行方法、参数、输出及验证。** 当前均**尚未实现**：`src/relief_uav/q4/` 只有占位文件；`main.py` 的 `--question` / `--validate` 仅接受 `q1`、`q2`、`q3`。当前没有 Q4 solver、CLI、参数、正式输出或 validator。
+
+```text
+Status: Not implemented
+```
+
+<a id="verification"></a>
+## 测试与独立验证
+
+两类检查回答不同问题：
+
+| 检查 | 命令 | 回答的问题 |
+|---|---|---|
+| pytest | `python -m pytest tests -q --basetemp outputs/test_tmp` | 数据、DEM、公式、边界及 validator 等代码行为是否符合测试预期；**不会**重新求得全局最优 |
+| 已保存方案独立验证 | 下列 `--validate` 命令 | 保存的决策在源数据与物理模型下是否满足货箱、能量、SOC、时限、资源及 Q3 通信硬约束；**不等于**最优性证明 |
+
+```powershell
+python main.py --validate q1
+python main.py --validate q2 --q2-algorithm v2
+python main.py --validate q3
+```
+
+历史基准可用 `python main.py --validate q2 --q2-algorithm v1` 检查。验证器从源数据重算关键数值，不直接相信保存的能耗或通信布尔值。Q3 结论应连同 0.25 s 最大核验步长及 0.05 s 切换定位精度一起阅读。
+
+<a id="outputs"></a>
+## 输出文件总览
+
+| 问题 | 核心可读方案 | 完整机器快照 | 独立验证 | 官方模板副本 |
+|---|---|---|---|---|
+| Q1 | `outputs/q1/q1_plan.xlsx` | `outputs/q1/q1_summary.json` | `outputs/validation/q1_validation.*` | `outputs/q1/结果提交_Q1.xlsx` |
+| Q2-v1（历史） | `outputs/q2/q2_transport_sorties.xlsx` | `outputs/q2/q2_summary.json` | `outputs/validation/q2_validation.*` | `outputs/q2/结果提交_Q2.xlsx` |
+| Q2-v2（正式） | `outputs/q2_v2/q2_transport_sorties.xlsx` | `outputs/q2_v2/q2_summary.json` | `outputs/q2_v2/validation/q2_validation.*` | `outputs/q2_v2/结果提交_Q2.xlsx` |
+| Q3 | `outputs/q3/q3_transport_sorties.xlsx`、`q3_relay_sorties.xlsx` | `outputs/q3/q3_summary.json` | `outputs/q3/validation/q3_validation.*` | `outputs/q3/结果提交_Q3.xlsx` |
+| Q4 | 尚未实现 | — | — | — |
+
+其余公共和第一阶段输出：
+
+| 文件/目录 | 作用 |
+|---|---|
+| `outputs/cache/node_pair_geometry.json` | 16×16 有向节点对的距离、最高 DEM、巡航/作业高度和爬升下降缓存；源指纹变化可重建 |
+| `outputs/validation/base_physics_check.xlsx` | O01→S001 与多点示例的逐段距离、DEM、高度及各机型飞行时间，供人工核验公共计算；不是优化结果 |
+| `outputs/data_audit/data_summary.xlsx`、`data_schema.json`、`data_validation.txt` | 初始输入表汇总、字段/规模字典和一致性结论；追溯原始数据如何被理解 |
+| `outputs/data_audit/source_manifest.json`、`workbooks_raw.json`、`geodata_audit.json`、`validation_checks.json`、`audit_statistics.json`、`artifact_verification.json` | 原始文件哈希与路径、Excel 单元格、地理文件及交叉校验的机器证据；用于复查审计，不是求解方案 |
+| `outputs/data_audit/problem_extracted.txt`、`document.xml`、`office_math.json`、`docx_structure.json`、`geodata_description.txt` | DOCX 正文/Office Math 与地理说明提取证据；普通文本不能代替原始公式 XML |
+| `outputs/data_audit/` 下的 `image*`、`preview_*`、`geodata_description_page.png`、`data_summary.xlsx.inspect.ndjson`、`run_log.txt` | 附件媒体、审计预览、说明页、工作簿检查记录及审计运行日志；帮助人工定位结论来源 |
+
+`.gitkeep` 只维持空目录；`outputs/test_tmp*` 和被忽略的临时缓存不是论文结果。Q1/Q2/Q3 每张表与图的阅读目的见各问“输出文件”表。
+
+<a id="limitations"></a>
+## 模型局限性
+
+1. 原题缺少运输水平及爬升附加能耗的完整分项公式。Q1–Q3 使用用户授权的距离/等效航程与 `mgh/\eta` 项目假设；正式原式若补充，应整体重算。
+2. Q1 的 DP 对当前离散箱组与目标精确，但不证明能耗假设是唯一物理解释；连续安全载荷矩阵不替代实际箱组体积和逐段物理检查。
+3. Q2-v1/v2 的路线和组批依赖启发式搜索。固定路线候选的 CP-SAT `FEASIBLE` 或 `OPTIMAL` 状态都不能证明整个路线空间全局最优。
+4. Q3 悬停位置使用粗到细**有限候选**，当前粗筛只取配置高度列表的最大值，局部细化才尝试较低高度；运输组织使用 ALNS，联合 CP-SAT 只处理候选组合。保存状态是 `FEASIBLE`，不宣称连续空间全局最优。当前联合 CP 对中继架次使用不同组件，也是搜索范围限制。
+5. Q3 通信连续性经阶段边界、细时间步及切换加密做数值核验。OUTAGE=0 仅表示指定精度下未检测到中断，不是解析意义上的所有时刻证明。
+6. 中继高悬停点飞行高度、建链 30 s 能耗及部分资源时间口径属项目补充假设。道路、水体等图层未作禁飞约束，题目也没有提供相关限制。
+7. Q4 尚无实现；固定 Q3 后的跨组共享中继和资源配置口径仍待该问处理。
+
+<a id="reproduction"></a>
+## 完整复现流程
+
+在仓库根目录、原始附件齐全且已安装 Miniconda `dl` 的前提下，依次执行：
+
+```powershell
+conda activate dl
+python -m pip install -r requirements.txt
+python -m pytest tests -q --basetemp outputs/test_tmp
+
+python main.py --question q1
+python main.py --validate q1
+
+python main.py --question q2 --q2-algorithm v2
+python main.py --validate q2 --q2-algorithm v2
+
+python main.py --question q3
+python main.py --validate q3
+```
+
+这些命令会写对应 `outputs/` 目录；若只需核验仓库已保存结果，直接运行三个 `--validate` 命令即可。Q3 从 `outputs/q3/baseline_q2_v2_summary.json` 读取已提交 Q2-v2 基准副本，先重跑 Q2 不会自动替换此种子。DEM 或节点数据变更会令公共缓存源指纹失效，亦可加 `--force-recompute`。启发式受时间预算和运行环境影响，重跑的具体候选可能不同；应以新生成方案的独立 validator 判断合法性。
