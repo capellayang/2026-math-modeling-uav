@@ -1,0 +1,10 @@
+# Phase 1 audit only. No optimization dependencies yet.
+numpy
+openpyxl
+lxml
+pypdf
+scipy
+rasterio
+pyproj
+h5py
+PyMuPDF

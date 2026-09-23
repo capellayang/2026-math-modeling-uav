@@ -1,0 +1,2597 @@
+{
+  "dem": {
+    "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\数字高程模型数据（DEM）\\镇龙乡及周边30米DEM.tif",
+    "shape": [
+      1309,
+      1486
+    ],
+    "dtype": "float32",
+    "pixels": 1945174,
+    "valid_pixels": 1945174,
+    "nodata_pixels": 0,
+    "nodata": null,
+    "crs": "EPSG:4326",
+    "resolution_degrees": [
+      0.00027777777777777393,
+      0.0002777777777777777
+    ],
+    "bounds_edges": [
+      109.0326388888889,
+      22.86125,
+      109.44541666666667,
+      23.22486111111111
+    ],
+    "center_nw": [
+      109.03277777777778,
+      23.224722222222223
+    ],
+    "center_se": [
+      109.44527777777778,
+      22.86138888888889
+    ],
+    "min_m": 41.68907928466797,
+    "max_m": 1132.8560791015625,
+    "transform": [
+      0.00027777777777777393,
+      0.0,
+      109.0326388888889,
+      0.0,
+      -0.0002777777777777777,
+      23.22486111111111,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "tags": {
+      "TIFFTAG_SOFTWARE": "MATLAB 9.14, Mapping Toolbox 5.5",
+      "AREA_OR_POINT": "Point"
+    },
+    "mat_variables": {
+      "dem": {
+        "shape": [
+          1309,
+          1486
+        ],
+        "dtype": "float32",
+        "value": null
+      },
+      "epsg_code": {
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "uint16",
+        "value": [
+          [
+            4326
+          ]
+        ]
+      },
+      "latitude": {
+        "shape": [
+          1309,
+          1
+        ],
+        "dtype": "float64",
+        "value": null
+      },
+      "longitude": {
+        "shape": [
+          1,
+          1486
+        ],
+        "dtype": "float64",
+        "value": null
+      },
+      "nodata": {
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "float32",
+        "value": [
+          [
+            -32767.0
+          ]
+        ]
+      },
+      "transform": {
+        "shape": [
+          1,
+          6
+        ],
+        "dtype": "float64",
+        "value": [
+          [
+            0.0002777777777777778,
+            0.0,
+            109.0326388888889,
+            0.0,
+            -0.0002777777777777778,
+            23.22486111111111
+          ]
+        ]
+      }
+    }
+  },
+  "node_dem": [
+    {
+      "id": "O01",
+      "inside": true,
+      "row": 778,
+      "column": 713,
+      "source_altitude": 127.7,
+      "dem_containing_cell": 128.7255401611328,
+      "difference_m": -1.0255401611328097
+    },
+    {
+      "id": "S001",
+      "inside": true,
+      "row": 688,
+      "column": 758,
+      "source_altitude": 154,
+      "dem_containing_cell": 153.96136474609375,
+      "difference_m": 0.03863525390625
+    },
+    {
+      "id": "S002",
+      "inside": true,
+      "row": 556,
+      "column": 813,
+      "source_altitude": 189.5,
+      "dem_containing_cell": 188.7942352294922,
+      "difference_m": 0.7057647705078125
+    },
+    {
+      "id": "S003",
+      "inside": true,
+      "row": 664,
+      "column": 490,
+      "source_altitude": 308.5,
+      "dem_containing_cell": 308.51068115234375,
+      "difference_m": -0.01068115234375
+    },
+    {
+      "id": "S004",
+      "inside": true,
+      "row": 529,
+      "column": 739,
+      "source_altitude": 198.3,
+      "dem_containing_cell": 195.11575317382812,
+      "difference_m": 3.1842468261718864
+    },
+    {
+      "id": "S005",
+      "inside": true,
+      "row": 607,
+      "column": 704,
+      "source_altitude": 165,
+      "dem_containing_cell": 169.03955078125,
+      "difference_m": -4.03955078125
+    },
+    {
+      "id": "S006",
+      "inside": true,
+      "row": 781,
+      "column": 601,
+      "source_altitude": 284.8,
+      "dem_containing_cell": 275.1272277832031,
+      "difference_m": 9.672772216796886
+    },
+    {
+      "id": "S007",
+      "inside": true,
+      "row": 703,
+      "column": 576,
+      "source_altitude": 318.5,
+      "dem_containing_cell": 314.2220458984375,
+      "difference_m": 4.2779541015625
+    },
+    {
+      "id": "S008",
+      "inside": true,
+      "row": 523,
+      "column": 648,
+      "source_altitude": 240.9,
+      "dem_containing_cell": 248.2891845703125,
+      "difference_m": -7.389184570312494
+    },
+    {
+      "id": "S009",
+      "inside": true,
+      "row": 610,
+      "column": 797,
+      "source_altitude": 200,
+      "dem_containing_cell": 189.4370880126953,
+      "difference_m": 10.562911987304688
+    },
+    {
+      "id": "S010",
+      "inside": true,
+      "row": 739,
+      "column": 876,
+      "source_altitude": 321.6,
+      "dem_containing_cell": 321.5816650390625,
+      "difference_m": 0.018334960937522737
+    },
+    {
+      "id": "S011",
+      "inside": true,
+      "row": 694,
+      "column": 675,
+      "source_altitude": 182.1,
+      "dem_containing_cell": 178.04286193847656,
+      "difference_m": 4.057138061523432
+    },
+    {
+      "id": "S012",
+      "inside": true,
+      "row": 613,
+      "column": 901,
+      "source_altitude": 249.8,
+      "dem_containing_cell": 253.31507873535156,
+      "difference_m": -3.515078735351551
+    },
+    {
+      "id": "S013",
+      "inside": true,
+      "row": 697,
+      "column": 859,
+      "source_altitude": 321.7,
+      "dem_containing_cell": 321.70806884765625,
+      "difference_m": -0.008068847656261369
+    },
+    {
+      "id": "S014",
+      "inside": true,
+      "row": 790,
+      "column": 903,
+      "source_altitude": 321,
+      "dem_containing_cell": 320.9825134277344,
+      "difference_m": 0.017486572265625
+    },
+    {
+      "id": "S015",
+      "inside": true,
+      "row": 631,
+      "column": 575,
+      "source_altitude": 444.5,
+      "dem_containing_cell": 436.229248046875,
+      "difference_m": 8.270751953125
+    }
+  ],
+  "csv": [
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\村镇点位\\镇龙乡及周边村镇点位.csv",
+      "records": 166,
+      "features": 166,
+      "fields": [
+        "点位编号",
+        "名称",
+        "类别",
+        "OSM编号",
+        "位置",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "点位编号": 0,
+        "名称": 0,
+        "类别": 0,
+        "OSM编号": 0,
+        "位置": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.036,
+        22.8624,
+        109.445,
+        23.2242
+      ],
+      "types": {
+        "点位编号": 166,
+        "名称": 161,
+        "类别": 2,
+        "OSM编号": 166,
+        "位置": 2,
+        "经度": 153,
+        "纬度": 164
+      },
+      "name_unrecorded": 0
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\水体（面）\\镇龙乡及周边水体.csv",
+      "records": 4229,
+      "features": 95,
+      "fields": [
+        "水体要素编号",
+        "多边形编号",
+        "环编号",
+        "点序号",
+        "名称",
+        "水体类型",
+        "OSM编号",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "水体要素编号": 0,
+        "多边形编号": 0,
+        "环编号": 0,
+        "点序号": 0,
+        "名称": 0,
+        "水体类型": 0,
+        "OSM编号": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.0328115,
+        22.8615453,
+        109.4415618,
+        23.2231813
+      ],
+      "types": {
+        "水体要素编号": 95,
+        "多边形编号": 6,
+        "环编号": 1,
+        "点序号": 509,
+        "名称": 6,
+        "水体类型": 4,
+        "OSM编号": 95,
+        "经度": 3718,
+        "纬度": 3699
+      },
+      "name_unrecorded": 3173
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\水系（线）\\镇龙乡及周边水系.csv",
+      "records": 4570,
+      "features": 101,
+      "fields": [
+        "水系要素编号",
+        "点序号",
+        "名称",
+        "水系类型",
+        "OSM编号",
+        "长度_km",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "水系要素编号": 0,
+        "点序号": 0,
+        "名称": 0,
+        "水系类型": 0,
+        "OSM编号": 0,
+        "长度_km": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.0328115,
+        22.8615453,
+        109.4450943,
+        23.2247021
+      ],
+      "types": {
+        "水系要素编号": 101,
+        "点序号": 282,
+        "名称": 4,
+        "水系类型": 4,
+        "OSM编号": 99,
+        "长度_km": 96,
+        "经度": 4346,
+        "纬度": 4340
+      },
+      "name_unrecorded": 3618
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\道路\\镇龙乡及周边道路.csv",
+      "records": 21015,
+      "features": 1829,
+      "fields": [
+        "道路要素编号",
+        "点序号",
+        "名称",
+        "道路类型",
+        "OSM编号",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "道路要素编号": 0,
+        "点序号": 0,
+        "名称": 0,
+        "道路类型": 0,
+        "OSM编号": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.0328115,
+        22.8615453,
+        109.4450943,
+        23.2247021
+      ],
+      "types": {
+        "道路要素编号": 1829,
+        "点序号": 387,
+        "名称": 36,
+        "道路类型": 19,
+        "OSM编号": 1825,
+        "经度": 17906,
+        "纬度": 17998
+      },
+      "name_unrecorded": 18518
+    }
+  ],
+  "mat_hdf": [
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\村镇点位\\镇龙乡及周边村镇点位.mat",
+      "format": "MATLAB 7.3 HDF5 MCOS table",
+      "datasets": [
+        {
+          "path": "#refs#/A",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/B/CustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/B/Description",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/B/DimensionNames",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/B/DimensionNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/B/UserData",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/B/VariableContinuity",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/B/VariableCustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/B/VariableDescriptions",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/B/VariableNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/B/VariableUnits",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/B/VersionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/B/incompatibilityMsg",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/B/minCompatibleVersion",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/B/useDimensionNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/B/useVariableNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/B/versionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/C",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/D",
+          "shape": [
+            9,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/E",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/F",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/G",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/H",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/I",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/J",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/K",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/L",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/M",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/a",
+          "shape": [
+            1,
+            568
+          ],
+          "dtype": "uint8",
+          "class": "b'uint8'"
+        },
+        {
+          "path": "#refs#/b",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'canonical empty'"
+        },
+        {
+          "path": "#refs#/c",
+          "shape": [
+            378,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/d",
+          "shape": [
+            258,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/e",
+          "shape": [
+            253,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/f",
+          "shape": [
+            594,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/g",
+          "shape": [
+            253,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/h",
+          "shape": [
+            7,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/i",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/j",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/k",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/l",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/m",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/n",
+          "shape": [
+            1,
+            166
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/o",
+          "shape": [
+            1,
+            166
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/p",
+          "shape": [
+            7,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/q",
+          "shape": [
+            4,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/r",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/s",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/t",
+          "shape": [
+            5,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/u",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/v",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/w",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/x",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/y",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/z",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#subsystem#/MCOS",
+          "shape": [
+            1,
+            17
+          ],
+          "dtype": "object",
+          "class": "b'FileWrapper__'"
+        },
+        {
+          "path": "data",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'table'"
+        }
+      ],
+      "column_matches": {
+        "点位编号": "#refs#/c",
+        "名称": "#refs#/d",
+        "类别": "#refs#/e",
+        "OSM编号": "#refs#/f",
+        "位置": "#refs#/g",
+        "经度": "#refs#/n",
+        "纬度": "#refs#/o"
+      },
+      "note": "读取全部dataset；数值数组与packed UTF-16字符串按全部记录与CSV逐列核对"
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\水体（面）\\镇龙乡及周边水体.mat",
+      "format": "MATLAB 7.3 HDF5 MCOS table",
+      "datasets": [
+        {
+          "path": "#refs#/A",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/B",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/C",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/D",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/E/CustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/E/Description",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/E/DimensionNames",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/E/DimensionNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/E/UserData",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/E/VariableContinuity",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/E/VariableCustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/E/VariableDescriptions",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/E/VariableNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/E/VariableUnits",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/E/VersionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/E/incompatibilityMsg",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/E/minCompatibleVersion",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/E/useDimensionNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/E/useVariableNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/E/versionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/F",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/G",
+          "shape": [
+            9,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/H",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/I",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/J",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/K",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/L",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/M",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/N",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/O",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/P",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/a",
+          "shape": [
+            1,
+            520
+          ],
+          "dtype": "uint8",
+          "class": "b'uint8'"
+        },
+        {
+          "path": "#refs#/b",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'canonical empty'"
+        },
+        {
+          "path": "#refs#/c",
+          "shape": [
+            9520,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/d",
+          "shape": [
+            7667,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/e",
+          "shape": [
+            7183,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/f",
+          "shape": [
+            13779,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/g",
+          "shape": [
+            9,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/h",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/i",
+          "shape": [
+            1,
+            4229
+          ],
+          "dtype": "int32",
+          "class": "b'int32'"
+        },
+        {
+          "path": "#refs#/j",
+          "shape": [
+            1,
+            4229
+          ],
+          "dtype": "int32",
+          "class": "b'int32'"
+        },
+        {
+          "path": "#refs#/k",
+          "shape": [
+            1,
+            4229
+          ],
+          "dtype": "int32",
+          "class": "b'int32'"
+        },
+        {
+          "path": "#refs#/l",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/m",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/n",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/o",
+          "shape": [
+            1,
+            4229
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/p",
+          "shape": [
+            1,
+            4229
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/q",
+          "shape": [
+            9,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/r",
+          "shape": [
+            6,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/s",
+          "shape": [
+            5,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/t",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/u",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/v",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/w",
+          "shape": [
+            4,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/x",
+          "shape": [
+            5,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/y",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/z",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#subsystem#/MCOS",
+          "shape": [
+            1,
+            16
+          ],
+          "dtype": "object",
+          "class": "b'FileWrapper__'"
+        },
+        {
+          "path": "data",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'table'"
+        }
+      ],
+      "column_matches": {
+        "水体要素编号": "#refs#/c",
+        "多边形编号": "#refs#/i",
+        "环编号": "#refs#/j",
+        "点序号": "#refs#/k",
+        "名称": "#refs#/d",
+        "水体类型": "#refs#/e",
+        "OSM编号": "#refs#/f",
+        "经度": "#refs#/o",
+        "纬度": "#refs#/p"
+      },
+      "note": "读取全部dataset；数值数组与packed UTF-16字符串按全部记录与CSV逐列核对"
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\水系（线）\\镇龙乡及周边水系.mat",
+      "format": "MATLAB 7.3 HDF5 MCOS table",
+      "datasets": [
+        {
+          "path": "#refs#/A",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/B",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/C/CustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/C/Description",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/C/DimensionNames",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/C/DimensionNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/C/UserData",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/C/VariableContinuity",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/C/VariableCustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/C/VariableDescriptions",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/C/VariableNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/C/VariableUnits",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/C/VersionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/C/incompatibilityMsg",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/C/minCompatibleVersion",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/C/useDimensionNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/C/useVariableNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/C/versionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/D",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/E",
+          "shape": [
+            9,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/F",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/G",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/H",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/I",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/J",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/K",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/L",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/M",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/N",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/a",
+          "shape": [
+            1,
+            520
+          ],
+          "dtype": "uint8",
+          "class": "b'uint8'"
+        },
+        {
+          "path": "#refs#/b",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'canonical empty'"
+        },
+        {
+          "path": "#refs#/c",
+          "shape": [
+            10287,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/d",
+          "shape": [
+            7946,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/e",
+          "shape": [
+            6918,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/f",
+          "shape": [
+            15018,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/g",
+          "shape": [
+            8,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/h",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/i",
+          "shape": [
+            1,
+            4570
+          ],
+          "dtype": "int32",
+          "class": "b'int32'"
+        },
+        {
+          "path": "#refs#/j",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/k",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/l",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/m",
+          "shape": [
+            1,
+            4570
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/n",
+          "shape": [
+            1,
+            4570
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/o",
+          "shape": [
+            1,
+            4570
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/p",
+          "shape": [
+            8,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/q",
+          "shape": [
+            6,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/r",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/s",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/t",
+          "shape": [
+            4,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/u",
+          "shape": [
+            5,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/v",
+          "shape": [
+            5,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/w",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/x",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/y",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/z",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#subsystem#/MCOS",
+          "shape": [
+            1,
+            16
+          ],
+          "dtype": "object",
+          "class": "b'FileWrapper__'"
+        },
+        {
+          "path": "data",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'table'"
+        }
+      ],
+      "column_matches": {
+        "水系要素编号": "#refs#/c",
+        "点序号": "#refs#/i",
+        "名称": "#refs#/d",
+        "水系类型": "#refs#/e",
+        "OSM编号": "#refs#/f",
+        "长度_km": "#refs#/m",
+        "经度": "#refs#/n",
+        "纬度": "#refs#/o"
+      },
+      "note": "读取全部dataset；数值数组与packed UTF-16字符串按全部记录与CSV逐列核对"
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\道路\\镇龙乡及周边道路.mat",
+      "format": "MATLAB 7.3 HDF5 MCOS table",
+      "datasets": [
+        {
+          "path": "#refs#/A/CustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/A/Description",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/A/DimensionNames",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/A/DimensionNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/A/UserData",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/A/VariableContinuity",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/A/VariableCustomProps",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/A/VariableDescriptions",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/A/VariableNamesOriginal",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/A/VariableUnits",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/A/VersionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/A/incompatibilityMsg",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/A/minCompatibleVersion",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/A/useDimensionNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/A/useVariableNamesOriginal",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "uint8",
+          "class": "b'logical'"
+        },
+        {
+          "path": "#refs#/A/versionSavedFrom",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/B",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/C",
+          "shape": [
+            9,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/D",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/E",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/F",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/G",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/H",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/I",
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/J",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/K",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/L",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'struct'"
+        },
+        {
+          "path": "#refs#/a",
+          "shape": [
+            1,
+            520
+          ],
+          "dtype": "uint8",
+          "class": "b'uint8'"
+        },
+        {
+          "path": "#refs#/b",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'canonical empty'"
+        },
+        {
+          "path": "#refs#/c",
+          "shape": [
+            52542,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/d",
+          "shape": [
+            37449,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/e",
+          "shape": [
+            44415,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/f",
+          "shape": [
+            71452,
+            1
+          ],
+          "dtype": "uint64",
+          "class": "b'uint64'"
+        },
+        {
+          "path": "#refs#/g",
+          "shape": [
+            7,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/h",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/i",
+          "shape": [
+            1,
+            21015
+          ],
+          "dtype": "int32",
+          "class": "b'int32'"
+        },
+        {
+          "path": "#refs#/j",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/k",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/l",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'uint32'"
+        },
+        {
+          "path": "#refs#/m",
+          "shape": [
+            1,
+            21015
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/n",
+          "shape": [
+            1,
+            21015
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/o",
+          "shape": [
+            7,
+            1
+          ],
+          "dtype": "object",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/p",
+          "shape": [
+            6,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/q",
+          "shape": [
+            3,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/r",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/s",
+          "shape": [
+            4,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/t",
+          "shape": [
+            5,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/u",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/v",
+          "shape": [
+            2,
+            1
+          ],
+          "dtype": "uint16",
+          "class": "b'char'"
+        },
+        {
+          "path": "#refs#/w",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/x",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#refs#/y",
+          "shape": [
+            2
+          ],
+          "dtype": "uint64",
+          "class": "b'cell'"
+        },
+        {
+          "path": "#refs#/z",
+          "shape": [
+            1,
+            1
+          ],
+          "dtype": "float64",
+          "class": "b'double'"
+        },
+        {
+          "path": "#subsystem#/MCOS",
+          "shape": [
+            1,
+            16
+          ],
+          "dtype": "object",
+          "class": "b'FileWrapper__'"
+        },
+        {
+          "path": "data",
+          "shape": [
+            1,
+            6
+          ],
+          "dtype": "uint32",
+          "class": "b'table'"
+        }
+      ],
+      "column_matches": {
+        "道路要素编号": "#refs#/c",
+        "点序号": "#refs#/i",
+        "名称": "#refs#/d",
+        "道路类型": "#refs#/e",
+        "OSM编号": "#refs#/f",
+        "经度": "#refs#/m",
+        "纬度": "#refs#/n"
+      },
+      "note": "读取全部dataset；数值数组与packed UTF-16字符串按全部记录与CSV逐列核对"
+    }
+  ],
+  "html": {
+    "bytes": 4701273,
+    "external_urls": [
+      "http://www.w3.org/1999/xhtml",
+      "http://www.w3.org/1999/xlink",
+      "http://www.w3.org/2000/svg",
+      "http://www.w3.org/2000/xmlns/",
+      "http://www.w3.org/XML/1998/namespace",
+      "https://d3js.org"
+    ],
+    "feature_collections": 9,
+    "features": 0,
+    "scripts": [],
+    "layer_snippets": [
+      "type=\"checkbox\" id=\"z20-roads\" checked><span class=\"form-check-label\">道路</span></label>",
+      "ckbox\" id=\"z20-water-surfaces\" checked><span class=\"form-check-label\">水体（面）</span></label>",
+      "=\"checkbox\" id=\"z20-waterways\" checked><span class=\"form-check-label\">水系（线）</span></label>",
+      "checkbox\" id=\"z20-settlements\" checked><span class=\"form-check-label\">村镇点位</span></label>",
+      "    <label class=\"form-label\">村镇地名<select class=\"form-select\" id=\"z20-place-label-mode\"><option value=",
+      "\"auto\" selected>全部村镇地名</option><option value=\"inside\">仅乡内村镇</option><option value=\"off\">关闭文字</option></select></label>",
+      "e=\"checkbox\" id=\"z20-boundary\" checked><span class=\"form-check-label\">镇龙乡边界</span></label>",
+      "      <title id=\"z20-title\">镇龙乡调度中心、服务区、道路、水体（面）、水系（线）与高程</title>",
+      "      <desc id=\"z20-desc\">展示调度中心、15个服务区及其本次需保障人口，并保留道路、水体（面）、水系（线）、村镇点位与高程背景。</desc>",
+      "    <span><i class=\"z20-symbol z20-boundary-key\"></i>镇龙乡边界</span>",
+      "    <span><i class=\"z20-symbol z20-water-key\"></i>OSM水体（面）</span>",
+      "    <span><i class=\"z20-symbol z20-waterway-key\"></i>OSM水系（线）</span>"
+    ],
+    "layers": {
+      "elevationGrid": {
+        "shape": [
+          159,
+          180
+        ],
+        "note": "展示用降采样/整数高程，不替代原始DEM"
+      },
+      "boundary": {
+        "count": 1,
+        "geometry_types": {
+          "Polygon": 1
+        },
+        "properties": [
+          "名称",
+          "面积（平方千米）"
+        ]
+      },
+      "roads": {
+        "count": 1829,
+        "geometry_types": {
+          "LineString": 1829
+        },
+        "properties": [
+          "道路要素编号",
+          "名称",
+          "道路类型",
+          "OSM编号"
+        ]
+      },
+      "settlements": {
+        "count": 166,
+        "geometry_types": {
+          "Point": 166
+        },
+        "properties": [
+          "点位编号",
+          "名称",
+          "类别",
+          "OSM编号",
+          "位置",
+          "显示分组",
+          "重点显示"
+        ]
+      },
+      "waterSurfaces": {
+        "count": 95,
+        "geometry_types": {
+          "Polygon": 94,
+          "MultiPolygon": 1
+        },
+        "properties": [
+          "水体要素编号",
+          "名称",
+          "水体类型",
+          "OSM编号"
+        ]
+      },
+      "waterways": {
+        "count": 101,
+        "geometry_types": {
+          "LineString": 101
+        },
+        "properties": [
+          "水系要素编号",
+          "名称",
+          "水系类型",
+          "OSM编号",
+          "长度_km"
+        ]
+      },
+      "dispatchCenter": {
+        "count": 1,
+        "geometry_types": {
+          "Point": 1
+        },
+        "properties": [
+          "调度中心编号",
+          "调度中心名称",
+          "海拔（米）"
+        ]
+      },
+      "services": {
+        "count": 15,
+        "geometry_types": {
+          "Point": 15
+        },
+        "properties": [
+          "服务区编号",
+          "服务区名称",
+          "海拔（米）",
+          "本次需保障人口（人）"
+        ]
+      }
+    }
+  }
+}

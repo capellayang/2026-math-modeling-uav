@@ -1,0 +1,85 @@
+{
+  "boxes": 80,
+  "total_mass_kg": 758,
+  "total_volume_m3": 2.011,
+  "first_batch": 30,
+  "medical": 16,
+  "population": 3422,
+  "by_service": {
+    "S001": {
+      "boxes": 15,
+      "mass_kg": 154,
+      "volume_m3": 0.394
+    },
+    "S002": {
+      "boxes": 8,
+      "mass_kg": 81,
+      "volume_m3": 0.211
+    },
+    "S003": {
+      "boxes": 8,
+      "mass_kg": 81,
+      "volume_m3": 0.211
+    },
+    "S004": {
+      "boxes": 6,
+      "mass_kg": 59,
+      "volume_m3": 0.156
+    },
+    "S005": {
+      "boxes": 6,
+      "mass_kg": 59,
+      "volume_m3": 0.156
+    },
+    "S006": {
+      "boxes": 6,
+      "mass_kg": 59,
+      "volume_m3": 0.156
+    },
+    "S007": {
+      "boxes": 5,
+      "mass_kg": 45,
+      "volume_m3": 0.129
+    },
+    "S008": {
+      "boxes": 5,
+      "mass_kg": 45,
+      "volume_m3": 0.129
+    },
+    "S009": {
+      "boxes": 3,
+      "mass_kg": 25,
+      "volume_m3": 0.067
+    },
+    "S010": {
+      "boxes": 3,
+      "mass_kg": 25,
+      "volume_m3": 0.067
+    },
+    "S011": {
+      "boxes": 3,
+      "mass_kg": 25,
+      "volume_m3": 0.067
+    },
+    "S012": {
+      "boxes": 3,
+      "mass_kg": 25,
+      "volume_m3": 0.067
+    },
+    "S013": {
+      "boxes": 3,
+      "mass_kg": 25,
+      "volume_m3": 0.067
+    },
+    "S014": {
+      "boxes": 3,
+      "mass_kg": 25,
+      "volume_m3": 0.067
+    },
+    "S015": {
+      "boxes": 3,
+      "mass_kg": 25,
+      "volume_m3": 0.067
+    }
+  }
+}

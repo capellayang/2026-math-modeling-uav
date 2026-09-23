@@ -1,0 +1,607 @@
+Extracted source documents and 6 workbooks
+{
+  "statistics": {
+    "boxes": 80,
+    "total_mass_kg": 758,
+    "total_volume_m3": 2.011,
+    "first_batch": 30,
+    "medical": 16,
+    "population": 3422,
+    "by_service": {
+      "S001": {
+        "boxes": 15,
+        "mass_kg": 154,
+        "volume_m3": 0.394
+      },
+      "S002": {
+        "boxes": 8,
+        "mass_kg": 81,
+        "volume_m3": 0.211
+      },
+      "S003": {
+        "boxes": 8,
+        "mass_kg": 81,
+        "volume_m3": 0.211
+      },
+      "S004": {
+        "boxes": 6,
+        "mass_kg": 59,
+        "volume_m3": 0.156
+      },
+      "S005": {
+        "boxes": 6,
+        "mass_kg": 59,
+        "volume_m3": 0.156
+      },
+      "S006": {
+        "boxes": 6,
+        "mass_kg": 59,
+        "volume_m3": 0.156
+      },
+      "S007": {
+        "boxes": 5,
+        "mass_kg": 45,
+        "volume_m3": 0.129
+      },
+      "S008": {
+        "boxes": 5,
+        "mass_kg": 45,
+        "volume_m3": 0.129
+      },
+      "S009": {
+        "boxes": 3,
+        "mass_kg": 25,
+        "volume_m3": 0.067
+      },
+      "S010": {
+        "boxes": 3,
+        "mass_kg": 25,
+        "volume_m3": 0.067
+      },
+      "S011": {
+        "boxes": 3,
+        "mass_kg": 25,
+        "volume_m3": 0.067
+      },
+      "S012": {
+        "boxes": 3,
+        "mass_kg": 25,
+        "volume_m3": 0.067
+      },
+      "S013": {
+        "boxes": 3,
+        "mass_kg": 25,
+        "volume_m3": 0.067
+      },
+      "S014": {
+        "boxes": 3,
+        "mass_kg": 25,
+        "volume_m3": 0.067
+      },
+      "S015": {
+        "boxes": 3,
+        "mass_kg": 25,
+        "volume_m3": 0.067
+      }
+    }
+  },
+  "checks": [
+    {
+      "check": "货箱唯一编号",
+      "status": "PASS",
+      "detail": "80箱 / 80唯一编号"
+    },
+    {
+      "check": "货箱服务区外键",
+      "status": "PASS",
+      "detail": "全部逐箱记录关联服务区"
+    },
+    {
+      "check": "需求汇总逐箱对账",
+      "status": "PASS",
+      "detail": "各服务区×物资类型：箱数、首批数、质量、体积、时限、优先系数一致"
+    },
+    {
+      "check": "数量和库存",
+      "status": "PASS",
+      "detail": "15服务区；80箱；运输8架(A4/B2/C2)，电池14组(A6/B4/C4)；中继2架、能源组件6组"
+    },
+    {
+      "check": "逐箱数值正值",
+      "status": "PASS",
+      "detail": "质量、体积、期望时间、优先系数均>0"
+    },
+    {
+      "check": "非首批截止时间空值口径",
+      "status": "PASS",
+      "detail": "仅首批保障货箱填写首批截止时间"
+    },
+    {
+      "check": "DEM TIF/MAT数值一致",
+      "status": "PASS",
+      "detail": "全部像元逐项比较"
+    },
+    {
+      "check": "GeoTIFF NoData元数据",
+      "status": "REVIEW",
+      "detail": "TIF=None；MAT/PDF=-32767；当前栅格实际无该值，后续显式采用附件哨兵值"
+    },
+    {
+      "check": "DEM TIF/MAT坐标一致",
+      "status": "PASS",
+      "detail": "全部像元中心坐标比较，容差1e-10度"
+    },
+    {
+      "check": "16任务节点位于DEM有效像元内",
+      "status": "PASS",
+      "detail": "包含O01和S001-S015"
+    },
+    {
+      "check": "镇龙乡及周边村镇点位 CSV/MAT逐列对账",
+      "status": "PASS",
+      "detail": "{'点位编号': '#refs#/c', '名称': '#refs#/d', '类别': '#refs#/e', 'OSM编号': '#refs#/f', '位置': '#refs#/g', '经度': '#refs#/n', '纬度': '#refs#/o'}"
+    },
+    {
+      "check": "镇龙乡及周边水体 CSV/MAT逐列对账",
+      "status": "PASS",
+      "detail": "{'水体要素编号': '#refs#/c', '多边形编号': '#refs#/i', '环编号': '#refs#/j', '点序号': '#refs#/k', '名称': '#refs#/d', '水体类型': '#refs#/e', 'OSM编号': '#refs#/f', '经度': '#refs#/o', '纬度': '#refs#/p'}"
+    },
+    {
+      "check": "镇龙乡及周边水系 CSV/MAT逐列对账",
+      "status": "PASS",
+      "detail": "{'水系要素编号': '#refs#/c', '点序号': '#refs#/i', '名称': '#refs#/d', '水系类型': '#refs#/e', 'OSM编号': '#refs#/f', '长度_km': '#refs#/m', '经度': '#refs#/n', '纬度': '#refs#/o'}"
+    },
+    {
+      "check": "镇龙乡及周边道路 CSV/MAT逐列对账",
+      "status": "PASS",
+      "detail": "{'道路要素编号': '#refs#/c', '点序号': '#refs#/i', '名称': '#refs#/d', '道路类型': '#refs#/e', 'OSM编号': '#refs#/f', '经度': '#refs#/m', '纬度': '#refs#/n'}"
+    },
+    {
+      "check": "正式运输及爬升能耗公式",
+      "status": "REVIEW",
+      "detail": "原DOCX XML只定义E=E_hor+E_up；现有附件未找到分项关系式，阻断正式物理求解，禁止猜式"
+    },
+    {
+      "check": "节点附件海拔与DEM像元口径",
+      "status": "REVIEW",
+      "detail": "最大绝对差 10.562911987304688 m；保留两者，不自动覆盖"
+    },
+    {
+      "check": "Q4跨组共享中继继承口径",
+      "status": "REVIEW",
+      "detail": "固定Q3任务与通信关系且资源不得跨组：共享同一中继的服务区是否也必须绑定，待澄清"
+    }
+  ],
+  "dem": {
+    "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\数字高程模型数据（DEM）\\镇龙乡及周边30米DEM.tif",
+    "shape": [
+      1309,
+      1486
+    ],
+    "dtype": "float32",
+    "pixels": 1945174,
+    "valid_pixels": 1945174,
+    "nodata_pixels": 0,
+    "nodata": null,
+    "crs": "EPSG:4326",
+    "resolution_degrees": [
+      0.00027777777777777393,
+      0.0002777777777777777
+    ],
+    "bounds_edges": [
+      109.0326388888889,
+      22.86125,
+      109.44541666666667,
+      23.22486111111111
+    ],
+    "center_nw": [
+      109.03277777777778,
+      23.224722222222223
+    ],
+    "center_se": [
+      109.44527777777778,
+      22.86138888888889
+    ],
+    "min_m": 41.68907928466797,
+    "max_m": 1132.8560791015625,
+    "transform": [
+      0.00027777777777777393,
+      0.0,
+      109.0326388888889,
+      0.0,
+      -0.0002777777777777777,
+      23.22486111111111,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "tags": {
+      "TIFFTAG_SOFTWARE": "MATLAB 9.14, Mapping Toolbox 5.5",
+      "AREA_OR_POINT": "Point"
+    },
+    "mat_variables": {
+      "dem": {
+        "shape": [
+          1309,
+          1486
+        ],
+        "dtype": "float32",
+        "value": null
+      },
+      "epsg_code": {
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "uint16",
+        "value": [
+          [
+            4326
+          ]
+        ]
+      },
+      "latitude": {
+        "shape": [
+          1309,
+          1
+        ],
+        "dtype": "float64",
+        "value": null
+      },
+      "longitude": {
+        "shape": [
+          1,
+          1486
+        ],
+        "dtype": "float64",
+        "value": null
+      },
+      "nodata": {
+        "shape": [
+          1,
+          1
+        ],
+        "dtype": "float32",
+        "value": [
+          [
+            -32767.0
+          ]
+        ]
+      },
+      "transform": {
+        "shape": [
+          1,
+          6
+        ],
+        "dtype": "float64",
+        "value": [
+          [
+            0.0002777777777777778,
+            0.0,
+            109.0326388888889,
+            0.0,
+            -0.0002777777777777778,
+            23.22486111111111
+          ]
+        ]
+      }
+    }
+  },
+  "csv": [
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\村镇点位\\镇龙乡及周边村镇点位.csv",
+      "records": 166,
+      "features": 166,
+      "fields": [
+        "点位编号",
+        "名称",
+        "类别",
+        "OSM编号",
+        "位置",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "点位编号": 0,
+        "名称": 0,
+        "类别": 0,
+        "OSM编号": 0,
+        "位置": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.036,
+        22.8624,
+        109.445,
+        23.2242
+      ],
+      "types": {
+        "点位编号": 166,
+        "名称": 161,
+        "类别": 2,
+        "OSM编号": 166,
+        "位置": 2,
+        "经度": 153,
+        "纬度": 164
+      },
+      "name_unrecorded": 0
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\水体（面）\\镇龙乡及周边水体.csv",
+      "records": 4229,
+      "features": 95,
+      "fields": [
+        "水体要素编号",
+        "多边形编号",
+        "环编号",
+        "点序号",
+        "名称",
+        "水体类型",
+        "OSM编号",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "水体要素编号": 0,
+        "多边形编号": 0,
+        "环编号": 0,
+        "点序号": 0,
+        "名称": 0,
+        "水体类型": 0,
+        "OSM编号": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.0328115,
+        22.8615453,
+        109.4415618,
+        23.2231813
+      ],
+      "types": {
+        "水体要素编号": 95,
+        "多边形编号": 6,
+        "环编号": 1,
+        "点序号": 509,
+        "名称": 6,
+        "水体类型": 4,
+        "OSM编号": 95,
+        "经度": 3718,
+        "纬度": 3699
+      },
+      "name_unrecorded": 3173
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\水系（线）\\镇龙乡及周边水系.csv",
+      "records": 4570,
+      "features": 101,
+      "fields": [
+        "水系要素编号",
+        "点序号",
+        "名称",
+        "水系类型",
+        "OSM编号",
+        "长度_km",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "水系要素编号": 0,
+        "点序号": 0,
+        "名称": 0,
+        "水系类型": 0,
+        "OSM编号": 0,
+        "长度_km": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.0328115,
+        22.8615453,
+        109.4450943,
+        23.2247021
+      ],
+      "types": {
+        "水系要素编号": 101,
+        "点序号": 282,
+        "名称": 4,
+        "水系类型": 4,
+        "OSM编号": 99,
+        "长度_km": 96,
+        "经度": 4346,
+        "纬度": 4340
+      },
+      "name_unrecorded": 3618
+    },
+    {
+      "file": "数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\道路\\镇龙乡及周边道路.csv",
+      "records": 21015,
+      "features": 1829,
+      "fields": [
+        "道路要素编号",
+        "点序号",
+        "名称",
+        "道路类型",
+        "OSM编号",
+        "经度",
+        "纬度"
+      ],
+      "missing": {
+        "道路要素编号": 0,
+        "点序号": 0,
+        "名称": 0,
+        "道路类型": 0,
+        "OSM编号": 0,
+        "经度": 0,
+        "纬度": 0
+      },
+      "duplicate_rows": 0,
+      "bounds": [
+        109.0328115,
+        22.8615453,
+        109.4450943,
+        23.2247021
+      ],
+      "types": {
+        "道路要素编号": 1829,
+        "点序号": 387,
+        "名称": 36,
+        "道路类型": 19,
+        "OSM编号": 1825,
+        "经度": 17906,
+        "纬度": 17998
+      },
+      "name_unrecorded": 18518
+    }
+  ],
+  "node_dem": [
+    {
+      "id": "O01",
+      "inside": true,
+      "row": 778,
+      "column": 713,
+      "source_altitude": 127.7,
+      "dem_containing_cell": 128.7255401611328,
+      "difference_m": -1.0255401611328097
+    },
+    {
+      "id": "S001",
+      "inside": true,
+      "row": 688,
+      "column": 758,
+      "source_altitude": 154,
+      "dem_containing_cell": 153.96136474609375,
+      "difference_m": 0.03863525390625
+    },
+    {
+      "id": "S002",
+      "inside": true,
+      "row": 556,
+      "column": 813,
+      "source_altitude": 189.5,
+      "dem_containing_cell": 188.7942352294922,
+      "difference_m": 0.7057647705078125
+    },
+    {
+      "id": "S003",
+      "inside": true,
+      "row": 664,
+      "column": 490,
+      "source_altitude": 308.5,
+      "dem_containing_cell": 308.51068115234375,
+      "difference_m": -0.01068115234375
+    },
+    {
+      "id": "S004",
+      "inside": true,
+      "row": 529,
+      "column": 739,
+      "source_altitude": 198.3,
+      "dem_containing_cell": 195.11575317382812,
+      "difference_m": 3.1842468261718864
+    },
+    {
+      "id": "S005",
+      "inside": true,
+      "row": 607,
+      "column": 704,
+      "source_altitude": 165,
+      "dem_containing_cell": 169.03955078125,
+      "difference_m": -4.03955078125
+    },
+    {
+      "id": "S006",
+      "inside": true,
+      "row": 781,
+      "column": 601,
+      "source_altitude": 284.8,
+      "dem_containing_cell": 275.1272277832031,
+      "difference_m": 9.672772216796886
+    },
+    {
+      "id": "S007",
+      "inside": true,
+      "row": 703,
+      "column": 576,
+      "source_altitude": 318.5,
+      "dem_containing_cell": 314.2220458984375,
+      "difference_m": 4.2779541015625
+    },
+    {
+      "id": "S008",
+      "inside": true,
+      "row": 523,
+      "column": 648,
+      "source_altitude": 240.9,
+      "dem_containing_cell": 248.2891845703125,
+      "difference_m": -7.389184570312494
+    },
+    {
+      "id": "S009",
+      "inside": true,
+      "row": 610,
+      "column": 797,
+      "source_altitude": 200,
+      "dem_containing_cell": 189.4370880126953,
+      "difference_m": 10.562911987304688
+    },
+    {
+      "id": "S010",
+      "inside": true,
+      "row": 739,
+      "column": 876,
+      "source_altitude": 321.6,
+      "dem_containing_cell": 321.5816650390625,
+      "difference_m": 0.018334960937522737
+    },
+    {
+      "id": "S011",
+      "inside": true,
+      "row": 694,
+      "column": 675,
+      "source_altitude": 182.1,
+      "dem_containing_cell": 178.04286193847656,
+      "difference_m": 4.057138061523432
+    },
+    {
+      "id": "S012",
+      "inside": true,
+      "row": 613,
+      "column": 901,
+      "source_altitude": 249.8,
+      "dem_containing_cell": 253.31507873535156,
+      "difference_m": -3.515078735351551
+    },
+    {
+      "id": "S013",
+      "inside": true,
+      "row": 697,
+      "column": 859,
+      "source_altitude": 321.7,
+      "dem_containing_cell": 321.70806884765625,
+      "difference_m": -0.008068847656261369
+    },
+    {
+      "id": "S014",
+      "inside": true,
+      "row": 790,
+      "column": 903,
+      "source_altitude": 321,
+      "dem_containing_cell": 320.9825134277344,
+      "difference_m": 0.017486572265625
+    },
+    {
+      "id": "S015",
+      "inside": true,
+      "row": 631,
+      "column": 575,
+      "source_altitude": 444.5,
+      "dem_containing_cell": 436.229248046875,
+      "difference_m": 8.270751953125
+    }
+  ]
+}

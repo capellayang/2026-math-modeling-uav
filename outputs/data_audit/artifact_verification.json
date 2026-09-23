@@ -1,0 +1,49 @@
+{
+  "source_files": 21,
+  "changed_sources": [],
+  "excel_errors": [],
+  "exported_sheets": [
+    [
+      "审计概览",
+      13,
+      3
+    ],
+    [
+      "输入表清单",
+      18,
+      8
+    ],
+    [
+      "字段字典",
+      132,
+      9
+    ],
+    [
+      "地理数据",
+      8,
+      4
+    ],
+    [
+      "节点高程对照",
+      17,
+      6
+    ],
+    [
+      "核查记录",
+      18,
+      3
+    ],
+    [
+      "源文件",
+      22,
+      3
+    ]
+  ],
+  "office_math_by_part": {
+    "word/document.xml": 72
+  },
+  "source_python_files": [
+    "src\\relief_uav\\__init__.py"
+  ],
+  "note": "没有Q1-Q4求解器；检查范围为本阶段审计产物"
+}
