@@ -1,8 +1,7 @@
 """Read-only source inventory. No optimization or physical model implementation."""
 from pathlib import Path
-import sys, json, zipfile, hashlib, csv, re
+import json, zipfile, hashlib, csv, re
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / '.audit_deps'))
 import openpyxl
 from lxml import etree as ET
 from pypdf import PdfReader

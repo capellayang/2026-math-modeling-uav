@@ -1,4 +1,4 @@
-# Phase 1 audit only. No optimization dependencies yet.
+# Shared data, geographic, flight and audit tools. Install in Miniconda dl.
 numpy
 openpyxl
 lxml
@@ -8,3 +8,4 @@ rasterio
 pyproj
 h5py
 PyMuPDF
+pytest

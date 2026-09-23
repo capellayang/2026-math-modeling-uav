@@ -1,8 +1,7 @@
 """Generate readable field catalog and scaffold; never edit original attachments."""
 from pathlib import Path
-import json,sys
+import json
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'.audit_deps'))
 OUT=ROOT/'outputs/data_audit'
 schema=json.loads((OUT/'data_schema.json').read_text(encoding='utf-8'))
 geo=json.loads((OUT/'geodata_audit.json').read_text(encoding='utf-8'))
