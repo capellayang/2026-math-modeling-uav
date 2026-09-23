@@ -145,3 +145,9 @@ def schedule_cp_sat(scenario: Scenario, segments: SegmentMatrix,
     if any(s.return_o01_time_s > 24 * 3600 * len(specs) for s in solution.sorties):
         raise AssertionError("Unexpected schedule horizon")
     return ScheduleResult(assignments, solver.StatusName(status), solver.BestObjectiveBound())
+
+
+def schedule_cp_sat_epsilon(*args, **kwargs):
+    """Q2-v2 epsilon scheduler; legacy `schedule_cp_sat` remains unchanged."""
+    from .scheduler_v2 import schedule_epsilon
+    return schedule_epsilon(*args, **kwargs)

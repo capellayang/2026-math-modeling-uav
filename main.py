@@ -17,6 +17,10 @@ from relief_uav.validation import validate_q2
 from relief_uav.q2.report import load_q2_solution, save_q2_outputs
 from relief_uav.q2.search import search_routes, save_search_history
 from relief_uav.q2.timeline import build_solution
+from relief_uav.q2.model import Q2AlgorithmConfig
+from relief_uav.q2.search_v2 import solve_q2_v2
+from relief_uav.q2.report_v2 import benchmark_saved_v2, save_v2_outputs
+from relief_uav.q2.objectives import epsilon_feasible
 
 MARGINS = (0.10, 0.15, 0.20, 0.25, 0.30)
 
@@ -114,6 +118,60 @@ def validate_saved_q2(force_recompute: bool) -> None:
         raise SystemExit(1)
 
 
+def run_q2_v2(force_recompute: bool, config: Q2AlgorithmConfig) -> None:
+    scenario = load_scenario(ROOT)
+    segments = build_segment_matrix(scenario, force_recompute=force_recompute)
+    run = solve_q2_v2(scenario, segments, config,
+                      ROOT / "outputs/q2_v2/baseline_v1/q2_summary.json")
+    selected = run.selected.solution
+    assignments = tuple((s.spec, s.drone_id, s.battery_id, s.preparation_start_s)
+                        for s in selected.sorties)
+    final = build_solution(scenario, segments, assignments,
+                           seed=run.selected.metadata.seed,
+                           objective_mode="pareto_epsilon",
+                           search_seconds=run.statistics.elapsed_s,
+                           pareto_count=len(run.pareto))
+    validation = validate_q2(scenario, segments, final)
+    if not validation.passed:
+        raise RuntimeError(f"Q2-v2 validator FAIL: {validation.issues[:8]}")
+    if not epsilon_feasible(final, run.j1_best_found, config.tardiness_slack,
+                            config.absolute_epsilon, tolerance=0.05):
+        raise RuntimeError("Q2-v2 selected candidate violates the configured epsilon limit")
+    save_v2_outputs(ROOT, run, final, validation)
+    benchmark_saved_v2(ROOT)
+    obj = final.objective
+    print(f"Q2-v2: J1={obj.weighted_tardiness:.6f}, normalized={obj.normalized_weighted_tardiness:.9f}, "
+          f"J2={obj.makespan_s:.3f} s, J3={obj.total_energy_kwh:.6f} kWh, J4={obj.sortie_count}")
+    print(f"Search {run.statistics.elapsed_s:.3f} s; ALNS iterations={run.statistics.iterations}; "
+          f"CP candidates={len(run.all_cp_candidates)}; Pareto={len(run.pareto)}; "
+          f"selected={run.selected.metadata.candidate_id}; validator PASS")
+
+
+def validate_saved_q2_v2(force_recompute: bool) -> None:
+    scenario = load_scenario(ROOT)
+    segments = build_segment_matrix(scenario, force_recompute=force_recompute)
+    path = ROOT / "outputs/q2_v2/q2_summary.json"
+    if not path.is_file():
+        raise FileNotFoundError("Run python main.py --question q2 --q2-algorithm v2 first")
+    saved = json.loads(path.read_text(encoding="utf-8"))
+    solution = load_q2_solution(path)
+    result = validate_q2(scenario, segments, solution)
+    selected = saved.get("selected_candidate_id")
+    front = saved.get("pareto_candidates", [])
+    if selected not in {row["candidate_id"] for row in front}:
+        raise RuntimeError("Saved selected candidate is missing from the Pareto front")
+    if not epsilon_feasible(solution, saved["j1_best_found"], saved["epsilon_level"],
+                            saved["algorithm_config"]["absolute_epsilon"], tolerance=0.05):
+        raise RuntimeError("Saved Q2-v2 selected solution exceeds its epsilon limit")
+    print(f"Q2-v2 saved-plan validation: {'PASS' if result.passed else 'FAIL'}; "
+          f"{result.delivered_unique_boxes}/{result.expected_boxes} boxes; "
+          f"{result.checked_sorties} sorties")
+    for issue in result.issues:
+        print(f"  {issue.scope} | {issue.check} | {issue.detail}")
+    if not result.passed:
+        raise SystemExit(1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Relief UAV mathematical modeling project")
     action = parser.add_mutually_exclusive_group(required=True)
@@ -121,21 +179,44 @@ def main() -> None:
     action.add_argument("--validate", choices=["q1", "q2"], help="Validate saved results")
     parser.add_argument("--force-recompute", action="store_true", help="Rebuild the DEM geometry cache")
     parser.add_argument("--seed", type=int, default=20260923, help="Q2 deterministic random seed")
-    parser.add_argument("--q2-time-limit", type=float, default=60.0,
+    parser.add_argument("--q2-time-limit", type=float, default=None,
                         help="Q2 approximate search and CP-SAT wall-time budget in seconds")
-    parser.add_argument("--q2-iterations", type=int, default=400, help="Q2 route-search iteration cap")
+    parser.add_argument("--q2-iterations", type=int, default=None, help="Q2 route-search iteration cap")
     parser.add_argument("--q2-objective", choices=["lexicographic", "weighted"],
                         default="lexicographic", help="Q2 multi-objective mode")
+    parser.add_argument("--q2-algorithm", choices=["v1", "v2"], default="v2",
+                        help="Q2 version; v2 writes only outputs/q2_v2")
+    parser.add_argument("--q2-restarts", type=int, default=8)
+    parser.add_argument("--q2-cp-candidates", type=int, default=20)
+    parser.add_argument("--q2-tardiness-slack", type=float, default=0.05)
+    parser.add_argument("--q2-absolute-epsilon", type=float, default=0.0)
+    parser.add_argument("--q2-selection", choices=["epsilon_makespan", "ideal_distance"],
+                        default="epsilon_makespan")
+    parser.add_argument("--q2-epsilon-levels", default="0,0.02,0.05,0.10")
     args = parser.parse_args()
     if args.question == "q1":
         run_q1(args.force_recompute)
     elif args.validate == "q1":
         validate_saved_q1(args.force_recompute)
     elif args.question == "q2":
-        run_q2(args.force_recompute, args.seed, args.q2_time_limit,
-               args.q2_iterations, args.q2_objective)
+        if args.q2_algorithm == "v1":
+            run_q2(args.force_recompute, args.seed, args.q2_time_limit or 60.0,
+                   args.q2_iterations or 400, args.q2_objective)
+        else:
+            levels = tuple(float(value.strip()) for value in args.q2_epsilon_levels.split(","))
+            config = Q2AlgorithmConfig(seed=args.seed,
+                time_limit_s=args.q2_time_limit if args.q2_time_limit is not None else 300.0,
+                iteration_limit=args.q2_iterations if args.q2_iterations is not None else 3000,
+                restarts=args.q2_restarts, cp_candidates=args.q2_cp_candidates,
+                epsilon_levels=levels, tardiness_slack=args.q2_tardiness_slack,
+                absolute_epsilon=args.q2_absolute_epsilon,
+                selection_method=args.q2_selection)
+            run_q2_v2(args.force_recompute, config)
     elif args.validate == "q2":
-        validate_saved_q2(args.force_recompute)
+        if args.q2_algorithm == "v1":
+            validate_saved_q2(args.force_recompute)
+        else:
+            validate_saved_q2_v2(args.force_recompute)
 
 
 if __name__ == "__main__":

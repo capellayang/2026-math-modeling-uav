@@ -75,10 +75,12 @@ def load_q2_solution(path: Path) -> Q2Solution:
 
 def save_q2_outputs(root: Path, solution: Q2Solution, validation: Q2Validation,
                     pareto: tuple, search_pareto: tuple, history: tuple,
-                    cp_status: str) -> None:
+                    cp_status: str, *, output_dir: Path | None = None,
+                    validation_dir: Path | None = None,
+                    figure_dir: Path | None = None) -> None:
     if not validation.passed:
         raise ValueError("Cannot save Q2 final outputs before independent validation PASS")
-    out = root / "outputs/q2"
+    out = output_dir or root / "outputs/q2"
     out.mkdir(parents=True, exist_ok=True)
     _book(out / "q2_transport_sorties.xlsx", "架次",
           ["架次编号", "机型编号", "无人机编号", "电池编号", "路线", "逐站货箱",
@@ -170,7 +172,7 @@ def save_q2_outputs(root: Path, solution: Q2Solution, validation: Q2Validation,
     for column in range(1, 8):
         archive_sheet.column_dimensions[get_column_letter(column)].width = 25 if column < 7 else 100
     archive_book.save(out / "q2_pareto.xlsx")
-    vdir = root / "outputs/validation"
+    vdir = validation_dir or root / "outputs/validation"
     _book(vdir / "q2_validation.xlsx", "独立核验",
           ["对象", "检查", "详情"],
           [["总体", "PASS", f"{validation.delivered_unique_boxes}/{validation.expected_boxes}箱，{validation.checked_sorties}架次"]] +
@@ -180,13 +182,14 @@ def save_q2_outputs(root: Path, solution: Q2Solution, validation: Q2Validation,
         "Rebuilt from source boxes, route/model, drone/battery IDs and preparation starts.\n"
         "Checks: physical legs, time events, SOC/charge, deadlines, resource overlaps and totals.\n",
         encoding="utf-8")
-    _save_template(root, solution)
-    _plots(root, solution, history)
+    _save_template(root, solution, out)
+    _plots(root, solution, history, figure_dir)
 
 
-def _save_template(root: Path, solution: Q2Solution) -> None:
+def _save_template(root: Path, solution: Q2Solution,
+                   output_dir: Path | None = None) -> None:
     from copy import copy
-    target = root / "outputs/q2/结果提交_Q2.xlsx"
+    target = (output_dir or root / "outputs/q2") / "结果提交_Q2.xlsx"
     shutil.copy2(root / "结果提交模板.xlsx", target)
     workbook = load_workbook(target)
     a = workbook["Q2_运输架次"]
@@ -215,11 +218,12 @@ def _save_template(root: Path, solution: Q2Solution) -> None:
     workbook.save(target)
 
 
-def _plots(root: Path, solution: Q2Solution, history: tuple) -> None:
+def _plots(root: Path, solution: Q2Solution, history: tuple,
+           figure_dir: Path | None = None) -> None:
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    figdir = root / "outputs/figures"
+    figdir = figure_dir or root / "outputs/figures"
     figdir.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(12, 5))
     drone_ids = sorted({s.drone_id for s in solution.sorties})

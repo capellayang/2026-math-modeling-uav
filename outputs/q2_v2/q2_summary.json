@@ -1,0 +1,4032 @@
+{
+  "objective_mode": "pareto_epsilon",
+  "seed": 20260925,
+  "sorties": [
+    {
+      "spec": {
+        "sortie_id": "Q2-001",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S014",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S014",
+            "box_ids": [
+              "S014-FOD-01",
+              "S014-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U02",
+      "battery_id": "A-BAT-06",
+      "preparation_start_s": 2070.153,
+      "takeoff_time_s": 2430.153,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S014",
+          "payload_kg": 22.0,
+          "distance_m": 5419.60185821314,
+          "maximum_dem_m": 541.9473876953125,
+          "cruise_altitude_m": 591.9473876953125,
+          "climb_m": 464.2473876953125,
+          "descent_m": 240.9473876953125,
+          "equivalent_range_m": 20872.43413135538,
+          "horizontal_energy_kwh": 1.1684410264983045,
+          "climb_energy_kwh": 0.16159316022294973,
+          "climb_start_s": 2430.153,
+          "climb_end_s": 2584.9021292317707,
+          "cruise_start_s": 2584.9021292317707,
+          "cruise_end_s": 3036.535617416199,
+          "descent_start_s": 3036.535617416199,
+          "descent_end_s": 3132.9145724943237
+        },
+        {
+          "start_id": "S014",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 5419.60185821314,
+          "maximum_dem_m": 541.9473876953125,
+          "cruise_altitude_m": 591.9473876953125,
+          "climb_m": 240.9473876953125,
+          "descent_m": 464.2473876953125,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 0.9755283344783652,
+          "climb_energy_kwh": 0.06381252660800792,
+          "climb_start_s": 3342.9145724943237,
+          "climb_end_s": 3423.230368392761,
+          "cruise_start_s": 3423.230368392761,
+          "cruise_end_s": 3874.8638565771894,
+          "descent_start_s": 3874.8638565771894,
+          "descent_end_s": 4060.5628116553144
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S014",
+          "box_ids": [
+            "S014-FOD-01",
+            "S014-WAT-01"
+          ],
+          "arrival_time_s": 3132.9145724943237,
+          "handover_start_s": 3132.9145724943237,
+          "handover_end_s": 3342.9145724943237,
+          "delivery_complete_time_s": 3342.9145724943237
+        }
+      ],
+      "return_o01_time_s": 4060.5628116553144,
+      "loaded_mass_kg": 22.0,
+      "loaded_volume_m3": 0.055,
+      "energy_kwh": 2.369375047807627,
+      "return_soc": 0.4734722115983051
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-002",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S002",
+          "S004",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S002",
+            "box_ids": [
+              "S002-MED-01"
+            ]
+          },
+          {
+            "service_id": "S004",
+            "box_ids": [
+              "S004-MED-01",
+              "S004-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U04",
+      "battery_id": "A-BAT-05",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 390.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S002",
+          "payload_kg": 20.0,
+          "distance_m": 7411.310455084183,
+          "maximum_dem_m": 258.9542541503906,
+          "cruise_altitude_m": 308.9542541503906,
+          "climb_m": 181.25425415039064,
+          "descent_m": 89.45425415039062,
+          "equivalent_range_m": 21422.291236000336,
+          "horizontal_energy_kwh": 1.556831464966379,
+          "climb_energy_kwh": 0.06171864692583084,
+          "climb_start_s": 390.0,
+          "climb_end_s": 450.4180847167969,
+          "cruise_start_s": 450.4180847167969,
+          "cruise_end_s": 1068.0272893071456,
+          "descent_start_s": 1068.0272893071456,
+          "descent_end_s": 1103.8089909673017
+        },
+        {
+          "start_id": "S002",
+          "end_id": "S004",
+          "payload_kg": 17.0,
+          "distance_m": 2248.0176981866334,
+          "maximum_dem_m": 283.658203125,
+          "cruise_altitude_m": 333.658203125,
+          "climb_m": 114.158203125,
+          "descent_m": 105.35820312499999,
+          "equivalent_range_m": 22196.28817457999,
+          "horizontal_energy_kwh": 0.4557554651603937,
+          "climb_energy_kwh": 0.03757613048333062,
+          "climb_start_s": 1283.8089909673017,
+          "climb_end_s": 1321.8617253423017,
+          "cruise_start_s": 1321.8617253423017,
+          "cruise_end_s": 1509.196533524521,
+          "descent_start_s": 1509.196533524521,
+          "descent_end_s": 1551.339814774521
+        },
+        {
+          "start_id": "S004",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 7714.6964491171675,
+          "maximum_dem_m": 348.2391662597656,
+          "cruise_altitude_m": 398.2391662597656,
+          "climb_m": 169.9391662597656,
+          "descent_m": 270.53916625976564,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 1.3886453608410902,
+          "climb_energy_kwh": 0.045006703216085304,
+          "climb_start_s": 1761.339814774521,
+          "climb_end_s": 1817.9862035277763,
+          "cruise_start_s": 1817.9862035277763,
+          "cruise_end_s": 2460.8775742875405,
+          "descent_start_s": 2460.8775742875405,
+          "descent_end_s": 2569.0932407914465
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S002",
+          "box_ids": [
+            "S002-MED-01"
+          ],
+          "arrival_time_s": 1103.8089909673017,
+          "handover_start_s": 1103.8089909673017,
+          "handover_end_s": 1283.8089909673017,
+          "delivery_complete_time_s": 1283.8089909673017
+        },
+        {
+          "service_id": "S004",
+          "box_ids": [
+            "S004-MED-01",
+            "S004-WAT-01"
+          ],
+          "arrival_time_s": 1551.339814774521,
+          "handover_start_s": 1551.339814774521,
+          "handover_end_s": 1761.339814774521,
+          "delivery_complete_time_s": 1761.339814774521
+        }
+      ],
+      "return_o01_time_s": 2569.0932407914465,
+      "loaded_mass_kg": 20.0,
+      "loaded_volume_m3": 0.051000000000000004,
+      "energy_kwh": 3.5455337715931097,
+      "return_soc": 0.21210360631264225
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-003",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S014",
+          "S011",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S014",
+            "box_ids": [
+              "S014-MED-01"
+            ]
+          },
+          {
+            "service_id": "S011",
+            "box_ids": [
+              "S011-FOD-01",
+              "S011-MED-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U03",
+      "battery_id": "A-BAT-04",
+      "preparation_start_s": 2232.009,
+      "takeoff_time_s": 2622.009,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S014",
+          "payload_kg": 14.0,
+          "distance_m": 5419.60185821314,
+          "maximum_dem_m": 541.9473876953125,
+          "cruise_altitude_m": 591.9473876953125,
+          "climb_m": 464.2473876953125,
+          "descent_m": 240.9473876953125,
+          "equivalent_range_m": 22904.67186340659,
+          "horizontal_energy_kwh": 1.0647700393788524,
+          "climb_energy_kwh": 0.14754158107312804,
+          "climb_start_s": 2622.009,
+          "climb_end_s": 2776.758129231771,
+          "cruise_start_s": 2776.758129231771,
+          "cruise_end_s": 3228.391617416199,
+          "descent_start_s": 3228.391617416199,
+          "descent_end_s": 3324.770572494324
+        },
+        {
+          "start_id": "S014",
+          "end_id": "S011",
+          "payload_kg": 11.0,
+          "distance_m": 7127.719086593689,
+          "maximum_dem_m": 568.5668334960938,
+          "cruise_altitude_m": 618.5668334960938,
+          "climb_m": 267.56683349609375,
+          "descent_m": 406.4668334960937,
+          "equivalent_range_m": 23540.685092243624,
+          "horizontal_energy_kwh": 1.3625234679444331,
+          "climb_energy_kwh": 0.08199794649076461,
+          "climb_start_s": 3504.770572494324,
+          "climb_end_s": 3593.9595169930217,
+          "cruise_start_s": 3593.9595169930217,
+          "cruise_end_s": 4187.936107542496,
+          "descent_start_s": 4187.936107542496,
+          "descent_end_s": 4350.522840940934
+        },
+        {
+          "start_id": "S011",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 2808.074232681646,
+          "maximum_dem_m": 245.36175537109375,
+          "cruise_altitude_m": 295.36175537109375,
+          "climb_m": 83.26175537109376,
+          "descent_m": 167.66175537109376,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 0.5054533618826963,
+          "climb_energy_kwh": 0.022051050359450444,
+          "climb_start_s": 4560.522840940934,
+          "climb_end_s": 4588.276759397965,
+          "cruise_start_s": 4588.276759397965,
+          "cruise_end_s": 4822.282945454769,
+          "descent_start_s": 4822.282945454769,
+          "descent_end_s": 4889.3476476032065
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S014",
+          "box_ids": [
+            "S014-MED-01"
+          ],
+          "arrival_time_s": 3324.770572494324,
+          "handover_start_s": 3324.770572494324,
+          "handover_end_s": 3504.770572494324,
+          "delivery_complete_time_s": 3504.770572494324
+        },
+        {
+          "service_id": "S011",
+          "box_ids": [
+            "S011-FOD-01",
+            "S011-MED-01"
+          ],
+          "arrival_time_s": 4350.522840940934,
+          "handover_start_s": 4350.522840940934,
+          "handover_end_s": 4560.522840940934,
+          "delivery_complete_time_s": 4560.522840940934
+        }
+      ],
+      "return_o01_time_s": 4889.3476476032065,
+      "loaded_mass_kg": 14.0,
+      "loaded_volume_m3": 0.052000000000000005,
+      "energy_kwh": 3.184337447129325,
+      "return_soc": 0.2923694561934833
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-004",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S013",
+          "S010",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S013",
+            "box_ids": [
+              "S013-FOD-01"
+            ]
+          },
+          {
+            "service_id": "S010",
+            "box_ids": [
+              "S010-FOD-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U04",
+      "battery_id": "A-BAT-03",
+      "preparation_start_s": 3241.591,
+      "takeoff_time_s": 3601.591,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S013",
+          "payload_kg": 16.0,
+          "distance_m": 4849.242377230511,
+          "maximum_dem_m": 349.18182373046875,
+          "cruise_altitude_m": 399.18182373046875,
+          "climb_m": 271.48182373046876,
+          "descent_m": 47.48182373046876,
+          "equivalent_range_m": 22440.0,
+          "horizontal_energy_kwh": 0.9724416531879367,
+          "climb_energy_kwh": 0.08833338792246548,
+          "climb_start_s": 3601.591,
+          "climb_end_s": 3692.0849412434895,
+          "cruise_start_s": 3692.0849412434895,
+          "cruise_end_s": 4096.188472679365,
+          "descent_start_s": 4096.188472679365,
+          "descent_end_s": 4115.181202171552
+        },
+        {
+          "start_id": "S013",
+          "end_id": "S010",
+          "payload_kg": 8.0,
+          "distance_m": 1378.6725696552137,
+          "maximum_dem_m": 454.07037353515625,
+          "cruise_altitude_m": 504.07037353515625,
+          "climb_m": 152.37037353515626,
+          "descent_m": 152.47037353515623,
+          "equivalent_range_m": 24094.90332008122,
+          "horizontal_energy_kwh": 0.2574829407295397,
+          "climb_energy_kwh": 0.0449656435351181,
+          "climb_start_s": 4295.181202171552,
+          "climb_end_s": 4345.971326683271,
+          "cruise_start_s": 4345.971326683271,
+          "cruise_end_s": 4460.860707487873,
+          "descent_start_s": 4460.860707487873,
+          "descent_end_s": 4521.8488569019355
+        },
+        {
+          "start_id": "S010",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 4784.49485164363,
+          "maximum_dem_m": 385.63653564453125,
+          "cruise_altitude_m": 435.63653564453125,
+          "climb_m": 84.03653564453123,
+          "descent_m": 307.93653564453126,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 0.8612090732958533,
+          "climb_energy_kwh": 0.022256243232828297,
+          "climb_start_s": 4701.8488569019355,
+          "climb_end_s": 4729.8610354501125,
+          "cruise_start_s": 4729.8610354501125,
+          "cruise_end_s": 5128.568939753748,
+          "descent_start_s": 5128.568939753748,
+          "descent_end_s": 5251.74355401156
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S013",
+          "box_ids": [
+            "S013-FOD-01"
+          ],
+          "arrival_time_s": 4115.181202171552,
+          "handover_start_s": 4115.181202171552,
+          "handover_end_s": 4295.181202171552,
+          "delivery_complete_time_s": 4295.181202171552
+        },
+        {
+          "service_id": "S010",
+          "box_ids": [
+            "S010-FOD-01"
+          ],
+          "arrival_time_s": 4521.8488569019355,
+          "handover_start_s": 4521.8488569019355,
+          "handover_end_s": 4701.8488569019355,
+          "delivery_complete_time_s": 4701.8488569019355
+        }
+      ],
+      "return_o01_time_s": 5251.74355401156,
+      "loaded_mass_kg": 16.0,
+      "loaded_volume_m3": 0.056,
+      "energy_kwh": 2.2466889419037415,
+      "return_soc": 0.5007357906880574
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-005",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S002",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S002",
+            "box_ids": [
+              "S002-FOD-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U05",
+      "battery_id": "B-BAT-04",
+      "preparation_start_s": 5125.016,
+      "takeoff_time_s": 5455.016,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S002",
+          "payload_kg": 8.0,
+          "distance_m": 7411.310455084183,
+          "maximum_dem_m": 258.9542541503906,
+          "cruise_altitude_m": 308.9542541503906,
+          "climb_m": 181.25425415039064,
+          "descent_m": 89.45425415039062,
+          "equivalent_range_m": 26347.52710561817,
+          "horizontal_energy_kwh": 1.1251622097777585,
+          "climb_energy_kwh": 0.050060680284285015,
+          "climb_start_s": 5455.016,
+          "climb_end_s": 5515.434084716797,
+          "cruise_start_s": 5515.434084716797,
+          "cruise_end_s": 6009.521448389076,
+          "descent_start_s": 6009.521448389076,
+          "descent_end_s": 6045.3031500492325
+        },
+        {
+          "start_id": "S002",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 7411.310455084183,
+          "maximum_dem_m": 258.9542541503906,
+          "cruise_altitude_m": 308.9542541503906,
+          "climb_m": 89.45425415039062,
+          "descent_m": 181.25425415039064,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 1.0587586364405974,
+          "climb_energy_kwh": 0.02199885281448894,
+          "climb_start_s": 6225.3031500492325,
+          "climb_end_s": 6255.121234766029,
+          "cruise_start_s": 6255.121234766029,
+          "cruise_end_s": 6749.208598438308,
+          "descent_start_s": 6749.208598438308,
+          "descent_end_s": 6821.710300098464
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S002",
+          "box_ids": [
+            "S002-FOD-01"
+          ],
+          "arrival_time_s": 6045.3031500492325,
+          "handover_start_s": 6045.3031500492325,
+          "handover_end_s": 6225.3031500492325,
+          "delivery_complete_time_s": 6225.3031500492325
+        }
+      ],
+      "return_o01_time_s": 6821.710300098464,
+      "loaded_mass_kg": 8.0,
+      "loaded_volume_m3": 0.028,
+      "energy_kwh": 2.25598037931713,
+      "return_soc": 0.43600490517071755
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-006",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S009",
+          "S002",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S009",
+            "box_ids": [
+              "S009-WAT-01"
+            ]
+          },
+          {
+            "service_id": "S002",
+            "box_ids": [
+              "S002-FOD-02"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U03",
+      "battery_id": "A-BAT-05",
+      "preparation_start_s": 4889.348,
+      "takeoff_time_s": 5249.348,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S009",
+          "payload_kg": 22.0,
+          "distance_m": 5705.144962277037,
+          "maximum_dem_m": 243.22891235351562,
+          "cruise_altitude_m": 293.2289123535156,
+          "climb_m": 165.52891235351564,
+          "descent_m": 63.228912353515625,
+          "equivalent_range_m": 20872.43413135538,
+          "horizontal_energy_kwh": 1.2300027954899357,
+          "climb_energy_kwh": 0.05761656557349829,
+          "climb_start_s": 5249.348,
+          "climb_end_s": 5304.524304117838,
+          "cruise_start_s": 5304.524304117838,
+          "cruise_end_s": 5779.953050974258,
+          "descent_start_s": 5779.953050974258,
+          "descent_end_s": 5805.244615915664
+        },
+        {
+          "start_id": "S009",
+          "end_id": "S002",
+          "payload_kg": 8.0,
+          "distance_m": 1724.5471958647918,
+          "maximum_dem_m": 278.2866516113281,
+          "cruise_altitude_m": 328.2866516113281,
+          "climb_m": 98.28665161132812,
+          "descent_m": 108.78665161132812,
+          "equivalent_range_m": 24094.90332008122,
+          "horizontal_energy_kwh": 0.32207900062100786,
+          "climb_energy_kwh": 0.029005130315543984,
+          "climb_start_s": 5985.244615915664,
+          "climb_end_s": 6018.006833119441,
+          "cruise_start_s": 6018.006833119441,
+          "cruise_end_s": 6161.719099441507,
+          "descent_start_s": 6161.719099441507,
+          "descent_end_s": 6205.233760086038
+        },
+        {
+          "start_id": "S002",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 7411.310455084183,
+          "maximum_dem_m": 258.9542541503906,
+          "cruise_altitude_m": 308.9542541503906,
+          "climb_m": 89.45425415039062,
+          "descent_m": 181.25425415039064,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 1.334035881915153,
+          "climb_energy_kwh": 0.023691072261757318,
+          "climb_start_s": 6385.233760086038,
+          "climb_end_s": 6415.051844802835,
+          "cruise_start_s": 6415.051844802835,
+          "cruise_end_s": 7032.661049393184,
+          "descent_start_s": 7032.661049393184,
+          "descent_end_s": 7105.16275105334
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S009",
+          "box_ids": [
+            "S009-WAT-01"
+          ],
+          "arrival_time_s": 5805.244615915664,
+          "handover_start_s": 5805.244615915664,
+          "handover_end_s": 5985.244615915664,
+          "delivery_complete_time_s": 5985.244615915664
+        },
+        {
+          "service_id": "S002",
+          "box_ids": [
+            "S002-FOD-02"
+          ],
+          "arrival_time_s": 6205.233760086038,
+          "handover_start_s": 6205.233760086038,
+          "handover_end_s": 6385.233760086038,
+          "delivery_complete_time_s": 6385.233760086038
+        }
+      ],
+      "return_o01_time_s": 7105.16275105334,
+      "loaded_mass_kg": 22.0,
+      "loaded_volume_m3": 0.055,
+      "energy_kwh": 2.9964304461768965,
+      "return_soc": 0.33412656751624525
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-007",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S007",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S007",
+            "box_ids": [
+              "S007-HYG-01",
+              "S007-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U05",
+      "battery_id": "B-BAT-04",
+      "preparation_start_s": 1961.832,
+      "takeoff_time_s": 2321.8320000000003,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S007",
+          "payload_kg": 20.0,
+          "distance_m": 4534.460566816074,
+          "maximum_dem_m": 461.9731750488281,
+          "cruise_altitude_m": 511.9731750488281,
+          "climb_m": 384.27317504882814,
+          "descent_m": 163.47317504882812,
+          "equivalent_range_m": 21468.027352578192,
+          "horizontal_energy_kwh": 0.8448769870365402,
+          "climb_energy_kwh": 0.12357899893050547,
+          "climb_start_s": 2321.8320000000003,
+          "climb_end_s": 2449.9230583496096,
+          "cruise_start_s": 2449.9230583496096,
+          "cruise_end_s": 2752.220429470681,
+          "descent_start_s": 2752.220429470681,
+          "descent_end_s": 2817.6096994902123
+        },
+        {
+          "start_id": "S007",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 4534.460566816074,
+          "maximum_dem_m": 461.9731750488281,
+          "cruise_altitude_m": 511.9731750488281,
+          "climb_m": 163.47317504882812,
+          "descent_m": 384.27317504882814,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 0.6477800809737249,
+          "climb_energy_kwh": 0.0402018031581861,
+          "climb_start_s": 3027.6096994902123,
+          "climb_end_s": 3082.1007578398217,
+          "cruise_start_s": 3082.1007578398217,
+          "cruise_end_s": 3384.3981289608932,
+          "descent_start_s": 3384.3981289608932,
+          "descent_end_s": 3538.1073989804245
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S007",
+          "box_ids": [
+            "S007-HYG-01",
+            "S007-WAT-01"
+          ],
+          "arrival_time_s": 2817.6096994902123,
+          "handover_start_s": 2817.6096994902123,
+          "handover_end_s": 3027.6096994902123,
+          "delivery_complete_time_s": 3027.6096994902123
+        }
+      ],
+      "return_o01_time_s": 3538.1073989804245,
+      "loaded_mass_kg": 20.0,
+      "loaded_volume_m3": 0.062,
+      "energy_kwh": 1.6564378700989568,
+      "return_soc": 0.5858905324752608
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-008",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S006",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S006",
+            "box_ids": [
+              "S006-MED-01",
+              "S006-WAT-03"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U01",
+      "battery_id": "A-BAT-04",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 360.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S006",
+          "payload_kg": 17.0,
+          "distance_m": 3186.208178413656,
+          "maximum_dem_m": 316.09783935546875,
+          "cruise_altitude_m": 366.09783935546875,
+          "climb_m": 238.39783935546876,
+          "descent_m": 51.29783935546874,
+          "equivalent_range_m": 22196.28817457999,
+          "horizontal_energy_kwh": 0.6459610133951039,
+          "climb_energy_kwh": 0.07847064926868509,
+          "climb_start_s": 360.0,
+          "climb_end_s": 439.4659464518229,
+          "cruise_start_s": 439.4659464518229,
+          "cruise_end_s": 704.9832946529609,
+          "descent_start_s": 704.9832946529609,
+          "descent_end_s": 725.5024303951484
+        },
+        {
+          "start_id": "S006",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 3186.208178413656,
+          "maximum_dem_m": 316.09783935546875,
+          "cruise_altitude_m": 366.09783935546875,
+          "climb_m": 51.29783935546874,
+          "descent_m": 238.39783935546876,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 0.573517472114458,
+          "climb_energy_kwh": 0.013585724128885616,
+          "climb_start_s": 935.5024303951484,
+          "climb_end_s": 952.6017101803046,
+          "cruise_start_s": 952.6017101803046,
+          "cruise_end_s": 1218.1190583814425,
+          "descent_start_s": 1218.1190583814425,
+          "descent_end_s": 1313.4781941236301
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S006",
+          "box_ids": [
+            "S006-MED-01",
+            "S006-WAT-03"
+          ],
+          "arrival_time_s": 725.5024303951484,
+          "handover_start_s": 725.5024303951484,
+          "handover_end_s": 935.5024303951484,
+          "delivery_complete_time_s": 935.5024303951484
+        }
+      ],
+      "return_o01_time_s": 1313.4781941236301,
+      "loaded_mass_kg": 17.0,
+      "loaded_volume_m3": 0.039,
+      "energy_kwh": 1.3115348589071325,
+      "return_soc": 0.7085478091317483
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-009",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S013",
+          "S010",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S013",
+            "box_ids": [
+              "S013-MED-01"
+            ]
+          },
+          {
+            "service_id": "S010",
+            "box_ids": [
+              "S010-MED-01",
+              "S010-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U02",
+      "battery_id": "A-BAT-03",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 390.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S013",
+          "payload_kg": 20.0,
+          "distance_m": 4849.242377230511,
+          "maximum_dem_m": 349.18182373046875,
+          "cruise_altitude_m": 399.18182373046875,
+          "climb_m": 271.48182373046876,
+          "descent_m": 47.48182373046876,
+          "equivalent_range_m": 21422.291236000336,
+          "horizontal_energy_kwh": 1.018639437637088,
+          "climb_energy_kwh": 0.09244191759327783,
+          "climb_start_s": 390.0,
+          "climb_end_s": 480.4939412434896,
+          "cruise_start_s": 480.4939412434896,
+          "cruise_end_s": 884.5974726793655,
+          "descent_start_s": 884.5974726793655,
+          "descent_end_s": 903.5902021715531
+        },
+        {
+          "start_id": "S013",
+          "end_id": "S010",
+          "payload_kg": 17.0,
+          "distance_m": 1378.6725696552137,
+          "maximum_dem_m": 454.07037353515625,
+          "cruise_altitude_m": 504.07037353515625,
+          "climb_m": 152.37037353515626,
+          "descent_m": 152.47037353515623,
+          "equivalent_range_m": 22196.28817457999,
+          "horizontal_energy_kwh": 0.27950738946314196,
+          "climb_energy_kwh": 0.05015398701993943,
+          "climb_start_s": 1083.590202171553,
+          "climb_end_s": 1134.3803266832717,
+          "cruise_start_s": 1134.3803266832717,
+          "cruise_end_s": 1249.269707487873,
+          "descent_start_s": 1249.269707487873,
+          "descent_end_s": 1310.2578569019354
+        },
+        {
+          "start_id": "S010",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 4784.49485164363,
+          "maximum_dem_m": 385.63653564453125,
+          "cruise_altitude_m": 435.63653564453125,
+          "climb_m": 84.03653564453123,
+          "descent_m": 307.93653564453126,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 0.8612090732958533,
+          "climb_energy_kwh": 0.022256243232828297,
+          "climb_start_s": 1520.2578569019354,
+          "climb_end_s": 1548.2700354501126,
+          "cruise_start_s": 1548.2700354501126,
+          "cruise_end_s": 1946.9779397537484,
+          "descent_start_s": 1946.9779397537484,
+          "descent_end_s": 2070.152554011561
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S013",
+          "box_ids": [
+            "S013-MED-01"
+          ],
+          "arrival_time_s": 903.5902021715531,
+          "handover_start_s": 903.5902021715531,
+          "handover_end_s": 1083.590202171553,
+          "delivery_complete_time_s": 1083.590202171553
+        },
+        {
+          "service_id": "S010",
+          "box_ids": [
+            "S010-MED-01",
+            "S010-WAT-01"
+          ],
+          "arrival_time_s": 1310.2578569019354,
+          "handover_start_s": 1310.2578569019354,
+          "handover_end_s": 1520.2578569019354,
+          "delivery_complete_time_s": 1520.2578569019354
+        }
+      ],
+      "return_o01_time_s": 2070.152554011561,
+      "loaded_mass_kg": 20.0,
+      "loaded_volume_m3": 0.051000000000000004,
+      "energy_kwh": 2.3242080482421286,
+      "return_soc": 0.4835093226128603
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-010",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S009",
+          "S005",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S009",
+            "box_ids": [
+              "S009-MED-01"
+            ]
+          },
+          {
+            "service_id": "S005",
+            "box_ids": [
+              "S005-MED-01",
+              "S005-WAT-03"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U03",
+      "battery_id": "A-BAT-02",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 390.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S009",
+          "payload_kg": 20.0,
+          "distance_m": 5705.144962277037,
+          "maximum_dem_m": 243.22891235351562,
+          "cruise_altitude_m": 293.2289123535156,
+          "climb_m": 165.52891235351564,
+          "descent_m": 63.228912353515625,
+          "equivalent_range_m": 21422.291236000336,
+          "horizontal_energy_kwh": 1.1984316732237643,
+          "climb_energy_kwh": 0.0563640315392918,
+          "climb_start_s": 390.0,
+          "climb_end_s": 445.1763041178385,
+          "cruise_start_s": 445.1763041178385,
+          "cruise_end_s": 920.6050509742583,
+          "descent_start_s": 920.6050509742583,
+          "descent_end_s": 945.8966159156646
+        },
+        {
+          "start_id": "S009",
+          "end_id": "S005",
+          "payload_kg": 17.0,
+          "distance_m": 2649.9225367927993,
+          "maximum_dem_m": 313.5632019042969,
+          "cruise_altitude_m": 363.5632019042969,
+          "climb_m": 133.56320190429688,
+          "descent_m": 168.56320190429688,
+          "equivalent_range_m": 22196.28817457999,
+          "horizontal_energy_kwh": 0.5372362857148408,
+          "climb_energy_kwh": 0.04396344866283382,
+          "climb_start_s": 1125.8966159156646,
+          "climb_end_s": 1170.417683217097,
+          "cruise_start_s": 1170.417683217097,
+          "cruise_end_s": 1391.2445612831636,
+          "descent_start_s": 1391.2445612831636,
+          "descent_end_s": 1458.6698420448824
+        },
+        {
+          "start_id": "S005",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 5280.606936873044,
+          "maximum_dem_m": 276.410888671875,
+          "cruise_altitude_m": 326.410888671875,
+          "climb_m": 131.410888671875,
+          "descent_m": 198.710888671875,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 0.950509248637148,
+          "climb_energy_kwh": 0.03480287090956134,
+          "climb_start_s": 1668.6698420448824,
+          "climb_end_s": 1712.4734716021742,
+          "cruise_start_s": 1712.4734716021742,
+          "cruise_end_s": 2152.524049674928,
+          "descent_start_s": 2152.524049674928,
+          "descent_end_s": 2232.008405143678
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S009",
+          "box_ids": [
+            "S009-MED-01"
+          ],
+          "arrival_time_s": 945.8966159156646,
+          "handover_start_s": 945.8966159156646,
+          "handover_end_s": 1125.8966159156646,
+          "delivery_complete_time_s": 1125.8966159156646
+        },
+        {
+          "service_id": "S005",
+          "box_ids": [
+            "S005-MED-01",
+            "S005-WAT-03"
+          ],
+          "arrival_time_s": 1458.6698420448824,
+          "handover_start_s": 1458.6698420448824,
+          "handover_end_s": 1668.6698420448824,
+          "delivery_complete_time_s": 1668.6698420448824
+        }
+      ],
+      "return_o01_time_s": 2232.008405143678,
+      "loaded_mass_kg": 20.0,
+      "loaded_volume_m3": 0.051000000000000004,
+      "energy_kwh": 2.8213075586874403,
+      "return_soc": 0.3730427647361244
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-011",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S003",
+          "S015",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S003",
+            "box_ids": [
+              "S003-MED-01"
+            ]
+          },
+          {
+            "service_id": "S015",
+            "box_ids": [
+              "S015-MED-01",
+              "S015-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U01",
+      "battery_id": "A-BAT-02",
+      "preparation_start_s": 3735.641,
+      "takeoff_time_s": 4125.641,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S003",
+          "payload_kg": 20.0,
+          "distance_m": 7263.1792565565,
+          "maximum_dem_m": 511.80413818359375,
+          "cruise_altitude_m": 561.8041381835938,
+          "climb_m": 434.10413818359376,
+          "descent_m": 223.30413818359375,
+          "equivalent_range_m": 21422.291236000336,
+          "horizontal_energy_kwh": 1.5257147937368158,
+          "climb_energy_kwh": 0.14781622731660207,
+          "climb_start_s": 4125.641,
+          "climb_end_s": 4270.342379394531,
+          "cruise_start_s": 4270.342379394531,
+          "cruise_end_s": 4875.607317440907,
+          "descent_start_s": 4875.607317440907,
+          "descent_end_s": 4964.928972714344
+        },
+        {
+          "start_id": "S003",
+          "end_id": "S015",
+          "payload_kg": 17.0,
+          "distance_m": 2616.366900890517,
+          "maximum_dem_m": 437.89886474609375,
+          "cruise_altitude_m": 487.89886474609375,
+          "climb_m": 149.39886474609375,
+          "descent_m": 13.39886474609375,
+          "equivalent_range_m": 22196.28817457999,
+          "horizontal_energy_kwh": 0.5304333301768422,
+          "climb_energy_kwh": 0.04917588996748395,
+          "climb_start_s": 5144.928972714344,
+          "climb_end_s": 5194.728594296375,
+          "cruise_start_s": 5194.728594296375,
+          "cruise_end_s": 5412.759169370585,
+          "descent_start_s": 5412.759169370585,
+          "descent_end_s": 5418.118715269023
+        },
+        {
+          "start_id": "S015",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 6009.38297162029,
+          "maximum_dem_m": 521.7992553710938,
+          "cruise_altitude_m": 571.7992553710938,
+          "climb_m": 97.29925537109375,
+          "descent_m": 444.09925537109376,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 1.081688934891652,
+          "climb_energy_kwh": 0.02576874305090492,
+          "climb_start_s": 5628.118715269023,
+          "climb_end_s": 5660.551800392721,
+          "cruise_start_s": 5660.551800392721,
+          "cruise_end_s": 6161.333714694411,
+          "descent_start_s": 6161.333714694411,
+          "descent_end_s": 6338.973416842849
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S003",
+          "box_ids": [
+            "S003-MED-01"
+          ],
+          "arrival_time_s": 4964.928972714344,
+          "handover_start_s": 4964.928972714344,
+          "handover_end_s": 5144.928972714344,
+          "delivery_complete_time_s": 5144.928972714344
+        },
+        {
+          "service_id": "S015",
+          "box_ids": [
+            "S015-MED-01",
+            "S015-WAT-01"
+          ],
+          "arrival_time_s": 5418.118715269023,
+          "handover_start_s": 5418.118715269023,
+          "handover_end_s": 5628.118715269023,
+          "delivery_complete_time_s": 5628.118715269023
+        }
+      ],
+      "return_o01_time_s": 6338.973416842849,
+      "loaded_mass_kg": 20.0,
+      "loaded_volume_m3": 0.051000000000000004,
+      "energy_kwh": 3.360597919140301,
+      "return_soc": 0.25320046241326644
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-012",
+        "model_id": "C",
+        "route": [
+          "O01",
+          "S001",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S001",
+            "box_ids": [
+              "S001-HYG-01",
+              "S001-MED-01",
+              "S001-WAT-03",
+              "S001-WAT-04",
+              "S001-WAT-06",
+              "S001-WAT-07",
+              "S001-WAT-08"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U07",
+      "battery_id": "C-BAT-04",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 510.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S001",
+          "payload_kg": 79.0,
+          "distance_m": 3053.9788435184996,
+          "maximum_dem_m": 223.05661010742188,
+          "cruise_altitude_m": 273.0566101074219,
+          "climb_m": 145.3566101074219,
+          "descent_m": 89.05661010742188,
+          "equivalent_range_m": 12261.677970454324,
+          "horizontal_energy_kwh": 1.9925356714650972,
+          "climb_energy_kwh": 0.08188703801540562,
+          "climb_start_s": 510.0,
+          "climb_end_s": 568.1426440429688,
+          "cruise_start_s": 568.1426440429688,
+          "cruise_end_s": 771.7412336108687,
+          "descent_start_s": 771.7412336108687,
+          "descent_end_s": 816.2695386645796
+        },
+        {
+          "start_id": "S001",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 3053.9788435184996,
+          "maximum_dem_m": 223.05661010742188,
+          "cruise_altitude_m": 273.0566101074219,
+          "climb_m": 89.05661010742188,
+          "descent_m": 145.3566101074219,
+          "equivalent_range_m": 26000.0,
+          "horizontal_energy_kwh": 0.9396857980056922,
+          "climb_energy_kwh": 0.023552066236553013,
+          "climb_start_s": 1248.2695386645796,
+          "climb_end_s": 1283.8921827075483,
+          "cruise_start_s": 1283.8921827075483,
+          "cruise_end_s": 1487.4907722754483,
+          "descent_start_s": 1487.4907722754483,
+          "descent_end_s": 1560.1690773291593
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S001",
+          "box_ids": [
+            "S001-HYG-01",
+            "S001-MED-01",
+            "S001-WAT-03",
+            "S001-WAT-04",
+            "S001-WAT-06",
+            "S001-WAT-07",
+            "S001-WAT-08"
+          ],
+          "arrival_time_s": 816.2695386645796,
+          "handover_start_s": 816.2695386645796,
+          "handover_end_s": 1248.2695386645796,
+          "delivery_complete_time_s": 1248.2695386645796
+        }
+      ],
+      "return_o01_time_s": 1560.1690773291593,
+      "loaded_mass_kg": 79.0,
+      "loaded_volume_m3": 0.182,
+      "energy_kwh": 3.0376605737227482,
+      "return_soc": 0.6202924282846565
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-013",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S007",
+          "S015",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S007",
+            "box_ids": [
+              "S007-WAT-02"
+            ]
+          },
+          {
+            "service_id": "S015",
+            "box_ids": [
+              "S015-FOD-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U06",
+      "battery_id": "B-BAT-03",
+      "preparation_start_s": 1207.272,
+      "takeoff_time_s": 1567.272,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S007",
+          "payload_kg": 22.0,
+          "distance_m": 4534.460566816074,
+          "maximum_dem_m": 461.9731750488281,
+          "cruise_altitude_m": 511.9731750488281,
+          "climb_m": 384.27317504882814,
+          "descent_m": 163.47317504882812,
+          "equivalent_range_m": 20464.130220516457,
+          "horizontal_energy_kwh": 0.8863236341743015,
+          "climb_energy_kwh": 0.1264867400818115,
+          "climb_start_s": 1567.272,
+          "climb_end_s": 1695.3630583496092,
+          "cruise_start_s": 1695.3630583496092,
+          "cruise_end_s": 1997.6604294706808,
+          "descent_start_s": 1997.6604294706808,
+          "descent_end_s": 2063.049699490212
+        },
+        {
+          "start_id": "S007",
+          "end_id": "S015",
+          "payload_kg": 8.0,
+          "distance_m": 2219.359431912627,
+          "maximum_dem_m": 452.918212890625,
+          "cruise_altitude_m": 502.918212890625,
+          "climb_m": 154.418212890625,
+          "descent_m": 28.418212890625,
+          "equivalent_range_m": 26347.52710561817,
+          "horizontal_energy_kwh": 0.33693627838635154,
+          "climb_energy_kwh": 0.04264882400594169,
+          "climb_start_s": 2243.049699490212,
+          "climb_end_s": 2294.5224371204204,
+          "cruise_start_s": 2294.5224371204204,
+          "cruise_end_s": 2442.479732581262,
+          "descent_start_s": 2442.479732581262,
+          "descent_end_s": 2453.847017737512
+        },
+        {
+          "start_id": "S015",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 6009.38297162029,
+          "maximum_dem_m": 521.7992553710938,
+          "cruise_altitude_m": 571.7992553710938,
+          "climb_m": 97.29925537109375,
+          "descent_m": 444.09925537109376,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 0.8584832816600414,
+          "climb_energy_kwh": 0.023928118547268853,
+          "climb_start_s": 2633.847017737512,
+          "climb_end_s": 2666.28010286121,
+          "cruise_start_s": 2666.28010286121,
+          "cruise_end_s": 3066.9056343025622,
+          "descent_start_s": 3066.9056343025622,
+          "descent_end_s": 3244.545336451
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S007",
+          "box_ids": [
+            "S007-WAT-02"
+          ],
+          "arrival_time_s": 2063.049699490212,
+          "handover_start_s": 2063.049699490212,
+          "handover_end_s": 2243.049699490212,
+          "delivery_complete_time_s": 2243.049699490212
+        },
+        {
+          "service_id": "S015",
+          "box_ids": [
+            "S015-FOD-01"
+          ],
+          "arrival_time_s": 2453.847017737512,
+          "handover_start_s": 2453.847017737512,
+          "handover_end_s": 2633.847017737512,
+          "delivery_complete_time_s": 2633.847017737512
+        }
+      ],
+      "return_o01_time_s": 3244.545336451,
+      "loaded_mass_kg": 22.0,
+      "loaded_volume_m3": 0.055,
+      "energy_kwh": 2.2748068768557164,
+      "return_soc": 0.4312982807860709
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-014",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S011",
+          "S007",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S011",
+            "box_ids": [
+              "S011-WAT-01"
+            ]
+          },
+          {
+            "service_id": "S007",
+            "box_ids": [
+              "S007-FOD-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U04",
+      "battery_id": "A-BAT-06",
+      "preparation_start_s": 5251.744,
+      "takeoff_time_s": 5611.744,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S011",
+          "payload_kg": 22.0,
+          "distance_m": 2808.074232681646,
+          "maximum_dem_m": 245.36175537109375,
+          "cruise_altitude_m": 295.36175537109375,
+          "climb_m": 167.66175537109376,
+          "descent_m": 83.26175537109376,
+          "equivalent_range_m": 20872.43413135538,
+          "horizontal_energy_kwh": 0.6054077817442776,
+          "climb_energy_kwh": 0.05835895605884033,
+          "climb_start_s": 5611.744,
+          "climb_end_s": 5667.631251790364,
+          "cruise_start_s": 5667.631251790364,
+          "cruise_end_s": 5901.637437847168,
+          "descent_start_s": 5901.637437847168,
+          "descent_end_s": 5934.942139995605
+        },
+        {
+          "start_id": "S011",
+          "end_id": "S007",
+          "payload_kg": 8.0,
+          "distance_m": 2834.028476552707,
+          "maximum_dem_m": 389.17535400390625,
+          "cruise_altitude_m": 439.17535400390625,
+          "climb_m": 227.07535400390626,
+          "descent_m": 90.67535400390625,
+          "equivalent_range_m": 24094.90332008122,
+          "horizontal_energy_kwh": 0.5292873756359274,
+          "climb_energy_kwh": 0.0670116452880817,
+          "climb_start_s": 6114.942139995605,
+          "climb_end_s": 6190.633924663574,
+          "cruise_start_s": 6190.633924663574,
+          "cruise_end_s": 6426.8029643763,
+          "descent_start_s": 6426.8029643763,
+          "descent_end_s": 6463.073105977863
+        },
+        {
+          "start_id": "S007",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 4534.460566816074,
+          "maximum_dem_m": 461.9731750488281,
+          "cruise_altitude_m": 511.9731750488281,
+          "climb_m": 163.47317504882812,
+          "descent_m": 384.27317504882814,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 0.8162029020268933,
+          "climb_energy_kwh": 0.04329424955496964,
+          "climb_start_s": 6643.073105977863,
+          "climb_end_s": 6697.564164327472,
+          "cruise_start_s": 6697.564164327472,
+          "cruise_end_s": 7075.435878228812,
+          "descent_start_s": 7075.435878228812,
+          "descent_end_s": 7229.1451482483435
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S011",
+          "box_ids": [
+            "S011-WAT-01"
+          ],
+          "arrival_time_s": 5934.942139995605,
+          "handover_start_s": 5934.942139995605,
+          "handover_end_s": 6114.942139995605,
+          "delivery_complete_time_s": 6114.942139995605
+        },
+        {
+          "service_id": "S007",
+          "box_ids": [
+            "S007-FOD-01"
+          ],
+          "arrival_time_s": 6463.073105977863,
+          "handover_start_s": 6463.073105977863,
+          "handover_end_s": 6643.073105977863,
+          "delivery_complete_time_s": 6643.073105977863
+        }
+      ],
+      "return_o01_time_s": 7229.1451482483435,
+      "loaded_mass_kg": 22.0,
+      "loaded_volume_m3": 0.055,
+      "energy_kwh": 2.11956291030899,
+      "return_soc": 0.5289860199313355
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-015",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S008",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S008",
+            "box_ids": [
+              "S008-FOD-01",
+              "S008-MED-01",
+              "S008-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U05",
+      "battery_id": "B-BAT-01",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 390.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S008",
+          "payload_kg": 25.0,
+          "distance_m": 8079.033112423187,
+          "maximum_dem_m": 322.9093322753906,
+          "cruise_altitude_m": 372.9093322753906,
+          "climb_m": 245.20933227539064,
+          "descent_m": 102.00933227539065,
+          "equivalent_range_m": 18871.29070824723,
+          "horizontal_energy_kwh": 1.7124495059349483,
+          "climb_energy_kwh": 0.08349590619300207,
+          "climb_start_s": 390.0,
+          "climb_end_s": 471.7364440917969,
+          "cruise_start_s": 471.7364440917969,
+          "cruise_end_s": 1010.3386515866761,
+          "descent_start_s": 1010.3386515866761,
+          "descent_end_s": 1051.1423844968324
+        },
+        {
+          "start_id": "S008",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 8079.033112423187,
+          "maximum_dem_m": 322.9093322753906,
+          "cruise_altitude_m": 372.9093322753906,
+          "climb_m": 102.00933227539065,
+          "descent_m": 245.20933227539064,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 1.1541475874890268,
+          "climb_energy_kwh": 0.02508643448815582,
+          "climb_start_s": 1291.1423844968324,
+          "climb_end_s": 1325.1454952552958,
+          "cruise_start_s": 1325.1454952552958,
+          "cruise_end_s": 1863.747702750175,
+          "descent_start_s": 1863.747702750175,
+          "descent_end_s": 1961.8314356603312
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S008",
+          "box_ids": [
+            "S008-FOD-01",
+            "S008-MED-01",
+            "S008-WAT-01"
+          ],
+          "arrival_time_s": 1051.1423844968324,
+          "handover_start_s": 1051.1423844968324,
+          "handover_end_s": 1291.1423844968324,
+          "delivery_complete_time_s": 1291.1423844968324
+        }
+      ],
+      "return_o01_time_s": 1961.8314356603312,
+      "loaded_mass_kg": 25.0,
+      "loaded_volume_m3": 0.067,
+      "energy_kwh": 2.975179434105133,
+      "return_soc": 0.25620514147371676
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-016",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S007",
+          "S003",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S007",
+            "box_ids": [
+              "S007-MED-01"
+            ]
+          },
+          {
+            "service_id": "S003",
+            "box_ids": [
+              "S003-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U01",
+      "battery_id": "A-BAT-01",
+      "preparation_start_s": 1313.479,
+      "takeoff_time_s": 1673.479,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S007",
+          "payload_kg": 17.0,
+          "distance_m": 4534.460566816074,
+          "maximum_dem_m": 461.9731750488281,
+          "cruise_altitude_m": 511.9731750488281,
+          "climb_m": 384.27317504882814,
+          "descent_m": 163.47317504882812,
+          "equivalent_range_m": 22196.28817457999,
+          "horizontal_energy_kwh": 0.9193011187357432,
+          "climb_energy_kwh": 0.1264867400818115,
+          "climb_start_s": 1673.479,
+          "climb_end_s": 1801.5700583496093,
+          "cruise_start_s": 1801.5700583496093,
+          "cruise_end_s": 2179.441772250949,
+          "descent_start_s": 2179.441772250949,
+          "descent_end_s": 2244.83104227048
+        },
+        {
+          "start_id": "S007",
+          "end_id": "S003",
+          "payload_kg": 14.0,
+          "distance_m": 2734.2616228002607,
+          "maximum_dem_m": 360.6993408203125,
+          "cruise_altitude_m": 410.6993408203125,
+          "climb_m": 62.1993408203125,
+          "descent_m": 72.1993408203125,
+          "equivalent_range_m": 22904.67186340659,
+          "horizontal_energy_kwh": 0.537190725803796,
+          "climb_energy_kwh": 0.01976745444253992,
+          "climb_start_s": 2424.83104227048,
+          "climb_end_s": 2445.564155877251,
+          "cruise_start_s": 2445.564155877251,
+          "cruise_end_s": 2673.419291110606,
+          "descent_start_s": 2673.419291110606,
+          "descent_end_s": 2702.299027438731
+        },
+        {
+          "start_id": "S003",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 7263.1792565565,
+          "maximum_dem_m": 511.80413818359375,
+          "cruise_altitude_m": 561.8041381835938,
+          "climb_m": 223.30413818359375,
+          "descent_m": 434.10413818359376,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 1.3073722661801699,
+          "climb_energy_kwh": 0.0591398869098263,
+          "climb_start_s": 2882.299027438731,
+          "climb_end_s": 2956.733740166596,
+          "cruise_start_s": 2956.733740166596,
+          "cruise_end_s": 3561.998678212971,
+          "descent_start_s": 3561.998678212971,
+          "descent_end_s": 3735.6403334864085
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S007",
+          "box_ids": [
+            "S007-MED-01"
+          ],
+          "arrival_time_s": 2244.83104227048,
+          "handover_start_s": 2244.83104227048,
+          "handover_end_s": 2424.83104227048,
+          "delivery_complete_time_s": 2424.83104227048
+        },
+        {
+          "service_id": "S003",
+          "box_ids": [
+            "S003-WAT-01"
+          ],
+          "arrival_time_s": 2702.299027438731,
+          "handover_start_s": 2702.299027438731,
+          "handover_end_s": 2882.299027438731,
+          "delivery_complete_time_s": 2882.299027438731
+        }
+      ],
+      "return_o01_time_s": 3735.6403334864085,
+      "loaded_mass_kg": 17.0,
+      "loaded_volume_m3": 0.039,
+      "energy_kwh": 2.9692581921538865,
+      "return_soc": 0.3401648461880252
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-017",
+        "model_id": "C",
+        "route": [
+          "O01",
+          "S002",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S002",
+            "box_ids": [
+              "S002-HYG-01",
+              "S002-WAT-01",
+              "S002-WAT-02",
+              "S002-WAT-03",
+              "S002-WAT-04"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U08",
+      "battery_id": "C-BAT-03",
+      "preparation_start_s": 1626.17,
+      "takeoff_time_s": 2076.17,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S002",
+          "payload_kg": 62.0,
+          "distance_m": 7411.310455084183,
+          "maximum_dem_m": 258.9542541503906,
+          "cruise_altitude_m": 308.9542541503906,
+          "climb_m": 181.25425415039064,
+          "descent_m": 89.45425415039062,
+          "equivalent_range_m": 16448.301852549987,
+          "horizontal_energy_kwh": 3.604656831579342,
+          "climb_energy_kwh": 0.09045210588352322,
+          "climb_start_s": 2076.17,
+          "climb_end_s": 2148.6717016601565,
+          "cruise_start_s": 2148.6717016601565,
+          "cruise_end_s": 2642.7590653324355,
+          "descent_start_s": 2642.7590653324355,
+          "descent_end_s": 2687.486192407631
+        },
+        {
+          "start_id": "S002",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 7411.310455084183,
+          "maximum_dem_m": 258.9542541503906,
+          "cruise_altitude_m": 308.9542541503906,
+          "climb_m": 89.45425415039062,
+          "descent_m": 181.25425415039064,
+          "equivalent_range_m": 26000.0,
+          "horizontal_energy_kwh": 2.2804032169489794,
+          "climb_energy_kwh": 0.023657227872811954,
+          "climb_start_s": 3047.486192407631,
+          "climb_end_s": 3083.267894067787,
+          "cruise_start_s": 3083.267894067787,
+          "cruise_end_s": 3577.355257740066,
+          "descent_start_s": 3577.355257740066,
+          "descent_end_s": 3667.9823848152614
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S002",
+          "box_ids": [
+            "S002-HYG-01",
+            "S002-WAT-01",
+            "S002-WAT-02",
+            "S002-WAT-03",
+            "S002-WAT-04"
+          ],
+          "arrival_time_s": 2687.486192407631,
+          "handover_start_s": 2687.486192407631,
+          "handover_end_s": 3047.486192407631,
+          "delivery_complete_time_s": 3047.486192407631
+        }
+      ],
+      "return_o01_time_s": 3667.9823848152614,
+      "loaded_mass_kg": 62.0,
+      "loaded_volume_m3": 0.14300000000000002,
+      "energy_kwh": 5.999169382284657,
+      "return_soc": 0.25010382721441793
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-018",
+        "model_id": "C",
+        "route": [
+          "O01",
+          "S004",
+          "S005",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S004",
+            "box_ids": [
+              "S004-FOD-01",
+              "S004-HYG-01",
+              "S004-WAT-03"
+            ]
+          },
+          {
+            "service_id": "S005",
+            "box_ids": [
+              "S005-FOD-01",
+              "S005-HYG-01",
+              "S005-WAT-02"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U07",
+      "battery_id": "C-BAT-02",
+      "preparation_start_s": 3931.329,
+      "takeoff_time_s": 4411.329,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S004",
+          "payload_kg": 56.0,
+          "distance_m": 7714.6964491171675,
+          "maximum_dem_m": 348.2391662597656,
+          "cruise_altitude_m": 398.2391662597656,
+          "climb_m": 270.53916625976564,
+          "descent_m": 169.9391662597656,
+          "equivalent_range_m": 17800.73173996606,
+          "horizontal_energy_kwh": 3.467136772493995,
+          "climb_energy_kwh": 0.12886695176446275,
+          "climb_start_s": 4411.329,
+          "climb_end_s": 4519.544666503906,
+          "cruise_start_s": 4519.544666503906,
+          "cruise_end_s": 5033.857763111718,
+          "descent_start_s": 5033.857763111718,
+          "descent_end_s": 5118.827346241601
+        },
+        {
+          "start_id": "S004",
+          "end_id": "S005",
+          "payload_kg": 28.0,
+          "distance_m": 2608.141553464183,
+          "maximum_dem_m": 315.80657958984375,
+          "cruise_altitude_m": 365.80657958984375,
+          "climb_m": 137.50657958984374,
+          "descent_m": 170.80657958984375,
+          "equivalent_range_m": 23101.12090628119,
+          "horizontal_energy_kwh": 0.9032086586776937,
+          "climb_energy_kwh": 0.05093213124464937,
+          "climb_start_s": 5406.827346241601,
+          "climb_end_s": 5461.829978077539,
+          "cruise_start_s": 5461.829978077539,
+          "cruise_end_s": 5635.706081641818,
+          "descent_start_s": 5635.706081641818,
+          "descent_end_s": 5721.10937143674
+        },
+        {
+          "start_id": "S005",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 5280.606936873044,
+          "maximum_dem_m": 276.410888671875,
+          "cruise_altitude_m": 326.410888671875,
+          "climb_m": 131.410888671875,
+          "descent_m": 198.710888671875,
+          "equivalent_range_m": 26000.0,
+          "horizontal_energy_kwh": 1.624802134422475,
+          "climb_energy_kwh": 0.03475315252254769,
+          "climb_start_s": 6009.10937143674,
+          "climb_end_s": 6061.67372690549,
+          "cruise_start_s": 6061.67372690549,
+          "cruise_end_s": 6413.714189363694,
+          "descent_start_s": 6413.714189363694,
+          "descent_end_s": 6513.069633699631
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S004",
+          "box_ids": [
+            "S004-FOD-01",
+            "S004-HYG-01",
+            "S004-WAT-03"
+          ],
+          "arrival_time_s": 5118.827346241601,
+          "handover_start_s": 5118.827346241601,
+          "handover_end_s": 5406.827346241601,
+          "delivery_complete_time_s": 5406.827346241601
+        },
+        {
+          "service_id": "S005",
+          "box_ids": [
+            "S005-FOD-01",
+            "S005-HYG-01",
+            "S005-WAT-02"
+          ],
+          "arrival_time_s": 5721.10937143674,
+          "handover_start_s": 5721.10937143674,
+          "handover_end_s": 6009.10937143674,
+          "delivery_complete_time_s": 6009.10937143674
+        }
+      ],
+      "return_o01_time_s": 6513.069633699631,
+      "loaded_mass_kg": 56.0,
+      "loaded_volume_m3": 0.18,
+      "energy_kwh": 6.209699801125824,
+      "return_soc": 0.223787524859272
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-019",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S008",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S008",
+            "box_ids": [
+              "S008-HYG-01",
+              "S008-WAT-02"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U06",
+      "battery_id": "B-BAT-02",
+      "preparation_start_s": 3244.546,
+      "takeoff_time_s": 3604.546,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S008",
+          "payload_kg": 20.0,
+          "distance_m": 8079.033112423187,
+          "maximum_dem_m": 322.9093322753906,
+          "cruise_altitude_m": 372.9093322753906,
+          "climb_m": 245.20933227539064,
+          "descent_m": 102.00933227539065,
+          "equivalent_range_m": 21468.027352578192,
+          "horizontal_energy_kwh": 1.5053144808766865,
+          "climb_energy_kwh": 0.07885724473783529,
+          "climb_start_s": 3604.546,
+          "climb_end_s": 3686.2824440917966,
+          "cruise_start_s": 3686.2824440917966,
+          "cruise_end_s": 4224.884651586675,
+          "descent_start_s": 4224.884651586675,
+          "descent_end_s": 4265.6883844968315
+        },
+        {
+          "start_id": "S008",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 8079.033112423187,
+          "maximum_dem_m": 322.9093322753906,
+          "cruise_altitude_m": 372.9093322753906,
+          "climb_m": 102.00933227539065,
+          "descent_m": 245.20933227539064,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 1.1541475874890268,
+          "climb_energy_kwh": 0.02508643448815582,
+          "climb_start_s": 4475.6883844968315,
+          "climb_end_s": 4509.691495255295,
+          "cruise_start_s": 4509.691495255295,
+          "cruise_end_s": 5048.293702750174,
+          "descent_start_s": 5048.293702750174,
+          "descent_end_s": 5146.37743566033
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S008",
+          "box_ids": [
+            "S008-HYG-01",
+            "S008-WAT-02"
+          ],
+          "arrival_time_s": 4265.6883844968315,
+          "handover_start_s": 4265.6883844968315,
+          "handover_end_s": 4475.6883844968315,
+          "delivery_complete_time_s": 4475.6883844968315
+        }
+      ],
+      "return_o01_time_s": 5146.37743566033,
+      "loaded_mass_kg": 20.0,
+      "loaded_volume_m3": 0.062,
+      "energy_kwh": 2.7634057475917047,
+      "return_soc": 0.30914856310207384
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-020",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S006",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S006",
+            "box_ids": [
+              "S006-WAT-01",
+              "S006-WAT-02"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U06",
+      "battery_id": "B-BAT-02",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 360.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S006",
+          "payload_kg": 28.0,
+          "distance_m": 3186.208178413656,
+          "maximum_dem_m": 316.09783935546875,
+          "cruise_altitude_m": 366.09783935546875,
+          "climb_m": 238.39783935546876,
+          "descent_m": 51.29783935546874,
+          "equivalent_range_m": 17179.772029511885,
+          "horizontal_energy_kwh": 0.7418510962637455,
+          "climb_energy_kwh": 0.08388241818376682,
+          "climb_start_s": 360.0,
+          "climb_end_s": 439.4659464518229,
+          "cruise_start_s": 439.4659464518229,
+          "cruise_end_s": 651.8798250127332,
+          "descent_start_s": 651.8798250127332,
+          "descent_end_s": 672.3989607549207
+        },
+        {
+          "start_id": "S006",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 3186.208178413656,
+          "maximum_dem_m": 316.09783935546875,
+          "cruise_altitude_m": 366.09783935546875,
+          "climb_m": 51.29783935546874,
+          "descent_m": 238.39783935546876,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 0.4551725969162365,
+          "climb_energy_kwh": 0.012615315262536645,
+          "climb_start_s": 882.3989607549207,
+          "climb_end_s": 899.498240540077,
+          "cruise_start_s": 899.498240540077,
+          "cruise_end_s": 1111.9121191009874,
+          "descent_start_s": 1111.9121191009874,
+          "descent_end_s": 1207.271254843175
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S006",
+          "box_ids": [
+            "S006-WAT-01",
+            "S006-WAT-02"
+          ],
+          "arrival_time_s": 672.3989607549207,
+          "handover_start_s": 672.3989607549207,
+          "handover_end_s": 882.3989607549207,
+          "delivery_complete_time_s": 882.3989607549207
+        }
+      ],
+      "return_o01_time_s": 1207.271254843175,
+      "loaded_mass_kg": 28.0,
+      "loaded_volume_m3": 0.054,
+      "energy_kwh": 1.2935214266262856,
+      "return_soc": 0.6766196433434286
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-021",
+        "model_id": "C",
+        "route": [
+          "O01",
+          "S003",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S003",
+            "box_ids": [
+              "S003-FOD-01",
+              "S003-FOD-02",
+              "S003-HYG-01",
+              "S003-WAT-02",
+              "S003-WAT-03",
+              "S003-WAT-04"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U08",
+      "battery_id": "C-BAT-04",
+      "preparation_start_s": 3667.983,
+      "takeoff_time_s": 4147.983,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S003",
+          "payload_kg": 64.0,
+          "distance_m": 7263.1792565565,
+          "maximum_dem_m": 511.80413818359375,
+          "cruise_altitude_m": 561.8041381835938,
+          "climb_m": 434.10413818359376,
+          "descent_m": 223.30413818359375,
+          "equivalent_range_m": 15982.415460800941,
+          "horizontal_energy_kwh": 3.635585258996897,
+          "climb_energy_kwh": 0.21991769819658907,
+          "climb_start_s": 4147.983,
+          "climb_end_s": 4321.624655273437,
+          "cruise_start_s": 4321.624655273437,
+          "cruise_end_s": 4805.836605710538,
+          "descent_start_s": 4805.836605710538,
+          "descent_end_s": 4917.488674802335
+        },
+        {
+          "start_id": "S003",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 7263.1792565565,
+          "maximum_dem_m": 511.80413818359375,
+          "cruise_altitude_m": 561.8041381835938,
+          "climb_m": 223.30413818359375,
+          "descent_m": 434.10413818359376,
+          "equivalent_range_m": 26000.0,
+          "horizontal_energy_kwh": 2.234824386632769,
+          "climb_energy_kwh": 0.05905540135709797,
+          "climb_start_s": 5313.488674802335,
+          "climb_end_s": 5402.810330075772,
+          "cruise_start_s": 5402.810330075772,
+          "cruise_end_s": 5887.022280512872,
+          "descent_start_s": 5887.022280512872,
+          "descent_end_s": 6104.074349604669
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S003",
+          "box_ids": [
+            "S003-FOD-01",
+            "S003-FOD-02",
+            "S003-HYG-01",
+            "S003-WAT-02",
+            "S003-WAT-03",
+            "S003-WAT-04"
+          ],
+          "arrival_time_s": 4917.488674802335,
+          "handover_start_s": 4917.488674802335,
+          "handover_end_s": 5313.488674802335,
+          "delivery_complete_time_s": 5313.488674802335
+        }
+      ],
+      "return_o01_time_s": 6104.074349604669,
+      "loaded_mass_kg": 64.0,
+      "loaded_volume_m3": 0.17200000000000001,
+      "energy_kwh": 6.149382745183353,
+      "return_soc": 0.23132715685208083
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-022",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S006",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S006",
+            "box_ids": [
+              "S006-FOD-01",
+              "S006-HYG-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U05",
+      "battery_id": "B-BAT-01",
+      "preparation_start_s": 3917.744,
+      "takeoff_time_s": 4277.744000000001,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S006",
+          "payload_kg": 14.0,
+          "distance_m": 3186.208178413656,
+          "maximum_dem_m": 316.09783935546875,
+          "cruise_altitude_m": 366.09783935546875,
+          "climb_m": 238.39783935546876,
+          "descent_m": 51.29783935546874,
+          "equivalent_range_m": 24174.47171404175,
+          "horizontal_energy_kwh": 0.5272021190126683,
+          "climb_energy_kwh": 0.07125495738190944,
+          "climb_start_s": 4277.744000000001,
+          "climb_end_s": 4357.209946451823,
+          "cruise_start_s": 4357.209946451823,
+          "cruise_end_s": 4569.6238250127335,
+          "descent_start_s": 4569.6238250127335,
+          "descent_end_s": 4590.142960754921
+        },
+        {
+          "start_id": "S006",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 3186.208178413656,
+          "maximum_dem_m": 316.09783935546875,
+          "cruise_altitude_m": 366.09783935546875,
+          "climb_m": 51.29783935546874,
+          "descent_m": 238.39783935546876,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 0.4551725969162365,
+          "climb_energy_kwh": 0.012615315262536645,
+          "climb_start_s": 4800.142960754921,
+          "climb_end_s": 4817.242240540077,
+          "cruise_start_s": 4817.242240540077,
+          "cruise_end_s": 5029.656119100987,
+          "descent_start_s": 5029.656119100987,
+          "descent_end_s": 5125.015254843174
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S006",
+          "box_ids": [
+            "S006-FOD-01",
+            "S006-HYG-01"
+          ],
+          "arrival_time_s": 4590.142960754921,
+          "handover_start_s": 4590.142960754921,
+          "handover_end_s": 4800.142960754921,
+          "delivery_complete_time_s": 4800.142960754921
+        }
+      ],
+      "return_o01_time_s": 5125.015254843174,
+      "loaded_mass_kg": 14.0,
+      "loaded_volume_m3": 0.063,
+      "energy_kwh": 1.066244988573351,
+      "return_soc": 0.7334387528566623
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-023",
+        "model_id": "A",
+        "route": [
+          "O01",
+          "S005",
+          "S009",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S005",
+            "box_ids": [
+              "S005-WAT-01"
+            ]
+          },
+          {
+            "service_id": "S009",
+            "box_ids": [
+              "S009-FOD-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U02",
+      "battery_id": "A-BAT-01",
+      "preparation_start_s": 5093.427,
+      "takeoff_time_s": 5453.427,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S005",
+          "payload_kg": 22.0,
+          "distance_m": 5280.606936873044,
+          "maximum_dem_m": 276.410888671875,
+          "cruise_altitude_m": 326.410888671875,
+          "climb_m": 198.710888671875,
+          "descent_m": 131.410888671875,
+          "equivalent_range_m": 20872.43413135538,
+          "horizontal_energy_kwh": 1.1384743660650198,
+          "climb_energy_kwh": 0.06916639990287499,
+          "climb_start_s": 5453.427,
+          "climb_end_s": 5519.663962890625,
+          "cruise_start_s": 5519.663962890625,
+          "cruise_end_s": 5959.714540963379,
+          "descent_start_s": 5959.714540963379,
+          "descent_end_s": 6012.278896432129
+        },
+        {
+          "start_id": "S005",
+          "end_id": "S009",
+          "payload_kg": 8.0,
+          "distance_m": 2649.9225367927993,
+          "maximum_dem_m": 313.5632019042969,
+          "cruise_altitude_m": 363.5632019042969,
+          "climb_m": 168.56320190429688,
+          "descent_m": 133.56320190429688,
+          "equivalent_range_m": 24094.90332008122,
+          "horizontal_energy_kwh": 0.49490347635590354,
+          "climb_energy_kwh": 0.04974426900789825,
+          "climb_start_s": 6192.278896432129,
+          "climb_end_s": 6248.466630400228,
+          "cruise_start_s": 6248.466630400228,
+          "cruise_end_s": 6469.293508466294,
+          "descent_start_s": 6469.293508466294,
+          "descent_end_s": 6522.718789228013
+        },
+        {
+          "start_id": "S009",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 5705.144962277037,
+          "maximum_dem_m": 243.22891235351562,
+          "cruise_altitude_m": 293.2289123535156,
+          "climb_m": 63.228912353515625,
+          "descent_m": 165.52891235351564,
+          "equivalent_range_m": 25000.0,
+          "horizontal_energy_kwh": 1.0269260932098667,
+          "climb_energy_kwh": 0.016745550514356587,
+          "climb_start_s": 6702.718789228013,
+          "climb_end_s": 6723.7950933458515,
+          "cruise_start_s": 6723.7950933458515,
+          "cruise_end_s": 7199.223840202271,
+          "descent_start_s": 7199.223840202271,
+          "descent_end_s": 7265.435405143678
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S005",
+          "box_ids": [
+            "S005-WAT-01"
+          ],
+          "arrival_time_s": 6012.278896432129,
+          "handover_start_s": 6012.278896432129,
+          "handover_end_s": 6192.278896432129,
+          "delivery_complete_time_s": 6192.278896432129
+        },
+        {
+          "service_id": "S009",
+          "box_ids": [
+            "S009-FOD-01"
+          ],
+          "arrival_time_s": 6522.718789228013,
+          "handover_start_s": 6522.718789228013,
+          "handover_end_s": 6702.718789228013,
+          "delivery_complete_time_s": 6702.718789228013
+        }
+      ],
+      "return_o01_time_s": 7265.435405143678,
+      "loaded_mass_kg": 22.0,
+      "loaded_volume_m3": 0.055,
+      "energy_kwh": 2.79596015505592,
+      "return_soc": 0.3786755210986844
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-024",
+        "model_id": "C",
+        "route": [
+          "O01",
+          "S001",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S001",
+            "box_ids": [
+              "S001-FOD-01",
+              "S001-FOD-02",
+              "S001-FOD-03",
+              "S001-HYG-02",
+              "S001-MED-02",
+              "S001-WAT-01",
+              "S001-WAT-02",
+              "S001-WAT-05"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U08",
+      "battery_id": "C-BAT-02",
+      "preparation_start_s": 0.0,
+      "takeoff_time_s": 540.0,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S001",
+          "payload_kg": 75.0,
+          "distance_m": 3053.9788435184996,
+          "maximum_dem_m": 223.05661010742188,
+          "cruise_altitude_m": 273.0566101074219,
+          "climb_m": 145.3566101074219,
+          "descent_m": 89.05661010742188,
+          "equivalent_range_m": 13291.773395256914,
+          "horizontal_energy_kwh": 1.838116707351206,
+          "climb_energy_kwh": 0.07968725190350755,
+          "climb_start_s": 540.0,
+          "climb_end_s": 598.1426440429688,
+          "cruise_start_s": 598.1426440429688,
+          "cruise_end_s": 801.7412336108687,
+          "descent_start_s": 801.7412336108687,
+          "descent_end_s": 846.2695386645796
+        },
+        {
+          "start_id": "S001",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 3053.9788435184996,
+          "maximum_dem_m": 223.05661010742188,
+          "cruise_altitude_m": 273.0566101074219,
+          "climb_m": 89.05661010742188,
+          "descent_m": 145.3566101074219,
+          "equivalent_range_m": 26000.0,
+          "horizontal_energy_kwh": 0.9396857980056922,
+          "climb_energy_kwh": 0.023552066236553013,
+          "climb_start_s": 1314.2695386645796,
+          "climb_end_s": 1349.8921827075483,
+          "cruise_start_s": 1349.8921827075483,
+          "cruise_end_s": 1553.4907722754483,
+          "descent_start_s": 1553.4907722754483,
+          "descent_end_s": 1626.1690773291593
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S001",
+          "box_ids": [
+            "S001-FOD-01",
+            "S001-FOD-02",
+            "S001-FOD-03",
+            "S001-HYG-02",
+            "S001-MED-02",
+            "S001-WAT-01",
+            "S001-WAT-02",
+            "S001-WAT-05"
+          ],
+          "arrival_time_s": 846.2695386645796,
+          "handover_start_s": 846.2695386645796,
+          "handover_end_s": 1314.2695386645796,
+          "delivery_complete_time_s": 1314.2695386645796
+        }
+      ],
+      "return_o01_time_s": 1626.1690773291593,
+      "loaded_mass_kg": 75.0,
+      "loaded_volume_m3": 0.212,
+      "energy_kwh": 2.8810418234969584,
+      "return_soc": 0.6398697720628802
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-025",
+        "model_id": "C",
+        "route": [
+          "O01",
+          "S012",
+          "S013",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S012",
+            "box_ids": [
+              "S012-FOD-01",
+              "S012-MED-01",
+              "S012-WAT-01"
+            ]
+          },
+          {
+            "service_id": "S013",
+            "box_ids": [
+              "S013-WAT-01"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U07",
+      "battery_id": "C-BAT-01",
+      "preparation_start_s": 1560.17,
+      "takeoff_time_s": 1980.17,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S012",
+          "payload_kg": 39.0,
+          "distance_m": 7390.491686977874,
+          "maximum_dem_m": 363.3009948730469,
+          "cruise_altitude_m": 413.3009948730469,
+          "climb_m": 285.6009948730469,
+          "descent_m": 133.50099487304686,
+          "equivalent_range_m": 21234.703085063848,
+          "horizontal_energy_kwh": 2.7843070495960847,
+          "climb_energy_kwh": 0.11767203769478599,
+          "climb_start_s": 1980.17,
+          "climb_end_s": 2094.410397949219,
+          "cruise_start_s": 2094.410397949219,
+          "cruise_end_s": 2587.109843747744,
+          "descent_start_s": 2587.109843747744,
+          "descent_end_s": 2653.8603411842673
+        },
+        {
+          "start_id": "S012",
+          "end_id": "S013",
+          "payload_kg": 14.0,
+          "distance_m": 2855.2198847422064,
+          "maximum_dem_m": 386.5263671875,
+          "cruise_altitude_m": 436.5263671875,
+          "climb_m": 156.7263671875,
+          "descent_m": 84.82636718750001,
+          "equivalent_range_m": 24975.091467495757,
+          "horizontal_energy_kwh": 0.9145815985365032,
+          "climb_energy_kwh": 0.04974961294544097,
+          "climb_start_s": 2941.8603411842673,
+          "climb_end_s": 3004.5508880592674,
+          "cruise_start_s": 3004.5508880592674,
+          "cruise_end_s": 3194.8988803754146,
+          "descent_start_s": 3194.8988803754146,
+          "descent_end_s": 3237.3120639691647
+        },
+        {
+          "start_id": "S013",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 4849.242377230511,
+          "maximum_dem_m": 349.18182373046875,
+          "cruise_altitude_m": 399.18182373046875,
+          "climb_m": 47.48182373046876,
+          "descent_m": 271.48182373046876,
+          "equivalent_range_m": 26000.0,
+          "horizontal_energy_kwh": 1.492074577609388,
+          "climb_energy_kwh": 0.012557125812260594,
+          "climb_start_s": 3453.3120639691647,
+          "climb_end_s": 3472.3047934613523,
+          "cruise_start_s": 3472.3047934613523,
+          "cruise_end_s": 3795.587618610053,
+          "descent_start_s": 3795.587618610053,
+          "descent_end_s": 3931.3285304752876
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S012",
+          "box_ids": [
+            "S012-FOD-01",
+            "S012-MED-01",
+            "S012-WAT-01"
+          ],
+          "arrival_time_s": 2653.8603411842673,
+          "handover_start_s": 2653.8603411842673,
+          "handover_end_s": 2941.8603411842673,
+          "delivery_complete_time_s": 2941.8603411842673
+        },
+        {
+          "service_id": "S013",
+          "box_ids": [
+            "S013-WAT-01"
+          ],
+          "arrival_time_s": 3237.3120639691647,
+          "handover_start_s": 3237.3120639691647,
+          "handover_end_s": 3453.3120639691647,
+          "delivery_complete_time_s": 3453.3120639691647
+        }
+      ],
+      "return_o01_time_s": 3931.3285304752876,
+      "loaded_mass_kg": 39.0,
+      "loaded_volume_m3": 0.094,
+      "energy_kwh": 5.370942002194464,
+      "return_soc": 0.32863224972569205
+    },
+    {
+      "spec": {
+        "sortie_id": "Q2-026",
+        "model_id": "B",
+        "route": [
+          "O01",
+          "S004",
+          "O01"
+        ],
+        "deliveries": [
+          {
+            "service_id": "S004",
+            "box_ids": [
+              "S004-WAT-02"
+            ]
+          }
+        ]
+      },
+      "drone_id": "U06",
+      "battery_id": "B-BAT-03",
+      "preparation_start_s": 5146.378,
+      "takeoff_time_s": 5476.378,
+      "legs": [
+        {
+          "start_id": "O01",
+          "end_id": "S004",
+          "payload_kg": 14.0,
+          "distance_m": 7714.6964491171675,
+          "maximum_dem_m": 348.2391662597656,
+          "cruise_altitude_m": 398.2391662597656,
+          "climb_m": 270.53916625976564,
+          "descent_m": 169.9391662597656,
+          "equivalent_range_m": 24174.47171404175,
+          "horizontal_energy_kwh": 1.2765030053808513,
+          "climb_energy_kwh": 0.08086170920883684,
+          "climb_start_s": 5476.378,
+          "climb_end_s": 5566.557722086588,
+          "cruise_start_s": 5566.557722086588,
+          "cruise_end_s": 6080.8708186943995,
+          "descent_start_s": 6080.8708186943995,
+          "descent_end_s": 6148.846485198305
+        },
+        {
+          "start_id": "S004",
+          "end_id": "O01",
+          "payload_kg": 0.0,
+          "distance_m": 7714.6964491171675,
+          "maximum_dem_m": 348.2391662597656,
+          "cruise_altitude_m": 398.2391662597656,
+          "climb_m": 169.9391662597656,
+          "descent_m": 270.53916625976564,
+          "equivalent_range_m": 28000.0,
+          "horizontal_energy_kwh": 1.102099492731024,
+          "climb_energy_kwh": 0.04179193870065065,
+          "climb_start_s": 6328.846485198305,
+          "climb_end_s": 6385.492873951561,
+          "cruise_start_s": 6385.492873951561,
+          "cruise_end_s": 6899.805970559372,
+          "descent_start_s": 6899.805970559372,
+          "descent_end_s": 7008.021637063279
+        }
+      ],
+      "stops": [
+        {
+          "service_id": "S004",
+          "box_ids": [
+            "S004-WAT-02"
+          ],
+          "arrival_time_s": 6148.846485198305,
+          "handover_start_s": 6148.846485198305,
+          "handover_end_s": 6328.846485198305,
+          "delivery_complete_time_s": 6328.846485198305
+        }
+      ],
+      "return_o01_time_s": 7008.021637063279,
+      "loaded_mass_kg": 14.0,
+      "loaded_volume_m3": 0.027,
+      "energy_kwh": 2.5012561460213627,
+      "return_soc": 0.3746859634946593
+    }
+  ],
+  "box_deliveries": [
+    {
+      "box_id": "S014-FOD-01",
+      "sortie_id": "Q2-001",
+      "service_id": "S014",
+      "delivery_complete_time_s": 3342.9145724943237,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S014-WAT-01",
+      "sortie_id": "Q2-001",
+      "service_id": "S014",
+      "delivery_complete_time_s": 3342.9145724943237,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-MED-01",
+      "sortie_id": "Q2-002",
+      "service_id": "S002",
+      "delivery_complete_time_s": 1283.8089909673017,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 24.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S004-MED-01",
+      "sortie_id": "Q2-002",
+      "service_id": "S004",
+      "delivery_complete_time_s": 1761.339814774521,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 7200,
+      "emergency_priority": 20.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S004-WAT-01",
+      "sortie_id": "Q2-002",
+      "service_id": "S004",
+      "delivery_complete_time_s": 1761.339814774521,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 7200,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S014-MED-01",
+      "sortie_id": "Q2-003",
+      "service_id": "S014",
+      "delivery_complete_time_s": 3504.770572494324,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 22.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S011-FOD-01",
+      "sortie_id": "Q2-003",
+      "service_id": "S011",
+      "delivery_complete_time_s": 4560.522840940934,
+      "desired_delivery_s": 14400.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 6.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S011-MED-01",
+      "sortie_id": "Q2-003",
+      "service_id": "S011",
+      "delivery_complete_time_s": 4560.522840940934,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": 10800,
+      "emergency_priority": 16.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S013-FOD-01",
+      "sortie_id": "Q2-004",
+      "service_id": "S013",
+      "delivery_complete_time_s": 4295.181202171552,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S010-FOD-01",
+      "sortie_id": "Q2-004",
+      "service_id": "S010",
+      "delivery_complete_time_s": 4701.8488569019355,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-FOD-01",
+      "sortie_id": "Q2-005",
+      "service_id": "S002",
+      "delivery_complete_time_s": 6225.3031500492325,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S009-WAT-01",
+      "sortie_id": "Q2-006",
+      "service_id": "S009",
+      "delivery_complete_time_s": 5985.244615915664,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": 10800,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-FOD-02",
+      "sortie_id": "Q2-006",
+      "service_id": "S002",
+      "delivery_complete_time_s": 6385.233760086038,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S007-HYG-01",
+      "sortie_id": "Q2-007",
+      "service_id": "S007",
+      "delivery_complete_time_s": 3027.6096994902123,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S007-WAT-01",
+      "sortie_id": "Q2-007",
+      "service_id": "S007",
+      "delivery_complete_time_s": 3027.6096994902123,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S006-MED-01",
+      "sortie_id": "Q2-008",
+      "service_id": "S006",
+      "delivery_complete_time_s": 935.5024303951484,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 24.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S006-WAT-03",
+      "sortie_id": "Q2-008",
+      "service_id": "S006",
+      "delivery_complete_time_s": 935.5024303951484,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S013-MED-01",
+      "sortie_id": "Q2-009",
+      "service_id": "S013",
+      "delivery_complete_time_s": 1083.590202171553,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 24.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S010-MED-01",
+      "sortie_id": "Q2-009",
+      "service_id": "S010",
+      "delivery_complete_time_s": 1520.2578569019354,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 24.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S010-WAT-01",
+      "sortie_id": "Q2-009",
+      "service_id": "S010",
+      "delivery_complete_time_s": 1520.2578569019354,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S009-MED-01",
+      "sortie_id": "Q2-010",
+      "service_id": "S009",
+      "delivery_complete_time_s": 1125.8966159156646,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": 10800,
+      "emergency_priority": 16.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S005-MED-01",
+      "sortie_id": "Q2-010",
+      "service_id": "S005",
+      "delivery_complete_time_s": 1668.6698420448824,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": 10800,
+      "emergency_priority": 16.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S005-WAT-03",
+      "sortie_id": "Q2-010",
+      "service_id": "S005",
+      "delivery_complete_time_s": 1668.6698420448824,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-MED-01",
+      "sortie_id": "Q2-011",
+      "service_id": "S003",
+      "delivery_complete_time_s": 5144.928972714344,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 7200,
+      "emergency_priority": 20.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S015-MED-01",
+      "sortie_id": "Q2-011",
+      "service_id": "S015",
+      "delivery_complete_time_s": 5628.118715269023,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 7200,
+      "emergency_priority": 18.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S015-WAT-01",
+      "sortie_id": "Q2-011",
+      "service_id": "S015",
+      "delivery_complete_time_s": 5628.118715269023,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": 10800,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-HYG-01",
+      "sortie_id": "Q2-012",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1248.2695386645796,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-MED-01",
+      "sortie_id": "Q2-012",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1248.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 24.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-03",
+      "sortie_id": "Q2-012",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1248.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-04",
+      "sortie_id": "Q2-012",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1248.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-06",
+      "sortie_id": "Q2-012",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1248.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-07",
+      "sortie_id": "Q2-012",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1248.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-08",
+      "sortie_id": "Q2-012",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1248.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S007-WAT-02",
+      "sortie_id": "Q2-013",
+      "service_id": "S007",
+      "delivery_complete_time_s": 2243.049699490212,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S015-FOD-01",
+      "sortie_id": "Q2-013",
+      "service_id": "S015",
+      "delivery_complete_time_s": 2633.847017737512,
+      "desired_delivery_s": 14400.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 6.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S011-WAT-01",
+      "sortie_id": "Q2-014",
+      "service_id": "S011",
+      "delivery_complete_time_s": 6114.942139995605,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": 10800,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S007-FOD-01",
+      "sortie_id": "Q2-014",
+      "service_id": "S007",
+      "delivery_complete_time_s": 6643.073105977863,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S008-FOD-01",
+      "sortie_id": "Q2-015",
+      "service_id": "S008",
+      "delivery_complete_time_s": 1291.1423844968324,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S008-MED-01",
+      "sortie_id": "Q2-015",
+      "service_id": "S008",
+      "delivery_complete_time_s": 1291.1423844968324,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 7200,
+      "emergency_priority": 20.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S008-WAT-01",
+      "sortie_id": "Q2-015",
+      "service_id": "S008",
+      "delivery_complete_time_s": 1291.1423844968324,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 7200,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S007-MED-01",
+      "sortie_id": "Q2-016",
+      "service_id": "S007",
+      "delivery_complete_time_s": 2424.83104227048,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 24.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-WAT-01",
+      "sortie_id": "Q2-016",
+      "service_id": "S003",
+      "delivery_complete_time_s": 2882.299027438731,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 7200,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-HYG-01",
+      "sortie_id": "Q2-017",
+      "service_id": "S002",
+      "delivery_complete_time_s": 3047.486192407631,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-WAT-01",
+      "sortie_id": "Q2-017",
+      "service_id": "S002",
+      "delivery_complete_time_s": 3047.486192407631,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-WAT-02",
+      "sortie_id": "Q2-017",
+      "service_id": "S002",
+      "delivery_complete_time_s": 3047.486192407631,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-WAT-03",
+      "sortie_id": "Q2-017",
+      "service_id": "S002",
+      "delivery_complete_time_s": 3047.486192407631,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S002-WAT-04",
+      "sortie_id": "Q2-017",
+      "service_id": "S002",
+      "delivery_complete_time_s": 3047.486192407631,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S004-FOD-01",
+      "sortie_id": "Q2-018",
+      "service_id": "S004",
+      "delivery_complete_time_s": 5406.827346241601,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S004-HYG-01",
+      "sortie_id": "Q2-018",
+      "service_id": "S004",
+      "delivery_complete_time_s": 5406.827346241601,
+      "desired_delivery_s": 14400.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 6.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S004-WAT-03",
+      "sortie_id": "Q2-018",
+      "service_id": "S004",
+      "delivery_complete_time_s": 5406.827346241601,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S005-FOD-01",
+      "sortie_id": "Q2-018",
+      "service_id": "S005",
+      "delivery_complete_time_s": 6009.10937143674,
+      "desired_delivery_s": 14400.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 6.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S005-HYG-01",
+      "sortie_id": "Q2-018",
+      "service_id": "S005",
+      "delivery_complete_time_s": 6009.10937143674,
+      "desired_delivery_s": 18000.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 4.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S005-WAT-02",
+      "sortie_id": "Q2-018",
+      "service_id": "S005",
+      "delivery_complete_time_s": 6009.10937143674,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S008-HYG-01",
+      "sortie_id": "Q2-019",
+      "service_id": "S008",
+      "delivery_complete_time_s": 4475.6883844968315,
+      "desired_delivery_s": 14400.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 6.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S008-WAT-02",
+      "sortie_id": "Q2-019",
+      "service_id": "S008",
+      "delivery_complete_time_s": 4475.6883844968315,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S006-WAT-01",
+      "sortie_id": "Q2-020",
+      "service_id": "S006",
+      "delivery_complete_time_s": 882.3989607549207,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S006-WAT-02",
+      "sortie_id": "Q2-020",
+      "service_id": "S006",
+      "delivery_complete_time_s": 882.3989607549207,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-FOD-01",
+      "sortie_id": "Q2-021",
+      "service_id": "S003",
+      "delivery_complete_time_s": 5313.488674802335,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-FOD-02",
+      "sortie_id": "Q2-021",
+      "service_id": "S003",
+      "delivery_complete_time_s": 5313.488674802335,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-HYG-01",
+      "sortie_id": "Q2-021",
+      "service_id": "S003",
+      "delivery_complete_time_s": 5313.488674802335,
+      "desired_delivery_s": 14400.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 6.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-WAT-02",
+      "sortie_id": "Q2-021",
+      "service_id": "S003",
+      "delivery_complete_time_s": 5313.488674802335,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-WAT-03",
+      "sortie_id": "Q2-021",
+      "service_id": "S003",
+      "delivery_complete_time_s": 5313.488674802335,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S003-WAT-04",
+      "sortie_id": "Q2-021",
+      "service_id": "S003",
+      "delivery_complete_time_s": 5313.488674802335,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S006-FOD-01",
+      "sortie_id": "Q2-022",
+      "service_id": "S006",
+      "delivery_complete_time_s": 4800.142960754921,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S006-HYG-01",
+      "sortie_id": "Q2-022",
+      "service_id": "S006",
+      "delivery_complete_time_s": 4800.142960754921,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S005-WAT-01",
+      "sortie_id": "Q2-023",
+      "service_id": "S005",
+      "delivery_complete_time_s": 6192.278896432129,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": 10800,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S009-FOD-01",
+      "sortie_id": "Q2-023",
+      "service_id": "S009",
+      "delivery_complete_time_s": 6702.718789228013,
+      "desired_delivery_s": 14400.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 6.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-FOD-01",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-FOD-02",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-FOD-03",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-HYG-02",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 10800.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 8.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-MED-02",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 24.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-01",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-02",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S001-WAT-05",
+      "sortie_id": "Q2-024",
+      "service_id": "S001",
+      "delivery_complete_time_s": 1314.2695386645796,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S012-FOD-01",
+      "sortie_id": "Q2-025",
+      "service_id": "S012",
+      "delivery_complete_time_s": 2941.8603411842673,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S012-MED-01",
+      "sortie_id": "Q2-025",
+      "service_id": "S012",
+      "delivery_complete_time_s": 2941.8603411842673,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 22.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S012-WAT-01",
+      "sortie_id": "Q2-025",
+      "service_id": "S012",
+      "delivery_complete_time_s": 2941.8603411842673,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S013-WAT-01",
+      "sortie_id": "Q2-025",
+      "service_id": "S013",
+      "delivery_complete_time_s": 3453.3120639691647,
+      "desired_delivery_s": 3600.0,
+      "first_batch_deadline_s": 3600,
+      "emergency_priority": 12.0,
+      "weighted_tardiness": 0.0
+    },
+    {
+      "box_id": "S004-WAT-02",
+      "sortie_id": "Q2-026",
+      "service_id": "S004",
+      "delivery_complete_time_s": 6328.846485198305,
+      "desired_delivery_s": 7200.0,
+      "first_batch_deadline_s": null,
+      "emergency_priority": 10.0,
+      "weighted_tardiness": 0.0
+    }
+  ],
+  "battery_uses": [
+    {
+      "battery_id": "A-BAT-06",
+      "model_id": "A",
+      "sortie_id": "Q2-001",
+      "use_start_s": 2070.153,
+      "use_end_s": 4060.5628116553144,
+      "start_soc": 1.0,
+      "return_soc": 0.4734722115983051
+    },
+    {
+      "battery_id": "A-BAT-05",
+      "model_id": "A",
+      "sortie_id": "Q2-002",
+      "use_start_s": 0.0,
+      "use_end_s": 2569.0932407914465,
+      "start_soc": 1.0,
+      "return_soc": 0.21210360631264225
+    },
+    {
+      "battery_id": "A-BAT-04",
+      "model_id": "A",
+      "sortie_id": "Q2-003",
+      "use_start_s": 2232.009,
+      "use_end_s": 4889.3476476032065,
+      "start_soc": 1.0,
+      "return_soc": 0.2923694561934833
+    },
+    {
+      "battery_id": "A-BAT-03",
+      "model_id": "A",
+      "sortie_id": "Q2-004",
+      "use_start_s": 3241.591,
+      "use_end_s": 5251.74355401156,
+      "start_soc": 1.0,
+      "return_soc": 0.5007357906880574
+    },
+    {
+      "battery_id": "B-BAT-04",
+      "model_id": "B",
+      "sortie_id": "Q2-005",
+      "use_start_s": 5125.016,
+      "use_end_s": 6821.710300098464,
+      "start_soc": 1.0,
+      "return_soc": 0.43600490517071755
+    },
+    {
+      "battery_id": "A-BAT-05",
+      "model_id": "A",
+      "sortie_id": "Q2-006",
+      "use_start_s": 4889.348,
+      "use_end_s": 7105.16275105334,
+      "start_soc": 1.0,
+      "return_soc": 0.33412656751624525
+    },
+    {
+      "battery_id": "B-BAT-04",
+      "model_id": "B",
+      "sortie_id": "Q2-007",
+      "use_start_s": 1961.832,
+      "use_end_s": 3538.1073989804245,
+      "start_soc": 1.0,
+      "return_soc": 0.5858905324752608
+    },
+    {
+      "battery_id": "A-BAT-04",
+      "model_id": "A",
+      "sortie_id": "Q2-008",
+      "use_start_s": 0.0,
+      "use_end_s": 1313.4781941236301,
+      "start_soc": 1.0,
+      "return_soc": 0.7085478091317483
+    },
+    {
+      "battery_id": "A-BAT-03",
+      "model_id": "A",
+      "sortie_id": "Q2-009",
+      "use_start_s": 0.0,
+      "use_end_s": 2070.152554011561,
+      "start_soc": 1.0,
+      "return_soc": 0.4835093226128603
+    },
+    {
+      "battery_id": "A-BAT-02",
+      "model_id": "A",
+      "sortie_id": "Q2-010",
+      "use_start_s": 0.0,
+      "use_end_s": 2232.008405143678,
+      "start_soc": 1.0,
+      "return_soc": 0.3730427647361244
+    },
+    {
+      "battery_id": "A-BAT-02",
+      "model_id": "A",
+      "sortie_id": "Q2-011",
+      "use_start_s": 3735.641,
+      "use_end_s": 6338.973416842849,
+      "start_soc": 1.0,
+      "return_soc": 0.25320046241326644
+    },
+    {
+      "battery_id": "C-BAT-04",
+      "model_id": "C",
+      "sortie_id": "Q2-012",
+      "use_start_s": 0.0,
+      "use_end_s": 1560.1690773291593,
+      "start_soc": 1.0,
+      "return_soc": 0.6202924282846565
+    },
+    {
+      "battery_id": "B-BAT-03",
+      "model_id": "B",
+      "sortie_id": "Q2-013",
+      "use_start_s": 1207.272,
+      "use_end_s": 3244.545336451,
+      "start_soc": 1.0,
+      "return_soc": 0.4312982807860709
+    },
+    {
+      "battery_id": "A-BAT-06",
+      "model_id": "A",
+      "sortie_id": "Q2-014",
+      "use_start_s": 5251.744,
+      "use_end_s": 7229.1451482483435,
+      "start_soc": 1.0,
+      "return_soc": 0.5289860199313355
+    },
+    {
+      "battery_id": "B-BAT-01",
+      "model_id": "B",
+      "sortie_id": "Q2-015",
+      "use_start_s": 0.0,
+      "use_end_s": 1961.8314356603312,
+      "start_soc": 1.0,
+      "return_soc": 0.25620514147371676
+    },
+    {
+      "battery_id": "A-BAT-01",
+      "model_id": "A",
+      "sortie_id": "Q2-016",
+      "use_start_s": 1313.479,
+      "use_end_s": 3735.6403334864085,
+      "start_soc": 1.0,
+      "return_soc": 0.3401648461880252
+    },
+    {
+      "battery_id": "C-BAT-03",
+      "model_id": "C",
+      "sortie_id": "Q2-017",
+      "use_start_s": 1626.17,
+      "use_end_s": 3667.9823848152614,
+      "start_soc": 1.0,
+      "return_soc": 0.25010382721441793
+    },
+    {
+      "battery_id": "C-BAT-02",
+      "model_id": "C",
+      "sortie_id": "Q2-018",
+      "use_start_s": 3931.329,
+      "use_end_s": 6513.069633699631,
+      "start_soc": 1.0,
+      "return_soc": 0.223787524859272
+    },
+    {
+      "battery_id": "B-BAT-02",
+      "model_id": "B",
+      "sortie_id": "Q2-019",
+      "use_start_s": 3244.546,
+      "use_end_s": 5146.37743566033,
+      "start_soc": 1.0,
+      "return_soc": 0.30914856310207384
+    },
+    {
+      "battery_id": "B-BAT-02",
+      "model_id": "B",
+      "sortie_id": "Q2-020",
+      "use_start_s": 0.0,
+      "use_end_s": 1207.271254843175,
+      "start_soc": 1.0,
+      "return_soc": 0.6766196433434286
+    },
+    {
+      "battery_id": "C-BAT-04",
+      "model_id": "C",
+      "sortie_id": "Q2-021",
+      "use_start_s": 3667.983,
+      "use_end_s": 6104.074349604669,
+      "start_soc": 1.0,
+      "return_soc": 0.23132715685208083
+    },
+    {
+      "battery_id": "B-BAT-01",
+      "model_id": "B",
+      "sortie_id": "Q2-022",
+      "use_start_s": 3917.744,
+      "use_end_s": 5125.015254843174,
+      "start_soc": 1.0,
+      "return_soc": 0.7334387528566623
+    },
+    {
+      "battery_id": "A-BAT-01",
+      "model_id": "A",
+      "sortie_id": "Q2-023",
+      "use_start_s": 5093.427,
+      "use_end_s": 7265.435405143678,
+      "start_soc": 1.0,
+      "return_soc": 0.3786755210986844
+    },
+    {
+      "battery_id": "C-BAT-02",
+      "model_id": "C",
+      "sortie_id": "Q2-024",
+      "use_start_s": 0.0,
+      "use_end_s": 1626.1690773291593,
+      "start_soc": 1.0,
+      "return_soc": 0.6398697720628802
+    },
+    {
+      "battery_id": "C-BAT-01",
+      "model_id": "C",
+      "sortie_id": "Q2-025",
+      "use_start_s": 1560.17,
+      "use_end_s": 3931.3285304752876,
+      "start_soc": 1.0,
+      "return_soc": 0.32863224972569205
+    },
+    {
+      "battery_id": "B-BAT-03",
+      "model_id": "B",
+      "sortie_id": "Q2-026",
+      "use_start_s": 5146.378,
+      "use_end_s": 7008.021637063279,
+      "start_soc": 1.0,
+      "return_soc": 0.3746859634946593
+    }
+  ],
+  "charge_events": [
+    {
+      "battery_id": "A-BAT-06",
+      "model_id": "A",
+      "sortie_id": "Q2-001",
+      "charge_start_s": 4060.5628116553144,
+      "charge_end_s": 5245.048936577517,
+      "return_soc": 0.4734722115983051
+    },
+    {
+      "battery_id": "A-BAT-05",
+      "model_id": "A",
+      "sortie_id": "Q2-002",
+      "charge_start_s": 2569.0932407914465,
+      "charge_end_s": 4093.3585525850117,
+      "return_soc": 0.21210360631264225
+    },
+    {
+      "battery_id": "A-BAT-04",
+      "model_id": "A",
+      "sortie_id": "Q2-003",
+      "charge_start_s": 4889.3476476032065,
+      "charge_end_s": 6309.267354551678,
+      "return_soc": 0.2923694561934833
+    },
+    {
+      "battery_id": "A-BAT-03",
+      "model_id": "A",
+      "sortie_id": "Q2-004",
+      "charge_start_s": 5251.74355401156,
+      "charge_end_s": 6400.787026117086,
+      "return_soc": 0.5007357906880574
+    },
+    {
+      "battery_id": "B-BAT-04",
+      "model_id": "B",
+      "sortie_id": "Q2-005",
+      "charge_start_s": 6821.710300098464,
+      "charge_end_s": 8465.96846446922,
+      "return_soc": 0.43600490517071755
+    },
+    {
+      "battery_id": "A-BAT-05",
+      "model_id": "A",
+      "sortie_id": "Q2-006",
+      "charge_start_s": 7105.16275105334,
+      "charge_end_s": 8470.798213282222,
+      "return_soc": 0.33412656751624525
+    },
+    {
+      "battery_id": "B-BAT-04",
+      "model_id": "B",
+      "sortie_id": "Q2-007",
+      "charge_start_s": 3538.1073989804245,
+      "charge_end_s": 4922.5638093566395,
+      "return_soc": 0.5858905324752608
+    },
+    {
+      "battery_id": "A-BAT-04",
+      "model_id": "A",
+      "sortie_id": "Q2-008",
+      "charge_start_s": 1313.4781941236301,
+      "charge_end_s": 2192.366042252357,
+      "return_soc": 0.7085478091317483
+    },
+    {
+      "battery_id": "A-BAT-03",
+      "model_id": "A",
+      "sortie_id": "Q2-009",
+      "charge_start_s": 2070.152554011561,
+      "charge_end_s": 3241.5904346148427,
+      "return_soc": 0.4835093226128603
+    },
+    {
+      "battery_id": "A-BAT-02",
+      "model_id": "A",
+      "sortie_id": "Q2-010",
+      "charge_start_s": 2232.008405143678,
+      "charge_end_s": 3547.0528109867164,
+      "return_soc": 0.3730427647361244
+    },
+    {
+      "battery_id": "A-BAT-02",
+      "model_id": "A",
+      "sortie_id": "Q2-011",
+      "charge_start_s": 6338.973416842849,
+      "charge_end_s": 7809.812815705603,
+      "return_soc": 0.25320046241326644
+    },
+    {
+      "battery_id": "C-BAT-04",
+      "model_id": "C",
+      "sortie_id": "Q2-012",
+      "charge_start_s": 1560.1690773291593,
+      "charge_end_s": 3216.20214937907,
+      "return_soc": 0.6202924282846565
+    },
+    {
+      "battery_id": "B-BAT-03",
+      "model_id": "B",
+      "sortie_id": "Q2-013",
+      "charge_start_s": 3244.545336451,
+      "charge_end_s": 4896.961649755143,
+      "return_soc": 0.4312982807860709
+    },
+    {
+      "battery_id": "A-BAT-06",
+      "model_id": "A",
+      "sortie_id": "Q2-014",
+      "charge_start_s": 7229.1451482483435,
+      "charge_end_s": 8341.463322337608,
+      "return_soc": 0.5289860199313355
+    },
+    {
+      "battery_id": "B-BAT-01",
+      "model_id": "B",
+      "sortie_id": "Q2-015",
+      "charge_start_s": 1961.8314356603312,
+      "charge_end_s": 3917.7425237725556,
+      "return_soc": 0.25620514147371676
+    },
+    {
+      "battery_id": "A-BAT-01",
+      "model_id": "A",
+      "sortie_id": "Q2-016",
+      "charge_start_s": 3735.6403334864085,
+      "charge_end_s": 5093.426033441976,
+      "return_soc": 0.3401648461880252
+    },
+    {
+      "battery_id": "C-BAT-03",
+      "model_id": "C",
+      "sortie_id": "Q2-017",
+      "charge_start_s": 3667.9823848152614,
+      "charge_end_s": 6126.090759184022,
+      "return_soc": 0.25010382721441793
+    },
+    {
+      "battery_id": "C-BAT-02",
+      "model_id": "C",
+      "sortie_id": "Q2-018",
+      "charge_start_s": 6513.069633699631,
+      "charge_end_s": 9028.196663171208,
+      "return_soc": 0.223787524859272
+    },
+    {
+      "battery_id": "B-BAT-02",
+      "model_id": "B",
+      "sortie_id": "Q2-019",
+      "charge_start_s": 5146.37743566033,
+      "charge_end_s": 7010.519926283402,
+      "return_soc": 0.30914856310207384
+    },
+    {
+      "battery_id": "B-BAT-02",
+      "model_id": "B",
+      "sortie_id": "Q2-020",
+      "charge_start_s": 1207.271254843175,
+      "charge_end_s": 2434.463873047899,
+      "return_soc": 0.6766196433434286
+    },
+    {
+      "battery_id": "C-BAT-04",
+      "model_id": "C",
+      "sortie_id": "Q2-021",
+      "charge_start_s": 6104.074349604669,
+      "charge_end_s": 8602.865509758494,
+      "return_soc": 0.23132715685208083
+    },
+    {
+      "battery_id": "B-BAT-01",
+      "model_id": "B",
+      "sortie_id": "Q2-022",
+      "charge_start_s": 5125.015254843174,
+      "charge_end_s": 6253.721416558293,
+      "return_soc": 0.7334387528566623
+    },
+    {
+      "battery_id": "A-BAT-01",
+      "model_id": "A",
+      "sortie_id": "Q2-023",
+      "charge_start_s": 7265.435405143678,
+      "charge_end_s": 8573.157227715388,
+      "return_soc": 0.3786755210986844
+    },
+    {
+      "battery_id": "C-BAT-02",
+      "model_id": "C",
+      "sortie_id": "Q2-024",
+      "charge_start_s": 1626.1690773291593,
+      "charge_end_s": 3239.7845711929185,
+      "return_soc": 0.6398697720628802
+    },
+    {
+      "battery_id": "C-BAT-01",
+      "model_id": "C",
+      "sortie_id": "Q2-025",
+      "charge_start_s": 3931.3285304752876,
+      "charge_end_s": 6219.291989402955,
+      "return_soc": 0.32863224972569205
+    },
+    {
+      "battery_id": "B-BAT-03",
+      "model_id": "B",
+      "sortie_id": "Q2-026",
+      "charge_start_s": 7008.021637063279,
+      "charge_end_s": 8758.56596700587,
+      "return_soc": 0.3746859634946593
+    }
+  ],
+  "objective": {
+    "weighted_tardiness": 0.0,
+    "normalized_weighted_tardiness": 0.0,
+    "makespan_s": 7265.435405143678,
+    "total_energy_kwh": 78.47952449430414,
+    "sortie_count": 26
+  },
+  "search_seconds": 176.84400000001187,
+  "pareto_count": 3,
+  "energy_model_status": "project modeling assumption; not official component formulas",
+  "cp_sat_status": "FEASIBLE",
+  "search_pareto_count": 0,
+  "validation_passed": true,
+  "model_counts": {
+    "A": 12,
+    "B": 8,
+    "C": 6
+  },
+  "used_drone_ids": [
+    "U01",
+    "U02",
+    "U03",
+    "U04",
+    "U05",
+    "U06",
+    "U07",
+    "U08"
+  ],
+  "used_batteries_by_model": {
+    "A": 6,
+    "B": 4,
+    "C": 4
+  },
+  "algorithm_version": "Q2-v2",
+  "selection_method": "epsilon_makespan",
+  "epsilon_level": 0.05,
+  "candidate_epsilon_level": 0.0,
+  "primary_objectives": [
+    0.0,
+    7265.435405143678
+  ],
+  "secondary_objectives": [
+    78.47952449430414,
+    26
+  ],
+  "selected_candidate_id": "CP-015",
+  "j1_best_found": 0.0,
+  "epsilon_results": {
+    "0.0": "CP-015",
+    "0.02": "CP-015",
+    "0.05": "CP-015",
+    "0.1": "CP-015"
+  },
+  "pareto_candidates": [
+    {
+      "candidate_id": "CP-015",
+      "seed": 20260925,
+      "epsilon_level": 0.0,
+      "weighted_tardiness": 0.0,
+      "normalized_weighted_tardiness": 0.0,
+      "makespan_s": 7265.435405143678,
+      "total_energy_kwh": 78.47952449430414,
+      "sortie_count": 26,
+      "cp_sat_status": "FEASIBLE",
+      "route_signature": "A:O01→S014→O01:S014-FOD-01,S014-WAT-01; A:O01→S002→S004→O01:S002-MED-01,S004-MED-01,S004-WAT-01; A:O01→S014→S011→O01:S014-MED-01,S011-FOD-01,S011-MED-01; A:O01→S013→S010→O01:S013-FOD-01,S010-FOD-01; B:O01→S002→O01:S002-FOD-01; A:O01→S009→S002→O01:S009-WAT-01,S002-FOD-02; B:O01→S007→O01:S007-HYG-01,S007-WAT-01; A:O01→S006→O01:S006-MED-01,S006-WAT-03; A:O01→S013→S010→O01:S013-MED-01,S010-MED-01,S010-WAT-01; A:O01→S009→S005→O01:S009-MED-01,S005-MED-01,S005-WAT-03; A:O01→S003→S015→O01:S003-MED-01,S015-MED-01,S015-WAT-01; C:O01→S001→O01:S001-HYG-01,S001-MED-01,S001-WAT-03,S001-WAT-04,S001-WAT-06,S001-WAT-07,S001-WAT-08; B:O01→S007→S015→O01:S007-WAT-02,S015-FOD-01; A:O01→S011→S007→O01:S011-WAT-01,S007-FOD-01; B:O01→S008→O01:S008-FOD-01,S008-MED-01,S008-WAT-01; A:O01→S007→S003→O01:S007-MED-01,S003-WAT-01; C:O01→S002→O01:S002-HYG-01,S002-WAT-01,S002-WAT-02,S002-WAT-03,S002-WAT-04; C:O01→S004→S005→O01:S004-FOD-01,S004-HYG-01,S004-WAT-03,S005-FOD-01,S005-HYG-01,S005-WAT-02; B:O01→S008→O01:S008-HYG-01,S008-WAT-02; B:O01→S006→O01:S006-WAT-01,S006-WAT-02; C:O01→S003→O01:S003-FOD-01,S003-FOD-02,S003-HYG-01,S003-WAT-02,S003-WAT-03,S003-WAT-04; B:O01→S006→O01:S006-FOD-01,S006-HYG-01; A:O01→S005→S009→O01:S005-WAT-01,S009-FOD-01; C:O01→S001→O01:S001-FOD-01,S001-FOD-02,S001-FOD-03,S001-HYG-02,S001-MED-02,S001-WAT-01,S001-WAT-02,S001-WAT-05; C:O01→S012→S013→O01:S012-FOD-01,S012-MED-01,S012-WAT-01,S013-WAT-01; B:O01→S004→O01:S004-WAT-02",
+      "selected": true
+    },
+    {
+      "candidate_id": "CP-021",
+      "seed": 20260923,
+      "epsilon_level": null,
+      "weighted_tardiness": 63839.80252737883,
+      "normalized_weighted_tardiness": 0.018549454476806962,
+      "makespan_s": 6794.452213085462,
+      "total_energy_kwh": 75.84673273535269,
+      "sortie_count": 28,
+      "cp_sat_status": "OPTIMAL",
+      "route_signature": "A:O01→S013→S010→O01:S013-MED-01,S010-MED-01,S010-WAT-01; C:O01→S011→S001→S009→O01:S011-WAT-01,S001-WAT-03,S009-WAT-01; B:O01→S013→S001→O01:S013-WAT-01,S001-WAT-08; A:O01→S009→S001→O01:S009-MED-01,S001-MED-01,S001-WAT-05; A:O01→S001→S011→O01:S001-WAT-06,S011-MED-01; B:O01→S001→O01:S001-FOD-02,S001-HYG-01; B:O01→S012→O01:S012-FOD-01,S012-MED-01,S012-WAT-01; A:O01→S002→S005→O01:S002-MED-01,S005-HYG-01,S005-MED-01; C:O01→S007→S003→O01:S007-HYG-01,S003-FOD-01,S003-FOD-02,S003-MED-01,S003-WAT-01,S003-WAT-02,S003-WAT-03; B:O01→S001→O01:S001-FOD-01,S001-WAT-04; A:O01→S001→O01:S001-FOD-03,S001-WAT-01; A:O01→S001→O01:S001-HYG-02; C:O01→S006→O01:S006-FOD-01,S006-HYG-01,S006-WAT-01,S006-WAT-03; B:O01→S014→O01:S014-FOD-01,S014-MED-01,S014-WAT-01; C:O01→S004→O01:S004-FOD-01,S004-HYG-01,S004-MED-01,S004-WAT-01,S004-WAT-02,S004-WAT-03; C:O01→S008→O01:S008-FOD-01,S008-HYG-01,S008-MED-01,S008-WAT-01,S008-WAT-02; A:O01→S011→S001→O01:S011-FOD-01,S001-WAT-02; C:O01→S002→O01:S002-FOD-01,S002-FOD-02,S002-HYG-01,S002-WAT-01,S002-WAT-03,S002-WAT-04; A:O01→S001→O01:S001-MED-02,S001-WAT-07; A:O01→S005→O01:S005-FOD-01,S005-WAT-01; B:O01→S007→O01:S007-FOD-01,S007-WAT-02; B:O01→S003→O01:S003-HYG-01,S003-WAT-04; A:O01→S015→S007→O01:S015-MED-01,S007-MED-01,S007-WAT-01; A:O01→S013→S010→O01:S013-FOD-01,S010-FOD-01; B:O01→S005→O01:S005-WAT-02,S005-WAT-03; A:O01→S006→O01:S006-MED-01,S006-WAT-02; A:O01→S015→O01:S015-FOD-01,S015-WAT-01; A:O01→S009→S002→O01:S009-FOD-01,S002-WAT-02",
+      "selected": false
+    },
+    {
+      "candidate_id": "CP-032",
+      "seed": 20260923,
+      "epsilon_level": null,
+      "weighted_tardiness": 32457.481012463813,
+      "normalized_weighted_tardiness": 0.009430927769776793,
+      "makespan_s": 6919.689228301825,
+      "total_energy_kwh": 75.60260550227137,
+      "sortie_count": 27,
+      "cp_sat_status": "OPTIMAL",
+      "route_signature": "C:O01→S009→S001→O01:S009-FOD-01,S009-WAT-01,S001-HYG-01,S001-MED-02,S001-WAT-01; C:O01→S008→O01:S008-FOD-01,S008-HYG-01,S008-MED-01,S008-WAT-01,S008-WAT-02; C:O01→S002→O01:S002-FOD-01,S002-WAT-01,S002-WAT-02,S002-WAT-03,S002-WAT-04; C:O01→S007→S003→O01:S007-MED-01,S007-WAT-01,S003-FOD-02,S003-HYG-01,S003-WAT-01,S003-WAT-02,S003-WAT-04; A:O01→S010→S014→O01:S010-MED-01,S010-WAT-01,S014-MED-01; B:O01→S013→S001→O01:S013-FOD-01,S013-MED-01,S001-WAT-03; A:O01→S001→S009→S002→O01:S001-WAT-04,S009-MED-01,S002-MED-01; C:O01→S006→O01:S006-FOD-01,S006-HYG-01,S006-WAT-01,S006-WAT-02,S006-WAT-03; A:O01→S007→O01:S007-FOD-01,S007-WAT-02; A:O01→S005→S001→O01:S005-MED-01,S001-MED-01,S001-WAT-07; A:O01→S006→S003→S007→O01:S006-MED-01,S003-MED-01,S007-HYG-01; B:O01→S012→O01:S012-FOD-01,S012-MED-01,S012-WAT-01; B:O01→S011→O01:S011-FOD-01,S011-MED-01,S011-WAT-01; B:O01→S015→S003→O01:S015-MED-01,S003-FOD-01,S003-WAT-03; A:O01→S015→O01:S015-FOD-01,S015-WAT-01; C:O01→S004→O01:S004-FOD-01,S004-HYG-01,S004-MED-01,S004-WAT-01,S004-WAT-02,S004-WAT-03; B:O01→S001→S013→O01:S001-WAT-02,S013-WAT-01; B:O01→S002→O01:S002-FOD-02,S002-HYG-01; A:O01→S001→O01:S001-FOD-03,S001-WAT-08; A:O01→S001→O01:S001-FOD-02,S001-WAT-06; A:O01→S001→O01:S001-FOD-01,S001-WAT-05; A:O01→S001→O01:S001-HYG-02; A:O01→S010→S014→O01:S010-FOD-01,S014-FOD-01; A:O01→S014→O01:S014-WAT-01; B:O01→S005→O01:S005-FOD-01,S005-HYG-01; B:O01→S005→O01:S005-WAT-01,S005-WAT-02; A:O01→S005→O01:S005-WAT-03",
+      "selected": false
+    }
+  ],
+  "all_cp_candidate_count": 32,
+  "search_statistics": {
+    "elapsed_s": 176.84400000001187,
+    "iterations": 1205,
+    "restarts": 8,
+    "cache_hits": 3198694,
+    "cache_misses": 93397,
+    "destroy_weights": {
+      "worst_tardiness_removal": 0.3840367322814491,
+      "early_deadline_removal": 0.00502246281135571,
+      "critical_makespan_removal": 0.0001043166222780437,
+      "critical_battery_removal": 3.700167206225725e-05,
+      "related_removal": 6.787543639857019e-05,
+      "random_removal": 0.000764676861248019
+    },
+    "repair_weights": {
+      "best_insertion": 2.4483824619228906e-06,
+      "regret2_insertion": 3.6925168990417035e-06,
+      "deadline_first_repair": 4.471085453905413e-06,
+      "makespan_balance_repair": 0.3865715004891139
+    }
+  },
+  "algorithm_config": {
+    "seed": 20260923,
+    "time_limit_s": 300.0,
+    "iteration_limit": 3000,
+    "restarts": 8,
+    "cp_candidates": 20,
+    "epsilon_levels": [
+      0.0,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "tardiness_slack": 0.05,
+    "absolute_epsilon": 0.0,
+    "selection_method": "epsilon_makespan",
+    "destroy_fraction_min": 0.1,
+    "destroy_fraction_max": 0.35,
+    "reaction_factor": 0.2,
+    "rewards": [
+      10.0,
+      6.0,
+      3.0,
+      1.0,
+      0.0
+    ],
+    "initial_temperature": 0.12,
+    "cooling_factor": 0.998,
+    "related_distance_weight": 0.55,
+    "related_deadline_weight": 0.3,
+    "related_priority_weight": 0.15
+  },
+  "baseline_v1_summary": "baseline_v1/q2_summary.json"
+}

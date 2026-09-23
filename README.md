@@ -1,6 +1,6 @@
 # 山区洪涝灾害下无人机运输与通信协同优化
 
-当前完成第一阶段数据审计、公共基础模块、Q1单点往返优化及Q2多点实体机/电池联合调度。Q3–Q4尚未实现。原始题目与附件不改写；项目路径由代码位置推导，没有固定盘符。
+当前完成第一阶段数据审计、公共基础模块、Q1单点往返优化、Q2-v1基准及Q2-v2双主目标搜索。Q3–Q4尚未实现。原始题目与附件不改写；项目路径由代码位置推导，没有固定盘符。
 
 ## 运行环境
 
@@ -116,19 +116,21 @@ python main.py --validate q1
 
 项目内部定义`preparation_start`为架次开始；无人机和电池从该时刻占用。官方模板“开始时刻（s）”映射为`preparation_start`，另保存`takeoff_time`。同一服务区本架次的所有箱在**整个交接结束**时统一计为交付完成；这是项目时间口径，不是原题逐箱卸载规则。无人机返O01后无需额外周转即可开始新任务；电池从返航时按实际SOC立即按原题两阶段公式充电至100%才可复用，不添加充电桩数量约束；同型另一块满电电池可立即装到已返航无人机。电池ID如`A-BAT-01`、`B-BAT-01`、`C-BAT-01`由项目按附件库存数确定性生成，**不是附件官方编号**。
 
-项目多目标定义`J1=Σ优先系数×max(0,交付完成−期望时刻)`，另输出归一化`Σ优先系数×max(0,(交付完成−期望时刻)/期望时刻)/Σ优先系数`；`J2`为最晚运输机**返航**时刻，`J3`为总运输能耗，`J4`为架次数。默认按`(J1,J2,J3,J4)`字典序比较，不代表原题给定的权重。`--q2-objective weighted`提供项目加权模式；其权重是启发式搜索/固定路线排程的项目选择。由于80箱路线空间巨大，Q2采用多起点邻域搜索和固定路线CP-SAT实体排程，保存发现的非支配候选；**不宣称全局最优**。搜索阶段的确定性list scheduler只作候选估算，最终方案经过CP-SAT及原始浮点时间独立重建验证。CP-SAT用毫秒，阶段时长和交付偏移向上取整，截止时刻向下取整；最终输出与校验使用浮点秒。CP-SAT状态记录在JSON中。
+项目多目标定义`J1=Σ优先系数×max(0,交付完成−期望时刻)`，另输出归一化`Σ优先系数×max(0,(交付完成−期望时刻)/期望时刻)/Σ优先系数`；`J2`为最晚运输机**返航**时刻，`J3`为总运输能耗，`J4`为架次数。Q2-v1按`(J1,J2,J3,J4)`字典序比较，保留为历史基准；其旧`weighted`模式直接混合量纲，只用于兼容，**不是v2正式目标**。Q2-v2默认把J1/J2作为双主目标，经Pareto与ε约束搜索，仅在主目标相近时用J3/J4择优。这些目标与选择规则是项目多目标建模定义，不是原题指定公式。由于80箱路线空间巨大，两版均使用启发式路线搜索与CP-SAT固定路线排程，**不宣称全局路线最优**。搜索阶段的list scheduler只作候选估算，最终方案经过CP-SAT及原始浮点时间独立重建验证。CP-SAT用毫秒，阶段时长和交付偏移向上取整，截止时刻向下取整；最终输出与校验使用浮点秒，FEASIBLE状态不代表数学最优。
 
 ```powershell
 conda activate dl
 python -m pip install -r requirements.txt
-python main.py --question q2 --seed 20260923 --q2-time-limit 60 --q2-iterations 400
+python main.py --question q2 --q2-algorithm v2 --seed 20260923 --q2-time-limit 300 --q2-iterations 3000 --q2-restarts 8 --q2-cp-candidates 20 --q2-tardiness-slack 0.05 --q2-selection epsilon_makespan
 python main.py --validate q2
 python -m pytest tests -q --basetemp outputs/test_tmp
 ```
 
-省略Q2选项使用上述默认值；`--force-recompute`强制重算共享DEM航段矩阵。Q2可独立运行：若无`q1_summary.json`则内部生成Q1种子，不要求预先制作中间Excel。运行不会修改Q1基准输出。运行中独立validator失败会异常退出，且不会保存“最终答案”。
+省略Q2选项使用上述v2默认值；`--force-recompute`强制重算共享DEM航段矩阵。`--q2-epsilon-levels "0,0.02,0.05,0.10"`配置扫描档位；`--q2-absolute-epsilon`处理最佳J1为零时的绝对容差。若最佳J1=0且绝对容差也为0，四档相对ε的及时性上界均为0，程序会如实呈现重合档位，另用无J1上界的CP-SAT最短完工探索前沿的另一端。`--q2-selection ideal_distance`按前沿中J1/J2各自min-max归一化后的理想点距离择优；默认`epsilon_makespan`在最佳已发现J1的5%范围内选最短J2，再以J3/J4打破平局。绝对/相对ε与理想点距离是项目折中规则。Q2-v2按seed依次重启ALNS，针对迟到箱、最晚返航无人机、电池充电链、相近服务区成组移除，再以best/regret-2/deadline/makespan四类插入修复；算子权重、奖励和destroy规模在`Q2AlgorithmConfig`中配置。反复出现的架次使用物理评估缓存，但最终校验不读缓存。若无`q1_summary.json`可内部生成Q1种子，不要求预先制作中间Excel。validator失败会异常退出，不保存“最终答案”。
 
-Q2输出：`outputs/q2/`包含`q2_transport_sorties.xlsx`、`q2_box_deliveries.xlsx`、`q2_drone_timeline.xlsx`（逐段和逐站sheet）、`q2_battery_timeline.xlsx`、`q2_summary.json`、`q2_pareto.xlsx`及只填写Q2两个sheet的`结果提交_Q2.xlsx`。另有`outputs/validation/q2_validation.xlsx/.txt`、`outputs/logs/q2_search_history.csv`和`outputs/figures/q2_drone_gantt.png`、`q2_delivery_tardiness.png`、`q2_objective_history.png`。完整阶段时间轴与箱/资源关系保存于JSON，供Q3读取。
+Q2-v1输出原样保留在`outputs/q2/`，已提交的基准JSON另存于`outputs/q2_v2/baseline_v1/`。v2运行**只写`outputs/q2_v2/`**：原有架次、逐箱、无人机/电池时间轴、完整JSON、Pareto表、官方模板Q2副本及validation、logs、figures子目录均在此处；新增`q2_algorithm_comparison.xlsx`、`q2_benchmark.json`、`q2_timeliness_makespan_pareto.png`、`q2_epsilon_sensitivity.png`、`q2_operator_weights.png`。`q2_pareto.xlsx`保留全体CP候选、真正J1/J2非支配前沿和ε档方案。运行`python scripts/benchmark_q2_v2.py`会重新读取保存的v1/v2结果并独立验证后生成对比JSON。完整阶段时间轴与箱/资源关系保存在v2 JSON，供后续Q3读取。
+
+如确需重跑历史v1，显式使用`python main.py --question q2 --q2-algorithm v1`及`python main.py --validate q2 --q2-algorithm v1`；该命令会重写v1输出，普通v2运行不会触碰它们。
 
 Q1仍仅支持字典序目标；`weighted`与`pareto`尚未实现，不能把Q2的模式误认为Q1功能。
 

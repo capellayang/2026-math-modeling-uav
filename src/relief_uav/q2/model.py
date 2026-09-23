@@ -126,3 +126,51 @@ class Q2Solution:
     search_seconds: float
     pareto_count: int
     energy_model_status: str = "project modeling assumption; not official component formulas"
+
+
+@dataclass(frozen=True)
+class Q2AlgorithmConfig:
+    seed: int = 20260923
+    time_limit_s: float = 300.0
+    iteration_limit: int = 3000
+    restarts: int = 8
+    cp_candidates: int = 20
+    epsilon_levels: tuple[float, ...] = (0.0, 0.02, 0.05, 0.10)
+    tardiness_slack: float = 0.05
+    absolute_epsilon: float = 0.0
+    selection_method: str = "epsilon_makespan"
+    destroy_fraction_min: float = 0.10
+    destroy_fraction_max: float = 0.35
+    reaction_factor: float = 0.20
+    rewards: tuple[float, float, float, float, float] = (10.0, 6.0, 3.0, 1.0, 0.0)
+    initial_temperature: float = 0.12
+    cooling_factor: float = 0.998
+    related_distance_weight: float = 0.55
+    related_deadline_weight: float = 0.30
+    related_priority_weight: float = 0.15
+
+
+@dataclass(frozen=True)
+class Q2ParetoCandidate:
+    candidate_id: str
+    seed: int
+    epsilon_level: float | None  # None denotes an unrestricted J2 exploration point.
+    weighted_tardiness: float
+    normalized_weighted_tardiness: float
+    makespan_s: float
+    total_energy_kwh: float
+    sortie_count: int
+    cp_sat_status: str
+    route_signature: str
+    selected: bool = False
+
+
+@dataclass(frozen=True)
+class Q2SearchStatistics:
+    elapsed_s: float
+    iterations: int
+    restarts: int
+    cache_hits: int
+    cache_misses: int
+    destroy_weights: dict[str, float]
+    repair_weights: dict[str, float]
