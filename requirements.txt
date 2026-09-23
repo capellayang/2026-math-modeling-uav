@@ -10,3 +10,4 @@ h5py
 PyMuPDF
 pytest
 matplotlib
+ortools>=9.10,<9.12

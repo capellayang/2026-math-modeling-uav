@@ -1,0 +1,4 @@
+Q2 independent validator: PASS
+80/80 boxes, 32 sorties
+Rebuilt from source boxes, route/model, drone/battery IDs and preparation starts.
+Checks: physical legs, time events, SOC/charge, deadlines, resource overlaps and totals.

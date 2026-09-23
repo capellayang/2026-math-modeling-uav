@@ -1,6 +1,6 @@
 # 山区洪涝灾害下无人机运输与通信协同优化
 
-当前完成第一阶段数据审计、第二阶段公共基础模块及第三阶段Q1单点往返优化。Q2–Q4尚未实现。原始题目与附件不改写；项目路径由代码位置推导，没有固定盘符。
+当前完成第一阶段数据审计、公共基础模块、Q1单点往返优化及Q2多点实体机/电池联合调度。Q3–Q4尚未实现。原始题目与附件不改写；项目路径由代码位置推导，没有固定盘符。
 
 ## 运行环境
 
@@ -36,6 +36,8 @@ python --version
 | `src/relief_uav/physics/sortie.py` | 多点架次逐段载荷、能耗、SOC和作业时间统一评估 |
 | `src/relief_uav/q1/` | 45格最大连续安全载荷、真实货箱子集枚举、精确bitmask DP及报告 |
 | `src/relief_uav/validation/q1.py` | 独立重算货箱覆盖、容量、能耗、SOC、时间与总指标 |
+| `src/relief_uav/q2/` | Q1及截止时限多种种子、组批/路线/机型邻域搜索、实体机与电池CP-SAT排程、逐阶段时间轴及结果导出 |
+| `src/relief_uav/validation/q2.py` | 从原始货箱及路线/资源/准备时刻独立重建Q2方案，核对时限、资源占用、SOC与汇总 |
 
 内部使用m、s、kg、m³、kWh；经纬度保留°，通信频率MHz，通信距离换算km时由后续通信模块处理。SOC用0–1比例，原表的20%读取为0.2。电池和组件原附件只有各型号库存数，**没有逐块编号**，数据模型保持库存对象而不伪造官方ID。
 
@@ -108,11 +110,33 @@ python main.py --validate q1
 
 独立validator从原始箱ID重建每架次，不接受求解器保存的能耗/时间作为真实值；验证重复、遗漏、跨区、机型、载重、体积、返航SOC、时间和汇总指标。测试还故意注入这些故障，检查validator能识别。其覆盖箱数从加载的数据取得，没有硬编码80。
 
+## Q2模型、求解与时间口径
+
+原题允许多点架次，医疗物资（附件类别字符串为“医疗物资”）须在逐箱期望时刻前交付；附件逐箱标记的首批保障箱须在对应首批截止时刻前交付，两者重叠时同时检查。其他箱的期望时刻是软目标。每架次一次在O01装完货，中途只卸货，逐航段剩余载荷及地形、飞行、等效航程、能耗仍调用公共`evaluate_transport_sortie`，不复制或更换Q1能耗模型。**水平能耗与爬升能耗沿用用户授权的 project modeling assumption，不是原题给出的官方分项公式。**
+
+项目内部定义`preparation_start`为架次开始；无人机和电池从该时刻占用。官方模板“开始时刻（s）”映射为`preparation_start`，另保存`takeoff_time`。同一服务区本架次的所有箱在**整个交接结束**时统一计为交付完成；这是项目时间口径，不是原题逐箱卸载规则。无人机返O01后无需额外周转即可开始新任务；电池从返航时按实际SOC立即按原题两阶段公式充电至100%才可复用，不添加充电桩数量约束；同型另一块满电电池可立即装到已返航无人机。电池ID如`A-BAT-01`、`B-BAT-01`、`C-BAT-01`由项目按附件库存数确定性生成，**不是附件官方编号**。
+
+项目多目标定义`J1=Σ优先系数×max(0,交付完成−期望时刻)`，另输出归一化`Σ优先系数×max(0,(交付完成−期望时刻)/期望时刻)/Σ优先系数`；`J2`为最晚运输机**返航**时刻，`J3`为总运输能耗，`J4`为架次数。默认按`(J1,J2,J3,J4)`字典序比较，不代表原题给定的权重。`--q2-objective weighted`提供项目加权模式；其权重是启发式搜索/固定路线排程的项目选择。由于80箱路线空间巨大，Q2采用多起点邻域搜索和固定路线CP-SAT实体排程，保存发现的非支配候选；**不宣称全局最优**。搜索阶段的确定性list scheduler只作候选估算，最终方案经过CP-SAT及原始浮点时间独立重建验证。CP-SAT用毫秒，阶段时长和交付偏移向上取整，截止时刻向下取整；最终输出与校验使用浮点秒。CP-SAT状态记录在JSON中。
+
+```powershell
+conda activate dl
+python -m pip install -r requirements.txt
+python main.py --question q2 --seed 20260923 --q2-time-limit 60 --q2-iterations 400
+python main.py --validate q2
+python -m pytest tests -q --basetemp outputs/test_tmp
+```
+
+省略Q2选项使用上述默认值；`--force-recompute`强制重算共享DEM航段矩阵。Q2可独立运行：若无`q1_summary.json`则内部生成Q1种子，不要求预先制作中间Excel。运行不会修改Q1基准输出。运行中独立validator失败会异常退出，且不会保存“最终答案”。
+
+Q2输出：`outputs/q2/`包含`q2_transport_sorties.xlsx`、`q2_box_deliveries.xlsx`、`q2_drone_timeline.xlsx`（逐段和逐站sheet）、`q2_battery_timeline.xlsx`、`q2_summary.json`、`q2_pareto.xlsx`及只填写Q2两个sheet的`结果提交_Q2.xlsx`。另有`outputs/validation/q2_validation.xlsx/.txt`、`outputs/logs/q2_search_history.csv`和`outputs/figures/q2_drone_gantt.png`、`q2_delivery_tardiness.png`、`q2_objective_history.png`。完整阶段时间轴与箱/资源关系保存于JSON，供Q3读取。
+
+Q1仍仅支持字典序目标；`weighted`与`pareto`尚未实现，不能把Q2的模式误认为Q1功能。
+
 ## 第一阶段资料与后续边界
 
 见 [题目与数据审计](docs/题目与数据审计.md) 和 [字段与模板字典](docs/输入字段与模板.md)。审计证据和汇总在 `outputs/data_audit/`，原始提交模板没有修改。
 
-原题未给出能耗分项公式，所以Q1结果以用户授权的项目建模假设为条件；与正式勘误不一致时须整体重算。中继建链能耗归属与Q4共享中继跨组关系仍需澄清。Q2–Q4优化器及相应通信/能源调度验证尚未实现。
+原题未给出能耗分项公式，所以Q1/Q2结果以用户授权的项目建模假设为条件；与正式勘误不一致时须整体重算。中继建链能耗归属与Q4共享中继跨组关系仍需澄清。Q3–Q4优化器及通信保障验证尚未实现。
 
 ## 目录
 
@@ -122,9 +146,10 @@ src/relief_uav/data/           数据对象与读取
 src/relief_uav/geo/            DEM、距离、航段矩阵和缓存
 src/relief_uav/physics/        飞行、能耗、统一架次评估、SOC
 src/relief_uav/q1/             Q1精确求解与报告
-src/relief_uav/q2...q4/       后续求解目录
-src/relief_uav/validation/     Q1独立验证，后续扩展
-tests/                         基础和Q1单元/集成测试
+src/relief_uav/q2/             Q2路线、排程、时间轴及报告
+src/relief_uav/q3...q4/       后续求解目录
+src/relief_uav/validation/     Q1/Q2独立验证
+tests/                         基础和Q1/Q2单元/集成测试
 scripts/                       审计脚本及基础物理核验表生成
 outputs/cache/                 可重建几何缓存
 outputs/validation/            人工核验表
