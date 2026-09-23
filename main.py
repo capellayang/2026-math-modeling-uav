@@ -1,6 +1,7 @@
-"""Project CLI for independently validated Q1, Q2 and Q3 solutions."""
+"""Project CLI for independently validated Q1–Q4 solutions."""
 
 import argparse
+from dataclasses import asdict
 import json
 from pathlib import Path
 import sys
@@ -28,6 +29,10 @@ from relief_uav.q3.model import Q3AlgorithmConfig
 from relief_uav.q3.solver import solve_q3
 from relief_uav.q3.report import load_q3_solution, save_q3_outputs
 from relief_uav.validation.q3 import validate_q3
+from relief_uav.q4.model import Q4AlgorithmConfig
+from relief_uav.q4.solver import solve_q4
+from relief_uav.q4.report import save_q4_outputs, save_q4_validation
+from relief_uav.validation.q4 import validate_q4
 
 MARGINS = (0.10, 0.15, 0.20, 0.25, 0.30)
 
@@ -220,11 +225,73 @@ def validate_saved_q3(force_recompute: bool, max_step_s: float,
         raise SystemExit(1)
 
 
+def _validated_q3_source(force_recompute: bool, max_step_s: float,
+                         transition_tolerance_s: float):
+    scenario = load_scenario(ROOT)
+    segments = build_segment_matrix(scenario, force_recompute=force_recompute)
+    env = RadioEnvironment(scenario, DigitalElevationModel(dem_source_path(ROOT)))
+    path = ROOT / "outputs/q3/q3_summary.json"
+    q3 = load_q3_solution(path)
+    result = validate_q3(env, segments, q3, max_step_s=max_step_s,
+                         transition_tolerance_s=transition_tolerance_s)
+    if not result.passed or result.outage_s > 1e-9:
+        raise RuntimeError(f"Q4 requires validated Q3 source: {result.issues[:10]}")
+    return scenario, q3, path, {k: v for k, v in asdict(result).items()
+                                 if k != "intervals"}
+
+
+def run_q4(force_recompute: bool, relay_policy: str,
+           selection: str) -> None:
+    scenario, q3, source, q3_result = _validated_q3_source(
+        force_recompute, 0.25, 0.05)
+    solution = solve_q4(scenario, q3, source, q3_result,
+                        Q4AlgorithmConfig(relay_policy, selection))
+    payload = json.loads(json.dumps(asdict(solution), ensure_ascii=False))
+    checked = validate_q4(scenario, q3, source, payload, q3_passed=True)
+    if not checked.passed:
+        raise RuntimeError(f"Q4 independent validator FAIL: {checked.issues[:12]}")
+    out = save_q4_outputs(ROOT, scenario, solution, checked)
+    checked = validate_q4(scenario, q3, source, payload, q3_passed=True,
+                          official_template_path=out / "结果提交_Q4.xlsx")
+    save_q4_validation(out, checked)
+    if not checked.passed:
+        raise RuntimeError(f"Q4 official template validator FAIL: {checked.issues[:12]}")
+    for result in solution.policy_results:
+        if result.feasible:
+            selected = next(c for c in result.candidates if c.selected)
+            print(f"Q4 {result.relay_policy} K={result.k}: "
+                  f"{len(result.candidates)} candidates, "
+                  f"Pareto={len(result.pareto_candidate_ids)}, "
+                  f"gap={selected.stock_gap_total}, scale={selected.resource_scale}, "
+                  f"CV={selected.workload_cv:.6f}; selected={selected.candidate_id}")
+        else:
+            print(f"Q4 {result.relay_policy} K={result.k}: INFEASIBLE: "
+                  f"{result.infeasibility_reason}")
+    print(f"Q4 validator PASS; Q3 SHA256={solution.source_q3_sha256}")
+
+
+def validate_saved_q4(force_recompute: bool) -> None:
+    scenario, q3, source, _ = _validated_q3_source(force_recompute, 0.25, 0.05)
+    path = ROOT / "outputs/q4/q4_summary.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    result = validate_q4(scenario, q3, source, payload, q3_passed=True,
+                         official_template_path=path.parent / "结果提交_Q4.xlsx")
+    save_q4_validation(path.parent, result)
+    print(f"Q4 saved-plan validation: {'PASS' if result.passed else 'FAIL'}; "
+          f"{result.checked_candidates} candidates; "
+          f"{result.checked_groups} groups; "
+          f"{result.checked_assignments} color assignments")
+    for issue in result.issues[:20]:
+        print(f"  {issue}")
+    if not result.passed:
+        raise SystemExit(1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Relief UAV mathematical modeling project")
     action = parser.add_mutually_exclusive_group(required=True)
-    action.add_argument("--question", choices=["q1", "q2", "q3"], help="Run a question solver")
-    action.add_argument("--validate", choices=["q1", "q2", "q3"], help="Validate saved results")
+    action.add_argument("--question", choices=["q1", "q2", "q3", "q4"], help="Run a question solver")
+    action.add_argument("--validate", choices=["q1", "q2", "q3", "q4"], help="Validate saved results")
     parser.add_argument("--force-recompute", action="store_true", help="Rebuild the DEM geometry cache")
     parser.add_argument("--seed", type=int, default=20260923, help="Q2 deterministic random seed")
     parser.add_argument("--q2-time-limit", type=float, default=None,
@@ -257,6 +324,10 @@ def main() -> None:
                         default="epsilon_makespan")
     parser.add_argument("--q3-setup-energy-mode", choices=["hover_plus_comm", "hover_only"],
                         default="hover_plus_comm")
+    parser.add_argument("--q4-relay-policy", choices=["strict", "replicate", "both"],
+                        default="both")
+    parser.add_argument("--q4-selection", choices=["pareto_lexicographic"],
+                        default="pareto_lexicographic")
     args = parser.parse_args()
     if args.question == "q1":
         run_q1(args.force_recompute)
@@ -299,6 +370,10 @@ def main() -> None:
     elif args.validate == "q3":
         validate_saved_q3(args.force_recompute, args.q3_validation_step,
                           args.q3_transition_tolerance)
+    elif args.question == "q4":
+        run_q4(args.force_recompute, args.q4_relay_policy, args.q4_selection)
+    elif args.validate == "q4":
+        validate_saved_q4(args.force_recompute)
 
 
 if __name__ == "__main__":

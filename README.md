@@ -30,7 +30,7 @@
               → Q1 单点往返组批
               → Q2 多点运输与资源调度
               → Q3 通信约束下运输—中继联合调度
-              → Q4 分区及独立资源配置（尚未实现）
+              → Q4 固定 Q3 任务下的分区及独立资源配置
 ```
 
 <a id="status"></a>
@@ -42,7 +42,7 @@
 | Q2-v1 | 已完成，历史基准 | 多起点路线邻域搜索＋固定路线 CP-SAT 排程 | J1=25785.315，J2=10714.143 s，J3=90.689 kWh，J4=32；validator PASS |
 | Q2-v2 | 已完成，正式 Q2 方案 | ALNS＋CP-SAT，J1/J2 Pareto 与 ε 约束 | J1=0，J2=7265.435 s，J3=78.480 kWh，J4=26；validator PASS、CP-SAT FEASIBLE |
 | Q3 | 已完成 | 有限中继点与运输路线搜索、联合 CP-SAT、独立通信验证 | J1=0，J2=7368.139 s，J3=82.079 kWh，J4=31；validator PASS、CP-SAT FEASIBLE |
-| Q4 | 尚未实现 | — | 无 solver、CLI、正式输出或 validator |
+| Q4 | 已实现 | 固定 Q3 快照，原子组件集合分区完整枚举＋固定区间最大并发/最少着色 | strict K2：3 候选、规模 29、缺口 2；strict K3：1 候选、规模 32、缺口 5；validator PASS |
 
 Q1 的“累计作业时间”是各架次时长之和，**不是** Q2/Q3 的并行调度最晚返航时间。Q2-v1、v2 和 Q3 也不是同一可行域，不宜把表中数值当作同一问题的全局最优排名。
 
@@ -73,12 +73,12 @@ src/relief_uav/communication/  三维轨迹、DEM LOS、双向链路和保障状
 src/relief_uav/q1/             Q1 组批、精确 DP 与报告
 src/relief_uav/q2/             Q2 搜索、资源排程与报告
 src/relief_uav/q3/             Q3 中继候选、联合排程与报告
-src/relief_uav/q4/             占位目录；尚无业务代码
-src/relief_uav/validation/     Q1/Q2/Q3 独立方案验证
+src/relief_uav/q4/             Q3 继承、精确分区、资源着色、目标与报告
+src/relief_uav/validation/     Q1–Q4 独立方案验证
 tests/                         公式、边界和求解/验证行为测试
 scripts/                       审计、基准比较、基础物理核验脚本
 outputs/                       结果、图、日志与可重建缓存
-main.py                        Q1–Q3 求解及已保存方案验证入口
+main.py                        Q1–Q4 求解及已保存方案验证入口
 ```
 
 <a id="data-model"></a>
@@ -418,15 +418,58 @@ python main.py --validate q3
 <a id="q4"></a>
 ## Q4：任务分区与资源配置
 
-**任务要求。** 原题要求在**固定 Q3 最终联合方案**下，分别将 15 个服务区分成 `K=2` 与 `K=3` 个非空任务组，比较各组独立执行所需资源、冗余、工作量均衡和现有库存缺口。相比 Q3，新增“每区恰好归一组”“同一多点运输架次访问的所有服务区归同组”“组间运输机、电池、中继实体及组件不动态共享”等条件；不得为降低资源数量改动 Q3 已定箱组、访问顺序、任务时间或通信保障关系。
+**固定来源与决策范围。** Q4 直接读取 `outputs/q3/q3_summary.json`，本次快照 SHA256 为 `1d38144c0bc5b591da1abf7762067948afc4e832bf85bde93da9e1af4ffe8e7e`。先用 `--validate q3` 确认 80 箱、26 个运输架次、5 个中继架次和零失联。Q4 冻结箱组、路线及访问顺序、机型、全部运输和中继任务时间、悬停位置、能耗/SOC、DIRECT/RELAY 区间及其对应架次；不调用 Q3 求解器。只决定 15 个服务区如何分成 `K=2` 或 `K=3` 个非空组、固定任务属于哪组，以及等价资源如何在**组内**重新编号。每区恰属一组，组间不调拨资源。
 
-**待建模决策变量与约束。** 服务区组别、固定任务的组归属、每组各型实体/能源库存需求，以及共享中继跨组关系和固定任务下资源重新编号的具体口径，均待 Q4 建模时确认。现有审计已指出跨组中继及资源编号的题意歧义，不能在 README 中假称已经解决。
+**原子组件与中继歧义。** 从同一多点运输架次的服务区取传递闭包，当前得到 6 个运输组件：`{S001}`、`{S002,S004,S005,S009}`、`{S003,S007,S011,S014,S015}`、`{S006}`、`{S008}`、`{S010,S012,S013}`。原题没有明确说明一个 Q3 中继架次同时保障未来不同组时如何分配，因此程序同时计算两种**项目解释**：
 
-**优化目标、算法、流程、运行方法、参数、输出及验证。** 当前均**尚未实现**：`src/relief_uav/q4/` 只有占位文件；`main.py` 的 `--question` / `--validate` 仅接受 `q1`、`q2`、`q3`。当前没有 Q4 solver、CLI、参数、正式输出或 validator。
+- `strict_no_duplication` 是正式主结果。一个 Q3 中继任务只能属于一组；由同一中继保障的运输任务进一步绑定。当前严格组件是 `{S001}`、`{S006}`、`{S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015}`。若严格组件少于 `K`，明确报不可行，不拆任务。
+- `replicate_relay` 仅作题意敏感性分析。先只按运输组件分区；当一个中继跨组时，各相关组复制它的**完整固定任务**，包括悬停位置、高度、全部时间、能耗、SOC 和原通信对应关系。复制任务赋组内 ID，不能缩短服务区间。它并非原题指定的唯一解释，官方 Q4 模板仅填严格模式。
 
-```text
-Status: Not implemented
+**资源数为何重新着色。** Q3 旧实体 ID 若出现在不同组，会与组间不能调配冲突。Q4 允许对同型号、同类资源按固定时间轴在组内重新编号，并同时报告 `inherited_q3_id_count` 和 `minimum_recolored_requirement`。后一项是正式需求。四类占用区间均为半开区间 `[开始, 结束)`，同一时刻释放并开始可复用：
+
+| 资源 | 固定占用区间 | 结束时刻依据 |
+|---|---|---|
+| A/B/C 运输无人机 | `[准备开始, 返回 O01)` | Q3 固定返航时间 |
+| A/B/C 共享电池 | `[准备开始, 返航＋充至 100% 时间)` | 复用 `physics/battery.py` 两阶段充电模型 |
+| 中继无人机 | `[准备开始, 周转结束)` | Q3 固定周转结束，含原题 300 s |
+| 中继能源组件 | `[准备开始, 返航＋充至 100% 时间)` | Q3 组件充电结束，并与充电模型交叉核对 |
+
+每组每类资源用 sweep-line 求**最大同时占用数**，再用 greedy interval coloring 产生可检查的内部 ID；固定区间图的最少颜色数等于最大重叠数。分区总需求是各组最少数之和，不能取组间最大值。充电和中继周转可能使电池/组件数高于机体数。
+
+**评价指标均为项目定义，非原题给定公式。** `ResourceScale` 是 8 类资源需求数的简单总和，只表示资源**单元数量**，不表示无人机、电池和组件具有相同价格或价值；完整 8 维向量始终保留。`PartitionRedundancy[r] = 分区需求[r] − 固定 Q3 全局共享最少数[r]` 表示组间独立造成的额外配置，区别于 `Surplus[r] = max(库存[r] − 分区需求[r],0)` 的库存剩余。`Gap[r] = max(分区需求[r] − 库存[r],0)`。组工作量为该组运输与中继各任务的 `返航−准备开始` 时长之和；充电和周转只占资源，不计主工作量。均衡指标为组工作量的总体标准差/均值 `CV_W`，另报 `(最大−最小)/均值`。分别以 `(总缺口, ResourceScale, CV_W)` 求 Pareto 非支配集，代表方案按这三项及 canonical 分区签名字典序选择；没有主观线性权重。
+
+**精确范围与本次结果。** 采用 canonical 集合分区完整枚举，自动去除组标签置换；当前严格模式 K2/K3 分别有 3/1 个候选，复制模式有 31/90 个。固定 Q3 时间表下的全局共享最少向量按 `A/B/C 机体；A/B/C 电池；中继机；组件` 顺序为 `(4,2,2; 6,4,4; 2,3)`。库存为 `(4,2,2; 6,4,4; 2,6)`。代表方案如下：
+
+| 正式 strict 方案 | 分组 | 总需求向量（上述顺序） | 规模 | 分区冗余 | 库存缺口 | 工作量 CV |
+|---|---|---|---:|---:|---:|---:|
+| K2 | G1=`{S001}`；G2=其余 14 区 | `(4,2,3; 6,4,5; 2,3)` | 29 | 2 | 2 | 0.902910 |
+| K3 | G1=`{S001}`；G2=除 S001/S006 外 13 区；G3=`{S006}` | `(5,3,3; 7,4,5; 2,3)` | 32 | 5 | 5 | 1.190790 |
+
+K2 的两个缺口是 C 型运输机和 C 型电池各 1；K3 的五个缺口是 A/B/C 型运输机各 1、A 型电池 1、C 型电池 1。逐组峰值时刻、同时占用任务及充电/独立配置原因见 `q4_resource_gap.xlsx`。本快照下复制模式的字典序代表方案碰巧与严格模式相同，选中方案仍只有原始 5 个中继任务，因此选中方案的中继资源差值为 0；这不表示两种口径等价。复制模式的其他合法分区中，K2 最多生成 10 个中继任务、K3 最多 13 个，详见候选表和敏感性表。这里的“精确”只针对**固定 Q3 调度快照和上述 Q4 继承口径**的全部合法分区与最少同类区间资源数，不证明 Q1–Q4 联合全局最优。
+
+```powershell
+python main.py --validate q3
+python main.py --question q4 --q4-relay-policy both --q4-selection pareto_lexicographic
+python main.py --validate q4
 ```
+
+`--q4-relay-policy strict` 只计算正式严格结果；`replicate` 和默认 `both` 同时计算严格结果及复制敏感性，以保证官方模板总有严格口径。每次 Q4 CLI 均先对保存的 Q3 源重新执行独立验证；保存的 Q4 validator 还比较 Q3 SHA256、冻结任务和通信字段、全部候选与组归属、四类资源区间/充电/周转、库存、Pareto/选解以及官方模板。Q4 不对每个分区重复执行完整的 Q3 链路搜索，因为其轨迹、时刻和保障关系未改变。
+
+| `outputs/q4/` 文件 | 阅读目的 |
+|---|---|
+| `q4_summary.json` | 全候选机器快照、Q3 指纹及冻结字段、组内着色、选解和目标；是复核入口 |
+| `q4_atomic_components.xlsx` | 运输组件、严格组件、中继与运输任务绑定；解释为什么有些区不能拆开 |
+| `q4_partition_candidates.xlsx` | 四种 policy/K 的所有候选、资源向量、缺口、冗余、均衡、Pareto/选中标记 |
+| `q4_selected_partitions.xlsx` | 各模式代表分区的服务区、运输/中继任务和组指标总览 |
+| `q4_resource_requirements.xlsx` | 各代表方案每组 8 类独立配置数、货箱/质量和工作量；可直接比较组负担 |
+| `q4_resource_coloring.xlsx` | 每项固定任务的组内机体/电池/中继/组件内部 ID 与占用区间；检查无重叠和无跨组调拨 |
+| `q4_resource_gap.xlsx` | 库存、全局最少数、分区需求、冗余/剩余/缺口，以及峰值组、时段和关键任务；解释缺口来源 |
+| `q4_k2_k3_comparison.xlsx` | 正式严格 K2 与 K3 的资源、缺口、冗余和逐组工作量并列；供论文比较，不预设孰优 |
+| `q4_relay_policy_sensitivity.xlsx` | 严格与复制模式的代表方案和全部候选复制量范围；量化跨组中继歧义 |
+| `结果提交_Q4.xlsx` | 原官方模板副本，仅填 `Q4_分区配置` 的严格 K2/K3 代表方案 |
+| `validation/q4_validation.xlsx`、`.txt` | 独立重算的候选/组/资源分配检查数与 PASS/FAIL |
+
+`figures/q4_partition_map_k2.png` 和 `q4_partition_map_k3.png` 在经纬度图上标出 O01、服务区及代表方案分组；`q4_resource_comparison.png` 并列 8 类 K2/K3 需求；`q4_workload_balance.png` 显示组工作量差异；`q4_resource_gap.png` 并列库存与两种分区需求，帮助定位超库存资源。这些图用于解释，validator 以数据与固定任务为准。
 
 <a id="verification"></a>
 ## 测试与独立验证
@@ -442,9 +485,10 @@ Status: Not implemented
 python main.py --validate q1
 python main.py --validate q2 --q2-algorithm v2
 python main.py --validate q3
+python main.py --validate q4
 ```
 
-历史基准可用 `python main.py --validate q2 --q2-algorithm v1` 检查。验证器从源数据重算关键数值，不直接相信保存的能耗或通信布尔值。Q3 结论应连同 0.25 s 最大核验步长及 0.05 s 切换定位精度一起阅读。
+历史基准可用 `python main.py --validate q2 --q2-algorithm v1` 检查。验证器从源数据重算关键数值，不直接相信保存的能耗或通信布尔值。Q3 结论应连同 0.25 s 最大核验步长及 0.05 s 切换定位精度一起阅读。Q4 验证器重查 Q3 源与所有保存的候选分区、资源时间轴和官方填表；只证明其相对固定 Q3 的继承与计算正确。
 
 <a id="outputs"></a>
 ## 输出文件总览
@@ -455,7 +499,7 @@ python main.py --validate q3
 | Q2-v1（历史） | `outputs/q2/q2_transport_sorties.xlsx` | `outputs/q2/q2_summary.json` | `outputs/validation/q2_validation.*` | `outputs/q2/结果提交_Q2.xlsx` |
 | Q2-v2（正式） | `outputs/q2_v2/q2_transport_sorties.xlsx` | `outputs/q2_v2/q2_summary.json` | `outputs/q2_v2/validation/q2_validation.*` | `outputs/q2_v2/结果提交_Q2.xlsx` |
 | Q3 | `outputs/q3/q3_transport_sorties.xlsx`、`q3_relay_sorties.xlsx` | `outputs/q3/q3_summary.json` | `outputs/q3/validation/q3_validation.*` | `outputs/q3/结果提交_Q3.xlsx` |
-| Q4 | 尚未实现 | — | — | — |
+| Q4 | `outputs/q4/q4_selected_partitions.xlsx`、`q4_resource_requirements.xlsx` | `outputs/q4/q4_summary.json` | `outputs/q4/validation/q4_validation.*` | `outputs/q4/结果提交_Q4.xlsx` |
 
 其余公共和第一阶段输出：
 
@@ -468,7 +512,7 @@ python main.py --validate q3
 | `outputs/data_audit/problem_extracted.txt`、`document.xml`、`office_math.json`、`docx_structure.json`、`geodata_description.txt` | DOCX 正文/Office Math 与地理说明提取证据；普通文本不能代替原始公式 XML |
 | `outputs/data_audit/` 下的 `image*`、`preview_*`、`geodata_description_page.png`、`data_summary.xlsx.inspect.ndjson`、`run_log.txt` | 附件媒体、审计预览、说明页、工作簿检查记录及审计运行日志；帮助人工定位结论来源 |
 
-`.gitkeep` 只维持空目录；`outputs/test_tmp*` 和被忽略的临时缓存不是论文结果。Q1/Q2/Q3 每张表与图的阅读目的见各问“输出文件”表。
+`.gitkeep` 只维持空目录；`outputs/test_tmp*` 和被忽略的临时缓存不是论文结果。Q1–Q4 每张表与图的阅读目的见各问“输出文件”表。
 
 <a id="limitations"></a>
 ## 模型局限性
@@ -479,7 +523,7 @@ python main.py --validate q3
 4. Q3 悬停位置使用粗到细**有限候选**，当前粗筛只取配置高度列表的最大值，局部细化才尝试较低高度；运输组织使用 ALNS，联合 CP-SAT 只处理候选组合。保存状态是 `FEASIBLE`，不宣称连续空间全局最优。当前联合 CP 对中继架次使用不同组件，也是搜索范围限制。
 5. Q3 通信连续性经阶段边界、细时间步及切换加密做数值核验。OUTAGE=0 仅表示指定精度下未检测到中断，不是解析意义上的所有时刻证明。
 6. 中继高悬停点飞行高度、建链 30 s 能耗及部分资源时间口径属项目补充假设。道路、水体等图层未作禁飞约束，题目也没有提供相关限制。
-7. Q4 尚无实现；固定 Q3 后的跨组共享中继和资源配置口径仍待该问处理。
+7. Q4 的中继跨组复制、资源重新着色、工作量与简单资源规模均是清楚标注的项目解释。若题目后续给出不同口径，应据此重算 Q4。Q4 精确枚举不消除上游 Q2/Q3 启发式搜索、模型假设和 Q3 数值链路核验的限制。
 
 <a id="reproduction"></a>
 ## 完整复现流程
@@ -499,6 +543,9 @@ python main.py --validate q2 --q2-algorithm v2
 
 python main.py --question q3
 python main.py --validate q3
+
+python main.py --question q4 --q4-relay-policy both
+python main.py --validate q4
 ```
 
-这些命令会写对应 `outputs/` 目录；若只需核验仓库已保存结果，直接运行三个 `--validate` 命令即可。Q3 从 `outputs/q3/baseline_q2_v2_summary.json` 读取已提交 Q2-v2 基准副本，先重跑 Q2 不会自动替换此种子。DEM 或节点数据变更会令公共缓存源指纹失效，亦可加 `--force-recompute`。启发式受时间预算和运行环境影响，重跑的具体候选可能不同；应以新生成方案的独立 validator 判断合法性。
+这些命令会写对应 `outputs/` 目录；若只需核验仓库已保存结果，直接运行四个 `--validate` 命令即可。Q3 从 `outputs/q3/baseline_q2_v2_summary.json` 读取已提交 Q2-v2 基准副本，先重跑 Q2 不会自动替换此种子。DEM 或节点数据变更会令公共缓存源指纹失效，亦可加 `--force-recompute`。启发式受时间预算和运行环境影响，重跑的 Q2/Q3 具体候选可能不同；Q4 始终以当时保存并验证通过的 Q3 快照为固定输入，重新完整枚举。
