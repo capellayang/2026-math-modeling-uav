@@ -1,4 +1,4 @@
-"""Project CLI for independently validated Q1 and Q2 solutions."""
+"""Project CLI for independently validated Q1, Q2 and Q3 solutions."""
 
 import argparse
 import json
@@ -21,6 +21,13 @@ from relief_uav.q2.model import Q2AlgorithmConfig
 from relief_uav.q2.search_v2 import solve_q2_v2
 from relief_uav.q2.report_v2 import benchmark_saved_v2, save_v2_outputs
 from relief_uav.q2.objectives import epsilon_feasible
+from relief_uav.communication.coverage import RadioEnvironment
+from relief_uav.geo.dem import DigitalElevationModel
+from relief_uav.geo.segments import dem_source_path
+from relief_uav.q3.model import Q3AlgorithmConfig
+from relief_uav.q3.solver import solve_q3
+from relief_uav.q3.report import load_q3_solution, save_q3_outputs
+from relief_uav.validation.q3 import validate_q3
 
 MARGINS = (0.10, 0.15, 0.20, 0.25, 0.30)
 
@@ -172,11 +179,52 @@ def validate_saved_q2_v2(force_recompute: bool) -> None:
         raise SystemExit(1)
 
 
+def run_q3(force_recompute: bool, config: Q3AlgorithmConfig) -> None:
+    scenario = load_scenario(ROOT)
+    segments = build_segment_matrix(scenario, force_recompute=force_recompute)
+    env = RadioEnvironment(scenario, DigitalElevationModel(dem_source_path(ROOT)))
+    run = solve_q3(scenario, segments, env, config,
+                   baseline_path=ROOT/"outputs/q3/baseline_q2_v2_summary.json")
+    save_q3_outputs(ROOT, env, run.selected, run.validation, config,
+                    run.pareto, run.history, run.baseline_audit)
+    o = run.selected.objective
+    print(f"Q3: J1={o.weighted_tardiness:.6f}, J1norm={o.normalized_weighted_tardiness:.9f}, "
+          f"transport J2={o.transport_makespan_s:.3f} s, joint J2={o.joint_makespan_s:.3f} s")
+    print(f"Energy transport/relay/joint={o.transport_energy_kwh:.6f}/"
+          f"{o.relay_energy_kwh:.6f}/{o.joint_energy_kwh:.6f} kWh; "
+          f"sorties transport/relay/joint={o.transport_sortie_count}/"
+          f"{o.relay_sortie_count}/{o.joint_sortie_count}")
+    print(f"ALNS {run.selected.alns_iterations} iterations; route variants examined "
+          f"{run.routes_examined}; CP-SAT {run.selected.cp_sat_status}; "
+          f"Pareto {len(run.pareto)}; outage={run.validation.outage_s:.6f} s; "
+          "validator PASS")
+
+
+def validate_saved_q3(force_recompute: bool, max_step_s: float,
+                      transition_tolerance_s: float) -> None:
+    scenario = load_scenario(ROOT)
+    segments = build_segment_matrix(scenario, force_recompute=force_recompute)
+    env = RadioEnvironment(scenario, DigitalElevationModel(dem_source_path(ROOT)))
+    path = ROOT/"outputs/q3/q3_summary.json"
+    if not path.is_file():
+        raise FileNotFoundError("Run python main.py --question q3 first")
+    solution = load_q3_solution(path)
+    result = validate_q3(env, segments, solution, max_step_s=max_step_s,
+                         transition_tolerance_s=transition_tolerance_s)
+    print(f"Q3 saved-plan validation: {'PASS' if result.passed else 'FAIL'}; "
+          f"80 boxes; {len(solution.transport.sorties)} transport sorties; "
+          f"{len(solution.relays)} relay sorties; outage={result.outage_s:.6f} s")
+    for issue in result.issues[:20]:
+        print(f"  {issue}")
+    if not result.passed:
+        raise SystemExit(1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Relief UAV mathematical modeling project")
     action = parser.add_mutually_exclusive_group(required=True)
-    action.add_argument("--question", choices=["q1", "q2"], help="Run a question solver")
-    action.add_argument("--validate", choices=["q1", "q2"], help="Validate saved results")
+    action.add_argument("--question", choices=["q1", "q2", "q3"], help="Run a question solver")
+    action.add_argument("--validate", choices=["q1", "q2", "q3"], help="Validate saved results")
     parser.add_argument("--force-recompute", action="store_true", help="Rebuild the DEM geometry cache")
     parser.add_argument("--seed", type=int, default=20260923, help="Q2 deterministic random seed")
     parser.add_argument("--q2-time-limit", type=float, default=None,
@@ -193,6 +241,22 @@ def main() -> None:
     parser.add_argument("--q2-selection", choices=["epsilon_makespan", "ideal_distance"],
                         default="epsilon_makespan")
     parser.add_argument("--q2-epsilon-levels", default="0,0.02,0.05,0.10")
+    parser.add_argument("--q3-time-limit", type=float, default=600.0)
+    parser.add_argument("--q3-iterations", type=int, default=2000)
+    parser.add_argument("--q3-restarts", type=int, default=6)
+    parser.add_argument("--q3-search-step", type=float, default=1.0)
+    parser.add_argument("--q3-validation-step", type=float, default=0.25)
+    parser.add_argument("--q3-transition-tolerance", type=float, default=0.05)
+    parser.add_argument("--q3-hover-grid-m", type=float, default=600.0)
+    parser.add_argument("--q3-hover-altitudes", default="50,100,150,200,250,300")
+    parser.add_argument("--q3-hover-top-k", type=int, default=20)
+    parser.add_argument("--q3-cp-candidates", type=int, default=12)
+    parser.add_argument("--q3-tardiness-slack", type=float, default=0.05)
+    parser.add_argument("--q3-absolute-epsilon", type=float, default=0.0)
+    parser.add_argument("--q3-selection", choices=["epsilon_makespan"],
+                        default="epsilon_makespan")
+    parser.add_argument("--q3-setup-energy-mode", choices=["hover_plus_comm", "hover_only"],
+                        default="hover_plus_comm")
     args = parser.parse_args()
     if args.question == "q1":
         run_q1(args.force_recompute)
@@ -217,6 +281,24 @@ def main() -> None:
             validate_saved_q2(args.force_recompute)
         else:
             validate_saved_q2_v2(args.force_recompute)
+    elif args.question == "q3":
+        config = Q3AlgorithmConfig(seed=args.seed, time_limit_s=args.q3_time_limit,
+            iterations=args.q3_iterations, restarts=args.q3_restarts,
+            search_step_s=args.q3_search_step,
+            validation_step_s=args.q3_validation_step,
+            transition_tolerance_s=args.q3_transition_tolerance,
+            hover_grid_m=args.q3_hover_grid_m,
+            hover_altitudes_m=tuple(float(x) for x in args.q3_hover_altitudes.split(",")),
+            hover_top_k=args.q3_hover_top_k,
+            cp_candidates=args.q3_cp_candidates,
+            tardiness_slack=args.q3_tardiness_slack,
+            absolute_epsilon=args.q3_absolute_epsilon,
+            selection=args.q3_selection,
+            relay_setup_energy_mode=args.q3_setup_energy_mode)
+        run_q3(args.force_recompute, config)
+    elif args.validate == "q3":
+        validate_saved_q3(args.force_recompute, args.q3_validation_step,
+                          args.q3_transition_tolerance)
 
 
 if __name__ == "__main__":

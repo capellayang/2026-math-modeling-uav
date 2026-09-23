@@ -1,6 +1,6 @@
 # 山区洪涝灾害下无人机运输与通信协同优化
 
-当前完成第一阶段数据审计、公共基础模块、Q1单点往返优化、Q2-v1基准及Q2-v2双主目标搜索。Q3–Q4尚未实现。原始题目与附件不改写；项目路径由代码位置推导，没有固定盘符。
+当前完成第一阶段数据审计、公共基础模块、Q1单点往返优化、Q2-v1基准、Q2-v2双主目标搜索及Q3通信约束联合排程。Q4尚未实现。原始题目与附件不改写；项目路径由代码位置推导，没有固定盘符。
 
 ## 运行环境
 
@@ -38,8 +38,11 @@ python --version
 | `src/relief_uav/validation/q1.py` | 独立重算货箱覆盖、容量、能耗、SOC、时间与总指标 |
 | `src/relief_uav/q2/` | Q1及截止时限多种种子、组批/路线/机型邻域搜索、实体机与电池CP-SAT排程、逐阶段时间轴及结果导出 |
 | `src/relief_uav/validation/q2.py` | 从原始货箱及路线/资源/准备时刻独立重建Q2方案，核对时限、资源占用、SOC与汇总 |
+| `src/relief_uav/communication/` | 运输三维分段轨迹、30m DEM栅格相交视线、双向链路预算、DIRECT/RELAY/OUTAGE时间区间与切换细分 |
+| `src/relief_uav/q3/` | Q2-v2仅直连审计、粗到细中继悬停点候选、通信导向路线ALNS、运输与中继联合CP-SAT排程、完整快照及报告 |
+| `src/relief_uav/validation/q3.py` | 重新读取DEM与附件，独立核验Q2运输约束、中继几何/能量/资源和通信时间区间 |
 
-内部使用m、s、kg、m³、kWh；经纬度保留°，通信频率MHz，通信距离换算km时由后续通信模块处理。SOC用0–1比例，原表的20%读取为0.2。电池和组件原附件只有各型号库存数，**没有逐块编号**，数据模型保持库存对象而不伪造官方ID。
+内部使用m、s、kg、m³、kWh；经纬度保留°，通信频率MHz，FSPL中的三维距离换算为km。SOC用0–1比例，原表的20%读取为0.2。电池和组件原附件只有各型号库存数，**没有逐块编号**；资源时间轴里的`A-BAT-xx`和`R-COMP-xx`均为确定性的项目内部编号，不是附件官方ID。
 
 ### 航段几何口径
 
@@ -134,11 +137,35 @@ Q2-v1输出原样保留在`outputs/q2/`，已提交的基准JSON另存于`output
 
 Q1仍仅支持字典序目标；`weighted`与`pareto`尚未实现，不能把Q2的模式误认为Q1功能。
 
+## Q3通信、联合调度与验证
+
+Q3以Q2-v2已提交的运输解为种子，先分析26架次在无中继时的直接通信缺口，再从失联轨迹、服务区、中间位置和局部粗网格生成悬停候选，经回传链路、飞行能量及覆盖度筛选。通信导向ALNS可修改组批、访问顺序和机型；联合CP-SAT重新决定运输机、电池和起飞时间，并分配中继悬停点、服务区间及实体。最终方案未必改变Q2的货箱路线，但**运输排程并非固定后处理**。ALNS及候选覆盖采用近似，最后由独立validator重算。
+
+从运输机起飞至返回O01，爬升、巡航、下降和交接均要求通信。优先检查与G01直连；失败时只允许一架已完成建链且正在服务的中继同时满足运输机—中继接入与中继—G01回传；禁止多跳。一个中继可以同时服务多架运输机，附件没有给并发用户上限。G01经纬度取O01，天线MSL海拔由O01附件高程加网关离地高度计算。链路使用附件参数、三维距离、双向最小允许损耗及`FSPL=32.45+20log10(f_MHz)+20log10(D_km)`；地形遮挡增加附件给定的10dB损耗，**不直接等同失联**。LOS对通信线穿过的每个DEM像元计算视线海拔，对栅格边和角点采用保守相交，并拒绝NoData。
+
+中继服务时固定悬停；`hover_msl=DEM(hover_xy)+hover_agl`，官方模板“悬停海拔”填MSL。为处理悬停点高于`maxDEM+50m`的情况，项目采用扩展几何约定`H_flight=max(maxDEM+50m,hover_msl,O01海拔)`；这**不是原题显式公式**。中继巡航能耗由附件巡航功率×巡航时间计算，爬升附加能耗沿用已授权的`mgh/η`项目假设，下降附加能耗为0。建链30秒默认按悬停功率+通信功率计能，可用`--q3-setup-energy-mode hover_only`切换；这个建链能耗口径并非原题明确规定。实体返航后满300秒周转才可开始下次准备；组件返航立即可充电，能与实体周转并行，复用前须按原题两阶段充满至100%。当前联合CP每个中继架次使用一组不同组件，因此不会依赖组件复用来建立可行性，仍在输出中记录充电结束时刻。
+
+Q3主目标是配送加权逾期`J1`与所有运输机和中继机的最晚返航`J2`；运输+中继能耗`J3`和两类总架次数`J4`作次目标。Pareto/ε优先级是项目建模选择，非原题指定。若最优已发现`J1=0`且绝对ε也为0，相对ε不会放宽逾期。CP-SAT对给定有限悬停候选和路线可报告`OPTIMAL`，但整个连续位置/路线问题不宣称全局最优。
+
+在已激活的Miniconda `dl`环境中运行：
+
+```powershell
+python main.py --question q3 --seed 20260923 --q3-time-limit 600 --q3-iterations 2000 --q3-restarts 6 --q3-search-step 1.0 --q3-validation-step 0.25 --q3-transition-tolerance 0.05 --q3-tardiness-slack 0.05 --q3-selection epsilon_makespan
+python main.py --validate q3
+python -m pytest tests -q --basetemp outputs/test_tmp
+```
+
+可调悬停粗网格`--q3-hover-grid-m`、初始AGL档位`--q3-hover-altitudes "50,100,150,200,250,300"`、候选数量`--q3-hover-top-k`、CP候选数`--q3-cp-candidates`、绝对ε`--q3-absolute-epsilon`。中继候选缓存位于`outputs/q3/cache/relay_candidates.json`，由运输方案、审计区间和候选参数指纹控制；最终validator**不读取优化器缓存**。Q2-v2已提交种子单独复制到`outputs/q3/baseline_q2_v2_summary.json`，不读取或覆盖本地可能改动的Q2工作表。
+
+所有Q3结果位于`outputs/q3/`：`baseline_q2_direct_audit.xlsx/.json`记录仅直连失联，`q3_transport_sorties.xlsx`与`q3_box_deliveries.xlsx`保存Q3运输决策，`q3_relay_sorties.xlsx`、`q3_relay_resource_timeline.xlsx`及`q3_communication_coverage.xlsx`保存中继、组件和链路预算；`q3_pareto.xlsx`、`q3_algorithm_comparison.xlsx`、日志和六张图供比较。`q3_summary.json`保留完整运输及中继快照、通信关系、目标及项目假设，供Q4继承。`结果提交_Q3.xlsx`复制官方模板，只填`Q3_中继架次`与`Q3_通信保障`；其中“开始时刻”映射为中继准备开始，悬停海拔填MSL。官方没有Q3专用运输sheet，因此完整运输方案在补充文件和JSON中。验证文件在`outputs/q3/validation/`。
+
+最终通信报告表述为**按配置最大时间步与切换定位精度进行数值连续性核验**；它不是解析意义上的全时刻数学证明。短时中断、精确阶段边界、地形像元角点和NoData均在测试中专门覆盖。
+
 ## 第一阶段资料与后续边界
 
 见 [题目与数据审计](docs/题目与数据审计.md) 和 [字段与模板字典](docs/输入字段与模板.md)。审计证据和汇总在 `outputs/data_audit/`，原始提交模板没有修改。
 
-原题未给出能耗分项公式，所以Q1/Q2结果以用户授权的项目建模假设为条件；与正式勘误不一致时须整体重算。中继建链能耗归属与Q4共享中继跨组关系仍需澄清。Q3–Q4优化器及通信保障验证尚未实现。
+原题未给出运输能耗分项公式，所以Q1–Q3运输能耗以用户授权的项目建模假设为条件；与正式勘误不一致时须整体重算。中继建链能耗在Q3提供两种可选项目口径。Q4共享中继跨组关系仍需澄清；本阶段未开始Q4。
 
 ## 目录
 
@@ -149,9 +176,11 @@ src/relief_uav/geo/            DEM、距离、航段矩阵和缓存
 src/relief_uav/physics/        飞行、能耗、统一架次评估、SOC
 src/relief_uav/q1/             Q1精确求解与报告
 src/relief_uav/q2/             Q2路线、排程、时间轴及报告
-src/relief_uav/q3...q4/       后续求解目录
-src/relief_uav/validation/     Q1/Q2独立验证
-tests/                         基础和Q1/Q2单元/集成测试
+src/relief_uav/communication/  通信链路与连续性判定
+src/relief_uav/q3/             Q3联合搜索、调度、报告
+src/relief_uav/q4/             后续求解目录
+src/relief_uav/validation/     Q1/Q2/Q3独立验证
+tests/                         基础和Q1–Q3单元/集成测试
 scripts/                       审计脚本及基础物理核验表生成
 outputs/cache/                 可重建几何缓存
 outputs/validation/            人工核验表

@@ -1,0 +1,149 @@
+{
+  "fingerprint": "590ed2e742e09ffe7b59636cb7eb13327ec3704f238f1f398929c90ff3550947",
+  "points": [
+    {
+      "longitude_deg": 109.2217994,
+      "latitude_deg": 23.0440104,
+      "ground_elevation_m": 284.017822265625,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 584.017822265625
+    },
+    {
+      "longitude_deg": 109.2038334,
+      "latitude_deg": 23.0479902,
+      "ground_elevation_m": 527.4551391601562,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 827.4551391601562
+    },
+    {
+      "longitude_deg": 109.2740773,
+      "latitude_deg": 23.0425701,
+      "ground_elevation_m": 418.7057800292969,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 718.7057800292969
+    },
+    {
+      "longitude_deg": 109.2363506,
+      "latitude_deg": 23.0605946,
+      "ground_elevation_m": 330.5505676269531,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 630.5505676269531
+    },
+    {
+      "longitude_deg": 109.279931,
+      "latitude_deg": 23.03173,
+      "ground_elevation_m": 427.4266357421875,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 727.4266357421875
+    },
+    {
+      "longitude_deg": 109.20529681463414,
+      "latitude_deg": 23.046635186449866,
+      "ground_elevation_m": 442.0950012207031,
+      "hover_agl_m": 275.0,
+      "hover_msl_m": 717.0950012207031
+    },
+    {
+      "longitude_deg": 109.2740773,
+      "latitude_deg": 23.0425701,
+      "ground_elevation_m": 418.7057800292969,
+      "hover_agl_m": 275.0,
+      "hover_msl_m": 693.7057800292969
+    },
+    {
+      "longitude_deg": 109.2363506,
+      "latitude_deg": 23.059239586449866,
+      "ground_elevation_m": 328.6170654296875,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 628.6170654296875
+    },
+    {
+      "longitude_deg": 109.279931,
+      "latitude_deg": 23.03173,
+      "ground_elevation_m": 427.4266357421875,
+      "hover_agl_m": 275.0,
+      "hover_msl_m": 702.4266357421875
+    },
+    {
+      "longitude_deg": 109.2389554,
+      "latitude_deg": 23.0479902,
+      "ground_elevation_m": 276.4325256347656,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 576.4325256347656
+    },
+    {
+      "longitude_deg": 109.2222152,
+      "latitude_deg": 23.04238,
+      "ground_elevation_m": 251.7985382080078,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 551.7985382080078
+    },
+    {
+      "longitude_deg": 109.2363585,
+      "latitude_deg": 23.0606697,
+      "ground_elevation_m": 330.5505676269531,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 630.5505676269531
+    },
+    {
+      "longitude_deg": 109.2213944,
+      "latitude_deg": 23.0425701,
+      "ground_elevation_m": 251.05380249023438,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 551.0538024902344
+    },
+    {
+      "longitude_deg": 109.2389554,
+      "latitude_deg": 23.0642504,
+      "ground_elevation_m": 297.3832702636719,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 597.3832702636719
+    },
+    {
+      "longitude_deg": 109.244809,
+      "latitude_deg": 23.0479902,
+      "ground_elevation_m": 254.56533813476562,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 554.5653381347656
+    },
+    {
+      "longitude_deg": 109.2389554,
+      "latitude_deg": 23.0588303,
+      "ground_elevation_m": 340.6925964355469,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 640.6925964355469
+    },
+    {
+      "longitude_deg": 109.2213944,
+      "latitude_deg": 23.0371501,
+      "ground_elevation_m": 215.16595458984375,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 515.1659545898438
+    },
+    {
+      "longitude_deg": 109.2155407,
+      "latitude_deg": 23.0371501,
+      "ground_elevation_m": 253.1543731689453,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 553.1543731689453
+    },
+    {
+      "longitude_deg": 109.2038334,
+      "latitude_deg": 23.0534102,
+      "ground_elevation_m": 488.1676025390625,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 788.1676025390625
+    },
+    {
+      "longitude_deg": 109.227248,
+      "latitude_deg": 23.02631,
+      "ground_elevation_m": 209.88430786132812,
+      "hover_agl_m": 300.0,
+      "hover_msl_m": 509.8843078613281
+    }
+  ],
+  "representative_count": 447,
+  "uncovered_representatives": 0,
+  "raw_candidate_count": 441,
+  "locally_refined_count": 4
+}

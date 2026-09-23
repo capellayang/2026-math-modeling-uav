@@ -43,6 +43,11 @@ def _book(path: Path, title: str, headers: list[str], rows: list[list]) -> None:
 
 def load_q2_solution(path: Path) -> Q2Solution:
     data = json.loads(path.read_text(encoding="utf-8"))
+    return load_q2_payload(data)
+
+
+def load_q2_payload(data: dict) -> Q2Solution:
+    """Rehydrate a Q2 snapshot, including one nested inside a Q3 result."""
     sorties = []
     for raw in data["sorties"]:
         spec = raw["spec"]
@@ -58,11 +63,11 @@ def load_q2_solution(path: Path) -> Q2Solution:
                                       for x in raw["stops"]), raw["return_o01_time_s"],
                                 raw["loaded_mass_kg"], raw["loaded_volume_m3"],
                                 raw["energy_kwh"], raw["return_soc"]))
-    if data.get("model_counts") != dict(Counter(s.spec.model_id for s in sorties)):
+    if "model_counts" in data and data["model_counts"] != dict(Counter(s.spec.model_id for s in sorties)):
         raise ValueError("Q2 summary model counts disagree with sortie detail")
-    if data.get("used_drone_ids") != sorted({s.drone_id for s in sorties}):
+    if "used_drone_ids" in data and data["used_drone_ids"] != sorted({s.drone_id for s in sorties}):
         raise ValueError("Q2 summary drone IDs disagree with sortie detail")
-    if data.get("used_batteries_by_model") != {
+    if "used_batteries_by_model" in data and data["used_batteries_by_model"] != {
             m: len({s.battery_id for s in sorties if s.spec.model_id == m}) for m in "ABC"}:
         raise ValueError("Q2 summary battery counts disagree with sortie detail")
     return Q2Solution(data["objective_mode"], data["seed"], tuple(sorties),

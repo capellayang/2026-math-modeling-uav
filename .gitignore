@@ -25,3 +25,5 @@ desktop.ini
 outputs/cache/*
 !outputs/cache/.gitkeep
 outputs/test_tmp/
+outputs/test_tmp_q3/
+outputs/q3/cache/*.pkl

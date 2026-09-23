@@ -1,0 +1,4 @@
+Q3 independent validator: PASS
+Numerically verified continuous communication; max verification interval = 0.25 s; transition tolerance = 0.05 s.
+Detected outage duration = 0.000000000 s.
+This is a numerical check, not an analytic proof of all instants.
