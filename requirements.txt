@@ -9,3 +9,4 @@ pyproj
 h5py
 PyMuPDF
 pytest
+matplotlib

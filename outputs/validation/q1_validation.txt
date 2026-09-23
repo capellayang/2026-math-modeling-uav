@@ -1,0 +1,5 @@
+Q1 independent validator: PASS
+Trips checked: 18
+Unique boxes: 80/80
+Checks: exactly-once box coverage, model/service, structural mass, volume,
+common-physics energy, return SOC, operation time, detail/summary totals.

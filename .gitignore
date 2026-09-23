@@ -24,3 +24,4 @@ desktop.ini
 
 outputs/cache/*
 !outputs/cache/.gitkeep
+outputs/test_tmp/

@@ -9,8 +9,8 @@ from relief_uav.physics import (
     preparation_time_s, remaining_soc,
 )
 from relief_uav.physics.energy import (
-    MissingOfficialFormulaError, climb_additional_energy_kwh,
-    horizontal_transport_energy_kwh,
+    climb_additional_energy_kwh, horizontal_transport_energy_kwh,
+    transport_segment_energy,
 )
 
 
@@ -62,10 +62,11 @@ def test_charge_continuity_and_soc_bookkeeping():
         charge_to_full_s(1.01, t)
 
 
-def test_missing_energy_formula_is_explicit():
+def test_project_energy_assumption_components_are_explicit():
     model = load_scenario().transport_models["A"]
     segment = DirectedSegment("A", "B", 1, 1, 51, 0, 0, 51, 51, 1)
-    with pytest.raises(MissingOfficialFormulaError):
-        horizontal_transport_energy_kwh(model, segment, 1)
-    with pytest.raises(MissingOfficialFormulaError):
-        climb_additional_energy_kwh(model, segment, 1)
+    result = transport_segment_energy(model, segment, 1)
+    assert result.horizontal_kwh == horizontal_transport_energy_kwh(model, segment, 1)
+    assert result.climb_additional_kwh == climb_additional_energy_kwh(model, segment, 1)
+    assert result.total_kwh == pytest.approx(result.horizontal_kwh + result.climb_additional_kwh)
+    assert result.descent_additional_kwh == 0
