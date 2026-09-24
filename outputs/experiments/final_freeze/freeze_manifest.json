@@ -1,0 +1,402 @@
+{
+  "status": "FORMAL_Q3_Q4_PUBLISHED_AND_VALIDATED",
+  "provenance": {
+    "q3_source_sha256": "1887c366cf94cf3a2c23ba088f6020f6a70254197c9d1eb8ca5ee286d8cc0626",
+    "q2_baseline_sha256": "42b0452f211c22179997014ecdd7a543d77feab9369e40029b5631e83a97f8d7",
+    "model_diff_from_experiment_base": "none"
+  },
+  "current_q3_sha256": "1d38144c0bc5b591da1abf7762067948afc4e832bf85bde93da9e1af4ffe8e7e",
+  "current_q4_sha256": "eccc541c016105189d8203bdb10c5683eeaa38eae2dd80d994c17930e5b9bc60",
+  "staged_q3_sha256": "ec30af5a87d527d514081a35e7564bb41f74248331f3a2bc1d52472c540b3d3b",
+  "staged_q4_sha256": "f8db50002c59d5f43f8390d722287d1e94bab5b18b54f838e12f32acc85ada29",
+  "metrics": {
+    "CURRENT": {
+      "J1": 0.0,
+      "J2_s": 7368.139148248344,
+      "J3_kwh": 82.0794257366099,
+      "transport_energy_kwh": 78.47952449430414,
+      "relay_energy_kwh": 3.5999012423057652,
+      "NT": 26,
+      "NR": 5,
+      "boxes": 80,
+      "outage_s": 0,
+      "direct_s": 23655.430139079377,
+      "relay_s": 18445.154429888982,
+      "minimum_relay_access_margin_db": 0.27363900750376047,
+      "minimum_relay_backhaul_margin_db": 0.8629875026957166,
+      "strict_components": 3,
+      "largest_strict_component": 13,
+      "strict_components_detail": [
+        [
+          "S001"
+        ],
+        [
+          "S002",
+          "S003",
+          "S004",
+          "S005",
+          "S007",
+          "S008",
+          "S009",
+          "S010",
+          "S011",
+          "S012",
+          "S013",
+          "S014",
+          "S015"
+        ],
+        [
+          "S006"
+        ]
+      ],
+      "setup_energy_mode": "hover_plus_comm",
+      "strict_K2": {
+        "legal_partitions": 3,
+        "gap": 2,
+        "scale": 29,
+        "cv": 0.9029098128200543,
+        "resource_vector": {
+          "A_UAV": 4,
+          "B_UAV": 2,
+          "C_UAV": 3,
+          "A_battery": 6,
+          "B_battery": 4,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S006,S007,S008,S009,S010,S011,S012,S013,S014,S015"
+      },
+      "strict_K3": {
+        "legal_partitions": 1,
+        "gap": 5,
+        "scale": 32,
+        "cv": 1.1907903587828021,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 3,
+          "A_battery": 7,
+          "B_battery": 4,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      },
+      "replicate_K2": {
+        "legal_partitions": 31,
+        "gap": 2,
+        "scale": 29,
+        "cv": 0.9029098128200543,
+        "resource_vector": {
+          "A_UAV": 4,
+          "B_UAV": 2,
+          "C_UAV": 3,
+          "A_battery": 6,
+          "B_battery": 4,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S006,S007,S008,S009,S010,S011,S012,S013,S014,S015"
+      },
+      "replicate_K3": {
+        "legal_partitions": 90,
+        "gap": 5,
+        "scale": 32,
+        "cv": 1.1907903587828021,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 3,
+          "A_battery": 7,
+          "B_battery": 4,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      }
+    },
+    "20260925": {
+      "J1": 0.0,
+      "J2_s": 7147.273356990602,
+      "J3_kwh": 80.35457895130718,
+      "transport_energy_kwh": 77.07551579794968,
+      "relay_energy_kwh": 3.2790631533574928,
+      "NT": 26,
+      "NR": 4,
+      "boxes": 80,
+      "outage_s": 0,
+      "direct_s": 23608.949101005488,
+      "relay_s": 17840.532891294217,
+      "minimum_relay_access_margin_db": 0.27363900750376047,
+      "minimum_relay_backhaul_margin_db": 0.8629875026957166,
+      "strict_components": 3,
+      "largest_strict_component": 13,
+      "strict_components_detail": [
+        [
+          "S001"
+        ],
+        [
+          "S002",
+          "S003",
+          "S004",
+          "S005",
+          "S007",
+          "S008",
+          "S009",
+          "S010",
+          "S011",
+          "S012",
+          "S013",
+          "S014",
+          "S015"
+        ],
+        [
+          "S006"
+        ]
+      ],
+      "setup_energy_mode": "hover_plus_comm",
+      "strict_K2": {
+        "legal_partitions": 3,
+        "gap": 2,
+        "scale": 29,
+        "cv": 0.8998301418333927,
+        "resource_vector": {
+          "A_UAV": 4,
+          "B_UAV": 2,
+          "C_UAV": 3,
+          "A_battery": 6,
+          "B_battery": 4,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S006,S007,S008,S009,S010,S011,S012,S013,S014,S015"
+      },
+      "strict_K3": {
+        "legal_partitions": 1,
+        "gap": 6,
+        "scale": 33,
+        "cv": 1.183705120458068,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 3,
+          "A_battery": 7,
+          "B_battery": 5,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      },
+      "replicate_K2": {
+        "legal_partitions": 31,
+        "gap": 2,
+        "scale": 29,
+        "cv": 0.8998301418333927,
+        "resource_vector": {
+          "A_UAV": 4,
+          "B_UAV": 2,
+          "C_UAV": 3,
+          "A_battery": 6,
+          "B_battery": 4,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S006,S007,S008,S009,S010,S011,S012,S013,S014,S015"
+      },
+      "replicate_K3": {
+        "legal_partitions": 90,
+        "gap": 6,
+        "scale": 33,
+        "cv": 1.183705120458068,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 3,
+          "A_battery": 7,
+          "B_battery": 5,
+          "C_battery": 5,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      }
+    },
+    "20260927": {
+      "J1": 0.0,
+      "J2_s": 6975.244356990602,
+      "J3_kwh": 80.08961337988009,
+      "transport_energy_kwh": 76.7409755788635,
+      "relay_energy_kwh": 3.3486378010166007,
+      "NT": 26,
+      "NR": 4,
+      "boxes": 80,
+      "outage_s": 0,
+      "direct_s": 23544.648925636127,
+      "relay_s": 17531.777297818535,
+      "minimum_relay_access_margin_db": 1.7599829813670596,
+      "minimum_relay_backhaul_margin_db": 0.8629875026957166,
+      "strict_components": 3,
+      "largest_strict_component": 13,
+      "strict_components_detail": [
+        [
+          "S001"
+        ],
+        [
+          "S002",
+          "S003",
+          "S004",
+          "S005",
+          "S007",
+          "S008",
+          "S009",
+          "S010",
+          "S011",
+          "S012",
+          "S013",
+          "S014",
+          "S015"
+        ],
+        [
+          "S006"
+        ]
+      ],
+      "setup_energy_mode": "hover_plus_comm",
+      "strict_K2": {
+        "legal_partitions": 3,
+        "gap": 4,
+        "scale": 31,
+        "cv": 0.8825900780064836,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 2,
+          "A_battery": 7,
+          "B_battery": 5,
+          "C_battery": 4,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001,S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      },
+      "strict_K3": {
+        "legal_partitions": 1,
+        "gap": 8,
+        "scale": 35,
+        "cv": 1.1832901651053964,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 4,
+          "A_battery": 7,
+          "B_battery": 5,
+          "C_battery": 6,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      },
+      "replicate_K2": {
+        "legal_partitions": 31,
+        "gap": 4,
+        "scale": 31,
+        "cv": 0.8825900780064836,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 2,
+          "A_battery": 7,
+          "B_battery": 5,
+          "C_battery": 4,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001,S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      },
+      "replicate_K3": {
+        "legal_partitions": 90,
+        "gap": 8,
+        "scale": 35,
+        "cv": 1.1832901651053964,
+        "resource_vector": {
+          "A_UAV": 5,
+          "B_UAV": 3,
+          "C_UAV": 4,
+          "A_battery": 7,
+          "B_battery": 5,
+          "C_battery": 6,
+          "relay_UAV": 2,
+          "relay_component": 3
+        },
+        "group_signature": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006"
+      }
+    }
+  },
+  "checks": [
+    [
+      "Q3 source and Q2 baseline fingerprints",
+      "PASS",
+      "{\"q3_source_sha256\": \"1887c366cf94cf3a2c23ba088f6020f6a70254197c9d1eb8ca5ee286d8cc0626\", \"q2_baseline_sha256\": \"42b0452f211c22179997014ecdd7a543d77feab9369e40029b5631e83a97f8d7\", \"model_diff_from_experiment_base\": \"none\"}"
+    ],
+    [
+      "Q2/Q3/Q4 physics/communication/geo/validators unchanged",
+      "PASS",
+      "git diff 12859c2 -- src/... is empty"
+    ],
+    [
+      "CURRENT Q2/Q3 source physics, SOC, charge, resources, radio",
+      "PASS",
+      "80 unique boxes; 0.25 s; OUTAGE=0; issues=0"
+    ],
+    [
+      "CURRENT saved Q4 and official template",
+      "PASS",
+      "125 candidates"
+    ],
+    [
+      "CURRENT Q4 exact enumeration and frozen inheritance",
+      "PASS",
+      "125 candidates; issues=0"
+    ],
+    [
+      "20260925 Q2/Q3 source physics, SOC, charge, resources, radio",
+      "PASS",
+      "80 unique boxes; 0.25 s; OUTAGE=0; issues=0"
+    ],
+    [
+      "20260925 Q4 exact enumeration and frozen inheritance",
+      "PASS",
+      "125 candidates; issues=0"
+    ],
+    [
+      "20260927 Q2/Q3 source physics, SOC, charge, resources, radio",
+      "PASS",
+      "80 unique boxes; 0.25 s; OUTAGE=0; issues=0"
+    ],
+    [
+      "20260927 Q4 exact enumeration and frozen inheritance",
+      "PASS",
+      "125 candidates; issues=0"
+    ],
+    [
+      "Q3 official and supplemental export mapping",
+      "PASS",
+      "{\"official_relay_rows\": 4, \"official_communication_rows\": 272, \"supplemental_row_counts\": {\"q3_transport_sorties.xlsx\": 26, \"q3_box_deliveries.xlsx\": 80, \"q3_relay_sorties.xlsx\": 4, \"q3_relay_resource_timeline.xlsx\": 4, \"q3_communication_coverage.xlsx\": 272, \"q3_pareto.xlsx\": 1}, \"non_Q3_template_sheets_unchanged\": true}"
+    ],
+    [
+      "Q4 both policies, official template and supplemental exports",
+      "PASS",
+      "125 candidates; 341 groups"
+    ]
+  ],
+  "search_history_note": "Five-seed batch preserved solution and 2000 iteration count, but not its per-iteration ALNS trajectory. The frozen CSV is header-only; no historical points were invented. Q3-SEED-20260927 is a provenance label, not a recovered internal solver candidate ID.",
+  "formal_q3_sha256": "ec30af5a87d527d514081a35e7564bb41f74248331f3a2bc1d52472c540b3d3b",
+  "formal_q4_sha256": "f8db50002c59d5f43f8390d722287d1e94bab5b18b54f838e12f32acc85ada29",
+  "final_q4_checked_candidates": 125
+}

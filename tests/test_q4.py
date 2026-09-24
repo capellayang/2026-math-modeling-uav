@@ -37,9 +37,10 @@ def test_exact_components_and_candidate_counts(context):
     assert len(transport) == 6
     assert len(strict) == 3
     assert [c.service_areas for c in transport] == [
-        ("S001",), ("S002", "S004", "S005", "S009"),
-        ("S003", "S007", "S011", "S014", "S015"),
-        ("S006",), ("S008",), ("S010", "S012", "S013")]
+        ("S001",),
+        ("S002", "S003", "S004", "S005", "S007", "S009", "S015"),
+        ("S006",), ("S008",), ("S010", "S012", "S013"),
+        ("S011", "S014")]
     assert len(tuple(enumerate_partitions(transport, 2))) == 31
     assert len(tuple(enumerate_partitions(transport, 3))) == 90
     assert len(tuple(enumerate_partitions(strict, 2))) == 3

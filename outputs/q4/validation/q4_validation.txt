@@ -1,3 +1,3 @@
 Q4 independent validator: PASS
-Q3 source SHA256: 1d38144c0bc5b591da1abf7762067948afc4e832bf85bde93da9e1af4ffe8e7e
-Checked 125 candidates, 341 groups, 8884 resource assignments.
+Q3 source SHA256: ec30af5a87d527d514081a35e7564bb41f74248331f3a2bc1d52472c540b3d3b
+Checked 125 candidates, 341 groups, 8202 resource assignments.

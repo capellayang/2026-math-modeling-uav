@@ -26,6 +26,7 @@ outputs/cache/*
 !outputs/cache/.gitkeep
 outputs/test_tmp/
 outputs/test_tmp_five_seed*/
+outputs/test_tmp*/
 outputs/test_tmp_q3/
 outputs/q3/cache/*.pkl
 outputs/experiments/q3_q4_improvement/cache/
@@ -33,3 +34,6 @@ outputs/experiments/q3_q4_improvement/*_progress.json
 outputs/experiments/q3_q4_improvement/*_q4.json
 outputs/experiments/q3_five_seed/*/cache/
 outputs/experiments/q3_five_seed/*/q4_strict.json
+outputs/experiments/final_freeze/staging_root/
+outputs/experiments/final_freeze/previous_formal/
+outputs/experiments/final_freeze/reference_current/
