@@ -1,0 +1,52 @@
+{
+  "issues": [
+    "Q2-016 sampled communication OUTAGE",
+    "Detected outage duration 34.478080 s"
+  ],
+  "intervals": [
+    {
+      "transport_sortie_id": "Q2-016",
+      "phase": "leg2:cruise",
+      "start_s": 1228.3364616323497,
+      "end_s": 1235.550625042287,
+      "mode": "OUTAGE",
+      "relay_sortie_id": null,
+      "minimum_margin_db": -3.2908241836773158,
+      "terrain_blocked": true,
+      "reason": "terrain"
+    },
+    {
+      "transport_sortie_id": "Q2-016",
+      "phase": "leg2:cruise",
+      "start_s": 1239.6105438444165,
+      "end_s": 1242.6710980183295,
+      "mode": "OUTAGE",
+      "relay_sortie_id": null,
+      "minimum_margin_db": -3.417937759339864,
+      "terrain_blocked": true,
+      "reason": "terrain"
+    },
+    {
+      "transport_sortie_id": "Q2-016",
+      "phase": "leg2:cruise",
+      "start_s": 1281.7400089526673,
+      "end_s": 1288.8292517840775,
+      "mode": "OUTAGE",
+      "relay_sortie_id": null,
+      "minimum_margin_db": -4.199905251244459,
+      "terrain_blocked": true,
+      "reason": "terrain"
+    },
+    {
+      "transport_sortie_id": "Q2-016",
+      "phase": "leg2:cruise",
+      "start_s": 1293.0765514539978,
+      "end_s": 1310.1906707122046,
+      "mode": "OUTAGE",
+      "relay_sortie_id": null,
+      "minimum_margin_db": -4.539368212993367,
+      "terrain_blocked": true,
+      "reason": "terrain"
+    }
+  ]
+}

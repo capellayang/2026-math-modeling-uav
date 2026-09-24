@@ -59,21 +59,22 @@ def _candidate_row(identifier: str, solution: Q3Solution,
 
 
 def _pareto(rows: list[tuple[str, Q3Solution, Q3Validation]]) -> list[tuple]:
+    """Five-axis Q3 Pareto filter; J4 retains transport/relay distinction."""
     result = []
     for candidate in rows:
         o = candidate[1].objective
+        vector = (o.weighted_tardiness, o.joint_makespan_s,
+                  o.joint_energy_kwh, o.transport_sortie_count,
+                  o.relay_sortie_count)
         def dominates(x):
             other = x[1].objective
-            if (other.weighted_tardiness <= o.weighted_tardiness+1e-8 and
-                    other.joint_makespan_s <= o.joint_makespan_s+1e-8):
-                if (other.weighted_tardiness < o.weighted_tardiness-1e-8 or
-                        other.joint_makespan_s < o.joint_makespan_s-1e-8):
+            other_vector = (other.weighted_tardiness, other.joint_makespan_s,
+                            other.joint_energy_kwh, other.transport_sortie_count,
+                            other.relay_sortie_count)
+            if all(a <= b+1e-8 for a, b in zip(other_vector, vector)):
+                if any(a < b-1e-8 for a, b in zip(other_vector, vector)):
                     return True
-                if (abs(other.weighted_tardiness-o.weighted_tardiness) <= 1e-8 and
-                        abs(other.joint_makespan_s-o.joint_makespan_s) <= 1e-8):
-                    return (other.joint_energy_kwh, other.joint_sortie_count,
-                            x[0]) < (o.joint_energy_kwh, o.joint_sortie_count,
-                                      candidate[0])
+                return x[0] < candidate[0]
             return False
         if any(dominates(x) for x in rows if x is not candidate):
             continue
@@ -85,7 +86,7 @@ def _pareto(rows: list[tuple[str, Q3Solution, Q3Validation]]) -> list[tuple]:
 
 def solve_q3(scenario: Scenario, segments: SegmentMatrix,
              env: RadioEnvironment, config: Q3AlgorithmConfig,
-             *, baseline_path: Path) -> Q3Run:
+             *, baseline_path: Path, experiment_cache_dir: Path | None = None) -> Q3Run:
     started = monotonic()
     model = next(iter(scenario.relay_models.values()))
     if (config.time_limit_s <= 0 or config.iterations < 0 or config.restarts <= 0 or
@@ -95,6 +96,12 @@ def solve_q3(scenario: Scenario, segments: SegmentMatrix,
             not config.hover_altitudes_m or
             any(not 0 < h <= model.max_hover_agl_m for h in config.hover_altitudes_m) or
             config.tardiness_slack < 0 or config.absolute_epsilon < 0 or
+            config.max_relay_sorties < 1 or
+            config.tardiness_mode not in ("zero", "pareto") or
+            config.hover_xy_mode not in ("local", "buffered", "full_dem") or
+            config.hover_altitude_mode not in ("legacy", "full") or
+            config.route_archive_mode not in ("scalar", "multiobjective") or
+            config.joint_objective not in ("makespan", "energy", "relay_sorties") or
             config.selection != "epsilon_makespan" or
             config.relay_setup_energy_mode not in ("hover_plus_comm", "hover_only")):
         raise ValueError("Invalid Q3 algorithm configuration")
@@ -102,7 +109,9 @@ def solve_q3(scenario: Scenario, segments: SegmentMatrix,
     check = validate_q2(scenario, segments, baseline)
     if not check.passed:
         raise RuntimeError(f"Q2-v2 seed fails transport validation: {check.issues[:5]}")
-    audit_path = scenario.root/"outputs/q3/baseline_q2_direct_audit.json"
+    audit_path = ((experiment_cache_dir/"baseline_q2_direct_audit.json")
+                  if experiment_cache_dir else
+                  scenario.root/"outputs/q3/baseline_q2_direct_audit.json")
     if audit_path.is_file():
         import json
         audit = json.loads(audit_path.read_text(encoding="utf-8"))
@@ -111,9 +120,15 @@ def solve_q3(scenario: Scenario, segments: SegmentMatrix,
     if audit is None or audit.get("source_fingerprint") != audit_fingerprint(env, baseline):
         audit = direct_audit(env, baseline, step_s=2.0,
                              source="committed Q2-v2 solution")
-        save_direct_audit(scenario.root, audit)
+        if experiment_cache_dir:
+            import json
+            audit_path.parent.mkdir(parents=True, exist_ok=True)
+            audit_path.write_text(json.dumps(audit, ensure_ascii=False), encoding="utf-8")
+        else:
+            save_direct_audit(scenario.root, audit)
     hover, _, _ = generate_candidates(env, baseline, audit, config,
-                     scenario.root/"outputs/q3/cache/relay_candidates.json")
+                     (experiment_cache_dir/"relay_candidates.json" if experiment_cache_dir
+                      else scenario.root/"outputs/q3/cache/relay_candidates.json"))
     if not hover:
         raise RuntimeError("No relay hover candidates with valid backhaul and energy")
     found = []
@@ -139,9 +154,11 @@ def solve_q3(scenario: Scenario, segments: SegmentMatrix,
         if str(route.specs) == base_signature:
             continue
         routes_examined += 1
-        cp = schedule_epsilon(scenario, segments, route.specs, mode="makespan",
+        cp = schedule_epsilon(scenario, segments, route.specs,
+            mode="makespan" if config.tardiness_mode == "zero" else "unrestricted_makespan",
             time_limit_s=min(20, config.time_limit_s*.035), seed=config.seed+routes_examined,
-            best_tardiness_integer=0, relative_epsilon=config.tardiness_slack,
+            best_tardiness_integer=0 if config.tardiness_mode == "zero" else None,
+            relative_epsilon=config.tardiness_slack,
             absolute_epsilon=config.absolute_epsilon)
         if cp is None:
             continue

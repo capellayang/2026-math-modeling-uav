@@ -520,7 +520,7 @@ python main.py --validate q4
 1. 原题缺少运输水平及爬升附加能耗的完整分项公式。Q1–Q3 使用用户授权的距离/等效航程与 `mgh/\eta` 项目假设；正式原式若补充，应整体重算。
 2. Q1 的 DP 对当前离散箱组与目标精确，但不证明能耗假设是唯一物理解释；连续安全载荷矩阵不替代实际箱组体积和逐段物理检查。
 3. Q2-v1/v2 的路线和组批依赖启发式搜索。固定路线候选的 CP-SAT `FEASIBLE` 或 `OPTIMAL` 状态都不能证明整个路线空间全局最优。
-4. Q3 悬停位置使用粗到细**有限候选**，当前粗筛只取配置高度列表的最大值，局部细化才尝试较低高度；运输组织使用 ALNS，联合 CP-SAT 只处理候选组合。保存状态是 `FEASIBLE`，不宣称连续空间全局最优。当前联合 CP 对中继架次使用不同组件，也是搜索范围限制。
+4. 仓库现存的正式 Q3 快照由旧版有限候选搜索产生：粗筛主要使用最大悬停高度，且当时每个中继架次占用不同组件。这些属于上游搜索范围限制。实验分支已提供全高度、扩大 XY、可复用组件及多目标档案，但实验输出须独立验证、人工比较后才可考虑替换正式快照；即使 CP-SAT 返回 `FEASIBLE`，也不证明连续空间全局最优。
 5. Q3 通信连续性经阶段边界、细时间步及切换加密做数值核验。OUTAGE=0 仅表示指定精度下未检测到中断，不是解析意义上的所有时刻证明。
 6. 中继高悬停点飞行高度、建链 30 s 能耗及部分资源时间口径属项目补充假设。道路、水体等图层未作禁飞约束，题目也没有提供相关限制。
 7. Q4 的中继跨组复制、资源重新着色、工作量与简单资源规模均是清楚标注的项目解释。若题目后续给出不同口径，应据此重算 Q4。Q4 精确枚举不消除上游 Q2/Q3 启发式搜索、模型假设和 Q3 数值链路核验的限制。
@@ -549,3 +549,32 @@ python main.py --validate q4
 ```
 
 这些命令会写对应 `outputs/` 目录；若只需核验仓库已保存结果，直接运行四个 `--validate` 命令即可。Q3 从 `outputs/q3/baseline_q2_v2_summary.json` 读取已提交 Q2-v2 基准副本，先重跑 Q2 不会自动替换此种子。DEM 或节点数据变更会令公共缓存源指纹失效，亦可加 `--force-recompute`。启发式受时间预算和运行环境影响，重跑的 Q2/Q3 具体候选可能不同；Q4 始终以当时保存并验证通过的 Q3 快照为固定输入，重新完整枚举。
+
+## Q3→Q4 实验分支复现
+
+`experiment/q3-q4-improvement` 分支保留 `outputs/q1`、`outputs/q2_v2`、`outputs/q3`、`outputs/q4` 的正式快照。逐项原题审计见 `outputs/audit_v2/`；新候选、参数对比、Q4 选择敏感性、工作量指标和图位于 `outputs/experiments/q3_q4_improvement/`。单独运行实验脚本时不会写正式四问目录。
+
+```powershell
+conda activate dl
+python scripts/generate_audit_v2.py
+python scripts/q3_q4_improvement.py
+python scripts/route_archive_experiment.py
+python scripts/refine_route_archive.py
+python scripts/retry_altitude_search.py
+python scripts/complete_group_local.py
+python scripts/enrich_relay_policy.py
+python scripts/extend_selection_sensitivity.py
+python scripts/finalize_cross_q3.py
+python scripts/finalize_pareto.py
+python scripts/finalize_plots.py
+python scripts/summarize_workload.py
+python scripts/energy_assumption_sensitivity.py
+python scripts/fine_validate_candidates.py
+python -m pytest tests -q
+```
+
+主实验按 6/8/10/12 中继架次槽位、全高度、局部/扩大/全 DEM XY、多种 J1 ε 与能耗/架次目标比较。`q3_candidate_comparison.xlsx` 是候选总览；`q3_component_reuse_comparison.xlsx` 检查组件周转是否真正发生；`q3_hover_search_comparison.xlsx` 保留全高度/XY 搜索成功或失败的证据；`q3_multiobjective_pareto.xlsx` 展示 J1–J4 权衡；`q4_cross_q3_comparison.xlsx` 将每个通过验证的 Q3 送入 Q4 完整枚举。`q4_selection_sensitivity.xlsx` 改变 Gap/Scale 容差来查看分区平衡取舍，`q4_workload_sensitivity.xlsx` 和指标汇总比较不同工作量口径，`q4_relay_policy_comparison.xlsx` 并列 strict、完整复制和实验性 group-local 口径。`figures/` 中的 Pareto 与 K2/K3 取舍图帮助识别上游候选、资源缺口和均衡程度的关系。
+
+工作簿的 `PASS` 必须结合验证步长解读。主实验先以 4 s 时间步独立筛选，关键候选再以 0.25 s 复核；任何检测出 OUTAGE 或资源冲突的候选均不得替换正式结果。`group_local_relay` 是题意歧义的敏感性分析，重新计算各组中继任务，不是唯一官方解释。能耗分项依然是项目假设，`energy_assumption_sensitivity.xlsx` 仅评估系数变化对已保存排程的影响。
+
+实验脚本会在本地产生每个候选完整 Q4 JSON，供 `q4_selection_sensitivity.xlsx` 重算与逐候选验证；这些约 8 MB/份的中间快照不纳入 Git，运行上述脚本可重建。实验工作簿、报告、图、Q3 候选快照和脚本纳入分支提交。

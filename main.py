@@ -188,10 +188,26 @@ def run_q3(force_recompute: bool, config: Q3AlgorithmConfig) -> None:
     scenario = load_scenario(ROOT)
     segments = build_segment_matrix(scenario, force_recompute=force_recompute)
     env = RadioEnvironment(scenario, DigitalElevationModel(dem_source_path(ROOT)))
+    experimental = (config.max_relay_sorties != 6 or config.tardiness_mode != "zero" or
+                    config.hover_xy_mode != "local" or config.hover_altitude_mode != "legacy" or
+                    config.route_archive_mode != "scalar" or config.joint_objective != "makespan")
+    experiment_dir = (ROOT/"outputs/experiments/q3_q4_improvement/cli"
+                      if experimental else None)
     run = solve_q3(scenario, segments, env, config,
-                   baseline_path=ROOT/"outputs/q3/baseline_q2_v2_summary.json")
-    save_q3_outputs(ROOT, env, run.selected, run.validation, config,
-                    run.pareto, run.history, run.baseline_audit)
+                   baseline_path=ROOT/"outputs/q3/baseline_q2_v2_summary.json",
+                   experiment_cache_dir=(experiment_dir/"cache" if experiment_dir else None))
+    if experiment_dir:
+        experiment_dir.mkdir(parents=True, exist_ok=True)
+        (experiment_dir/"q3_summary.json").write_text(json.dumps(
+            asdict(run.selected), ensure_ascii=False, indent=2), encoding="utf-8")
+        (experiment_dir/"q3_validation.json").write_text(json.dumps(
+            asdict(run.validation), ensure_ascii=False, indent=2), encoding="utf-8")
+        (experiment_dir/"q3_pareto.json").write_text(json.dumps(
+            run.pareto, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"Experimental Q3 saved under {experiment_dir}")
+    else:
+        save_q3_outputs(ROOT, env, run.selected, run.validation, config,
+                        run.pareto, run.history, run.baseline_audit)
     o = run.selected.objective
     print(f"Q3: J1={o.weighted_tardiness:.6f}, J1norm={o.normalized_weighted_tardiness:.9f}, "
           f"transport J2={o.transport_makespan_s:.3f} s, joint J2={o.joint_makespan_s:.3f} s")
@@ -318,6 +334,14 @@ def main() -> None:
     parser.add_argument("--q3-hover-altitudes", default="50,100,150,200,250,300")
     parser.add_argument("--q3-hover-top-k", type=int, default=20)
     parser.add_argument("--q3-cp-candidates", type=int, default=12)
+    parser.add_argument("--q3-max-relay-sorties", type=int, default=6)
+    parser.add_argument("--q3-tardiness-mode", choices=["zero", "pareto"], default="zero")
+    parser.add_argument("--q3-hover-xy-mode", choices=["local", "buffered", "full_dem"], default="local")
+    parser.add_argument("--q3-hover-altitude-mode", choices=["legacy", "full"], default="legacy")
+    parser.add_argument("--q3-route-archive-mode", choices=["scalar", "multiobjective"],
+                        default="scalar")
+    parser.add_argument("--q3-joint-objective", choices=["makespan", "energy", "relay_sorties"],
+                        default="makespan")
     parser.add_argument("--q3-tardiness-slack", type=float, default=0.05)
     parser.add_argument("--q3-absolute-epsilon", type=float, default=0.0)
     parser.add_argument("--q3-selection", choices=["epsilon_makespan"],
@@ -365,7 +389,13 @@ def main() -> None:
             tardiness_slack=args.q3_tardiness_slack,
             absolute_epsilon=args.q3_absolute_epsilon,
             selection=args.q3_selection,
-            relay_setup_energy_mode=args.q3_setup_energy_mode)
+            relay_setup_energy_mode=args.q3_setup_energy_mode,
+            max_relay_sorties=args.q3_max_relay_sorties,
+            tardiness_mode=args.q3_tardiness_mode,
+            hover_xy_mode=args.q3_hover_xy_mode,
+            hover_altitude_mode=args.q3_hover_altitude_mode,
+            route_archive_mode=args.q3_route_archive_mode,
+            joint_objective=args.q3_joint_objective)
         run_q3(args.force_recompute, config)
     elif args.validate == "q3":
         validate_saved_q3(args.force_recompute, args.q3_validation_step,

@@ -1,0 +1,9 @@
+{
+  "candidate": "COMPONENT_REUSE_8",
+  "passed": true,
+  "outage_s": 0,
+  "max_step_s": 0.25,
+  "issues": [],
+  "minimum_relay_access_margin_db": 0.27363900750376047,
+  "minimum_relay_backhaul_margin_db": 0.8629875026957166
+}

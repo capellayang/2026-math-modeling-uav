@@ -47,7 +47,9 @@ class JointSchedule:
 
 
 def build_atoms(env: RadioEnvironment, transport: Q2Solution, audit: dict,
-                candidates: tuple[RelayHoverPoint, ...]) -> tuple[CommunicationAtom, ...]:
+                candidates: tuple[RelayHoverPoint, ...], *,
+                sample_fractions: tuple[float, ...] = (.05, .25, .5, .75, .95)
+                ) -> tuple[CommunicationAtom, ...]:
     by_id = {s.spec.sortie_id: (i, s) for i, s in enumerate(transport.sorties)}
     phases = {sid: {p.name: p for p in transport_phases(env.scenario, sortie)}
               for sid, (_, sortie) in by_id.items()}
@@ -59,7 +61,7 @@ def build_atoms(env: RadioEnvironment, transport: Q2Solution, audit: dict,
         index, sortie = by_id[sid]
         phase = phases[sid][row["phase"]]
         positions = [phase.at(row["start_s"]+fraction*(row["end_s"]-row["start_s"]))
-                     for fraction in (0.05, 0.25, 0.5, 0.75, 0.95)]
+                     for fraction in sample_fractions]
         eligible = tuple(j for j, endpoint in enumerate(endpoints)
                          if all(env.link(pos, endpoint, "access").available
                                 for pos in positions))
@@ -81,12 +83,19 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
                    transport_seed: Q2Solution, audit: dict,
                    candidates: tuple[RelayHoverPoint, ...],
                    config: Q3AlgorithmConfig, *, time_limit_s: float = 120.0,
-                   max_relay_sorties: int = 6) -> JointSchedule | None:
+                   max_relay_sorties: int | None = None) -> JointSchedule | None:
     scenario = env.scenario
-    if max_relay_sorties > next(iter(scenario.component_stocks.values())).count:
-        raise ValueError("Component-unique scheduling exceeds official stock")
+    if max_relay_sorties is None:
+        max_relay_sorties = config.max_relay_sorties
+    if max_relay_sorties < 1:
+        raise ValueError("At least one relay sortie slot is required")
     specs = tuple(s.spec for s in transport_seed.sorties)
-    atoms = build_atoms(env, transport_seed, audit, candidates)
+    fractions = ((0, .025, .05, .1, .2, .3, .4, .5, .6, .7, .8, .9, .95, .975, 1)
+                 if (config.hover_altitude_mode == "full" or
+                     config.hover_xy_mode != "local") else
+                 (.05, .25, .5, .75, .95))
+    atoms = build_atoms(env, transport_seed, audit, candidates,
+                        sample_fractions=fractions)
     if not atoms:
         return JointSchedule(transport_seed, (), "NO_RELAY_REQUIRED", 0)
     relay_model = next(iter(scenario.relay_models.values()))
@@ -115,6 +124,7 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
     model = cp_model.CpModel()
     starts, returns, drone_choices, battery_choices = {}, {}, {}, {}
     drone_intervals = {ident: [] for ident in scenario.transport_drones}
+    tardiness_terms = []
     battery_inventory_map = battery_inventory(scenario)
     battery_intervals = {ident: [] for ident in battery_inventory_map}
     for i, (spec, evaluation) in enumerate(zip(specs, evaluations)):
@@ -151,6 +161,11 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
                     model.Add(delivered <= floor(box.desired_delivery_s*SCALE))
                 if box.first_batch:
                     model.Add(delivered <= floor(box.first_batch_deadline_s*SCALE))
+                if config.tardiness_mode == "pareto":
+                    late = model.NewIntVar(0, horizon, f"Tlate_{i}_{box_id}")
+                    model.AddMaxEquality(late, [0, delivered-
+                        floor(box.desired_delivery_s*SCALE)])
+                    tardiness_terms.append(late*round(box.emergency_priority*100))
         hint = transport_seed.sorties[i]
         model.AddHint(start, round(hint.preparation_start_s*SCALE))
         for ident, flag in drone_choices[i].items():
@@ -165,6 +180,10 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
     energy_micro_terms = []
     entity_flags = {ident: [] for ident in scenario.relay_drones}
     entity_intervals = {ident: [] for ident in scenario.relay_drones}
+    component_flags = {}
+    component_intervals = {f"R-COMP-{i:02d}": [] for i in range(1, stock.count+1)}
+    usable_micro = round(relay_model.usable_energy_kwh*1_000_000)
+    full_charge_ms = _ceil(stock.full_charge_s)
     for m in range(max_relay_sorties):
         active[m] = model.NewBoolVar(f"Ractive_{m}")
         location[m] = [model.NewBoolVar(f"Rpoint_{m}_{j}") for j in range(len(candidates))]
@@ -195,7 +214,47 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
         base_micro = sum(location[m][j]*round((travels[j].outbound_energy_kwh+
                         travels[j].return_energy_kwh+setup_energy[j])*1_000_000)
                          for j in range(len(candidates)))
-        energy_micro_terms.append(service_micro+base_micro)
+        total_micro = model.NewIntVar(0, usable_micro, f"RtotalMicroKwh_{m}")
+        model.Add(total_micro == service_micro+base_micro)
+        model.Add(total_micro <= round(usable_micro*(1-relay_model.minimum_return_soc)))
+        energy_micro_terms.append(total_micro)
+        # The two branches reproduce charge_to_full_s(SOC, Tfull), with
+        # SOC=1-E/usable. Integer division rounds the CP occupancy upward;
+        # the final reconstructed interval uses the exact floating formula.
+        low_num = model.NewIntVar(0, full_charge_ms*7*usable_micro+2*usable_micro,
+                                  f"RlowChargeNumerator_{m}")
+        high_num = model.NewIntVar(0, full_charge_ms*18*usable_micro+18*usable_micro,
+                                   f"RhighChargeNumerator_{m}")
+        model.Add(low_num == full_charge_ms*7*total_micro+2*usable_micro-1)
+        model.Add(high_num == full_charge_ms*(5*usable_micro+13*total_micro)
+                  +18*usable_micro-1)
+        low_charge = model.NewIntVar(0, full_charge_ms*4, f"RlowCharge_{m}")
+        high_charge = model.NewIntVar(0, full_charge_ms*2, f"RhighCharge_{m}")
+        model.AddDivisionEquality(low_charge, low_num, 2*usable_micro)
+        model.AddDivisionEquality(high_charge, high_num, 18*usable_micro)
+        below_ninety = model.NewBoolVar(f"RbelowNinetySOC_{m}")
+        threshold = usable_micro//10
+        model.Add(total_micro >= threshold+1).OnlyEnforceIf(below_ninety)
+        model.Add(total_micro <= threshold).OnlyEnforceIf(below_ninety.Not())
+        charge_ms = model.NewIntVar(0, full_charge_ms+2, f"RchargeDuration_{m}")
+        model.Add(charge_ms == high_charge).OnlyEnforceIf(below_ninety)
+        model.Add(charge_ms == low_charge).OnlyEnforceIf(below_ninety.Not())
+        component_end = model.NewIntVar(0, horizon+full_charge_ms+10,
+                                        f"RcomponentEnd_{m}")
+        # Ten milliseconds covers micro-kWh quantization before the exact
+        # floating-point validator reconstructs the charge end.
+        model.Add(component_end == relay_return[m]+charge_ms+10)
+        component_size = model.NewIntVar(0, horizon+full_charge_ms+10,
+                                         f"RcomponentOccupied_{m}")
+        model.Add(component_size == component_end-relay_prep[m])
+        component_flags[m] = {}
+        for component_id in component_intervals:
+            flag = model.NewBoolVar(f"Rcomponent_{m}_{component_id}")
+            component_flags[m][component_id] = flag
+            component_intervals[component_id].append(model.NewOptionalIntervalVar(
+                relay_prep[m], component_size, component_end, flag,
+                f"RcomponentInterval_{m}_{component_id}"))
+        model.Add(sum(component_flags[m].values()) == active[m])
         model.Add(relay_prep[m] == 0).OnlyEnforceIf(active[m].Not())
         model.Add(service_end[m] == 0).OnlyEnforceIf(active[m].Not())
         entity_flags[m] = {}
@@ -214,6 +273,8 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
             model.Add(active[m-1] >= active[m])
             model.Add(service_start[m-1] <= service_start[m]).OnlyEnforceIf(active[m])
     for intervals in entity_intervals.values():
+        model.AddNoOverlap(intervals)
+    for intervals in component_intervals.values():
         model.AddNoOverlap(intervals)
     for index, atom in enumerate(atoms):
         assigned = []
@@ -234,14 +295,25 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
     # J1=0 is prioritized when the Q2 seed already achieves it. The integer
     # lexicographic proxy makes 1 ms of J2 more costly than the full possible
     # relay-energy swing, then breaks energy ties by relay sortie count.
-    if transport_seed.objective.weighted_tardiness == 0:
+    if config.tardiness_mode == "zero" and transport_seed.objective.weighted_tardiness == 0:
         for i, spec in enumerate(specs):
             for stop, offset in zip(spec.deliveries, delivery_offsets_s(scenario, segments, spec)):
                 for box_id in stop.box_ids:
                     box = scenario.boxes[box_id]
                     model.Add(starts[i]+_ceil(offset) <= floor(box.desired_delivery_s*SCALE))
-    model.Minimize(joint_end*1_000_000_000
-                   +sum(energy_micro_terms)*10+sum(active.values()))
+    if config.tardiness_mode == "pareto":
+        model.Add(sum(tardiness_terms) <= floor(config.absolute_epsilon*SCALE*100))
+    if config.joint_objective == "makespan":
+        model.Minimize(joint_end*1_000_000_000
+                       +sum(energy_micro_terms)*10+sum(active.values()))
+    elif config.joint_objective == "energy":
+        model.Minimize(sum(energy_micro_terms)*1_000_000
+                       +joint_end*10+sum(active.values()))
+    elif config.joint_objective == "relay_sorties":
+        model.Minimize(sum(active.values())*1_000_000_000_000_000
+                       +joint_end*1_000_000+sum(energy_micro_terms))
+    else:
+        raise ValueError(f"Unknown joint objective: {config.joint_objective}")
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = max(0.1, time_limit_s)
     solver.parameters.num_search_workers = 8
@@ -262,9 +334,11 @@ def schedule_joint(env: RadioEnvironment, segments: SegmentMatrix,
             continue
         j = next(j for j, flag in enumerate(location[m]) if solver.Value(flag))
         drone_id = next(d for d, flag in entity_flags[m].items() if solver.Value(flag))
+        component_id = next(c for c, flag in component_flags[m].items()
+                            if solver.Value(flag))
         service_lo = solver.Value(service_start[m])/SCALE
         service_hi = solver.Value(service_end[m])/SCALE
         relays.append(construct_relay_sortie(scenario, env.dem, f"Q3-R{m+1:02d}",
-            drone_id, f"R-COMP-{m+1:02d}", candidates[j], service_lo, service_hi,
+            drone_id, component_id, candidates[j], service_lo, service_hi,
             setup_energy_mode=config.relay_setup_energy_mode))
     return JointSchedule(transport, tuple(relays), solver.StatusName(status), len(atoms))

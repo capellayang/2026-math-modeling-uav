@@ -27,6 +27,37 @@ class RouteCandidate:
     direct_blackout_s: float
     minimum_direct_margin_db: float
     score: float
+    demand_pattern: tuple[int, ...] = ()
+
+
+def _multiobjective_archive(rows: list[RouteCandidate], limit: int = 50
+                            ) -> list[RouteCandidate]:
+    """Keep Pareto quality and distinct route/blackout patterns for CP refinement."""
+    def vector(row):
+        o = row.fast_transport.objective
+        return (o.weighted_tardiness, o.makespan_s, o.total_energy_kwh,
+                o.sortie_count, row.direct_blackout_s)
+    def dominates(a, b):
+        x, y = vector(a), vector(b)
+        return all(v <= w+1e-8 for v, w in zip(x, y)) and any(
+            v < w-1e-8 for v, w in zip(x, y))
+    front = [r for r in rows if not any(dominates(other, r)
+             for other in rows if other is not r)]
+    ordered = sorted(front, key=lambda r: r.score) + sorted(
+        (r for r in rows if r not in front), key=lambda r: r.score)
+    selected, patterns = [], set()
+    for row in ordered:
+        if row.demand_pattern not in patterns:
+            selected.append(row)
+            patterns.add(row.demand_pattern)
+            if len(selected) == limit:
+                return selected
+    for row in ordered:
+        if row not in selected:
+            selected.append(row)
+            if len(selected) == limit:
+                break
+    return selected
 
 
 @dataclass(frozen=True)
@@ -127,7 +158,8 @@ def search_routes_q3(env: RadioEnvironment, segments: SegmentMatrix,
         j = fast.objective
         score = (20*j.weighted_tardiness/10000 + j.makespan_s/10000
                  + blackout/20000 + j.sortie_count/100)
-        return RouteCandidate(specs, fast, blackout, margin, score)
+        pattern = tuple(sorted(round(outage/120) for outage, _ in risk))
+        return RouteCandidate(specs, fast, blackout, margin, score, pattern)
 
     initial = candidate(original)
     if initial:
@@ -151,8 +183,11 @@ def search_routes_q3(env: RadioEnvironment, segments: SegmentMatrix,
                 if signature not in seen:
                     archive.append(item)
                     seen.add(signature)
-                    archive.sort(key=lambda x: x.score)
-                    archive = archive[:25]
+                    if config.route_archive_mode == "multiobjective":
+                        archive = _multiobjective_archive(archive)
+                    else:
+                        archive.sort(key=lambda x: x.score)
+                        archive = archive[:25]
                 if item.score < current.score:
                     current = item
                     reward = 6.0
@@ -161,7 +196,7 @@ def search_routes_q3(env: RadioEnvironment, segments: SegmentMatrix,
                     reward = 1.0
             weights.update(operator, reward)
             if actual == 1 or actual % 10 == 0:
-                best = archive[0]
+                best = min(archive, key=lambda x: x.score)
                 history.append({"iteration": actual, "restart": restart,
                     "operator": operator, "score": best.score,
                     "j1": best.fast_transport.objective.weighted_tardiness,

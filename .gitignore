@@ -27,3 +27,6 @@ outputs/cache/*
 outputs/test_tmp/
 outputs/test_tmp_q3/
 outputs/q3/cache/*.pkl
+outputs/experiments/q3_q4_improvement/cache/
+outputs/experiments/q3_q4_improvement/*_progress.json
+outputs/experiments/q3_q4_improvement/*_q4.json

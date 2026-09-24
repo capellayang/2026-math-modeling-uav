@@ -113,3 +113,9 @@ class Q3AlgorithmConfig:
     absolute_epsilon: float = 0.0
     selection: str = "epsilon_makespan"
     relay_setup_energy_mode: str = "hover_plus_comm"
+    max_relay_sorties: int = 6
+    tardiness_mode: str = "zero"
+    hover_xy_mode: str = "local"
+    hover_altitude_mode: str = "legacy"
+    route_archive_mode: str = "scalar"
+    joint_objective: str = "makespan"

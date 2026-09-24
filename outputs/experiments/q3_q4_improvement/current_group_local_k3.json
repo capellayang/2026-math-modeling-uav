@@ -1,0 +1,928 @@
+{
+  "k": 3,
+  "delta_gap": 0,
+  "delta_scale": 0,
+  "gap": 5,
+  "scale": 32,
+  "cv": 1.1906716699720468,
+  "partition": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006",
+  "relay_sorties": 5,
+  "relay_energy_kwh": 3.5892503348321307,
+  "relay_components": 3,
+  "global_minimum": {
+    "A_UAV": 4,
+    "B_UAV": 2,
+    "C_UAV": 2,
+    "A_battery": 6,
+    "B_battery": 4,
+    "C_battery": 4,
+    "relay_UAV": 2,
+    "relay_component": 3
+  },
+  "validator": "PASS",
+  "validation_max_step_s": 4.0,
+  "issues": [],
+  "enumerated": 90,
+  "candidates": [
+    {
+      "gap": 14,
+      "scale": 44,
+      "cv": 0.8849247771219031,
+      "partition": "S001,S002,S003,S004,S005,S006,S007,S009,S011,S014,S015|S008|S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 10,
+      "scale": 39,
+      "cv": 0.9609921449396914,
+      "partition": "S001,S002,S003,S004,S005,S007,S008,S009,S011,S014,S015|S006|S010,S012,S013",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 46,
+      "cv": 0.7742715766529721,
+      "partition": "S001,S002,S003,S004,S005,S007,S009,S011,S014,S015|S006,S008|S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 9,
+      "scale": 38,
+      "cv": 1.0897354787682745,
+      "partition": "S001,S002,S003,S004,S005,S007,S009,S010,S011,S012,S013,S014,S015|S006|S008",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 46,
+      "cv": 0.7872939578933955,
+      "partition": "S001,S002,S003,S004,S005,S007,S009,S011,S014,S015|S006,S010,S012,S013|S008",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 43,
+      "cv": 0.8121448409742777,
+      "partition": "S001,S002,S003,S004,S005,S007,S009,S011,S014,S015|S006|S008,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.4490285579554916,
+      "partition": "S001,S002,S004,S005,S006,S008,S009|S003,S007,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.4057714497111403,
+      "partition": "S001,S002,S004,S005,S006,S009|S003,S007,S008,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 17,
+      "scale": 47,
+      "cv": 0.5829167360521287,
+      "partition": "S001,S002,S004,S005,S006,S009,S010,S012,S013|S003,S007,S011,S014,S015|S008",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 21,
+      "scale": 51,
+      "cv": 0.5263103693839976,
+      "partition": "S001,S002,S004,S005,S006,S009|S003,S007,S010,S011,S012,S013,S014,S015|S008",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.205781692207229,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 22,
+      "scale": 52,
+      "cv": 0.2744339126763136,
+      "partition": "S001,S002,S004,S005,S006,S009|S003,S007,S011,S014,S015|S008,S010,S012,S013",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 20,
+      "scale": 50,
+      "cv": 0.4075565287719836,
+      "partition": "S001,S002,S004,S005,S008,S009|S003,S006,S007,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.395916771036647,
+      "partition": "S001,S002,S004,S005,S009|S003,S006,S007,S008,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.5407081048173198,
+      "partition": "S001,S002,S004,S005,S009,S010,S012,S013|S003,S006,S007,S011,S014,S015|S008",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 22,
+      "scale": 52,
+      "cv": 0.5339661031744934,
+      "partition": "S001,S002,S004,S005,S009|S003,S006,S007,S010,S011,S012,S013,S014,S015|S008",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.205781692207229,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 23,
+      "scale": 53,
+      "cv": 0.23479804751471622,
+      "partition": "S001,S002,S004,S005,S009|S003,S006,S007,S011,S014,S015|S008,S010,S012,S013",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 43,
+      "cv": 0.661144330121589,
+      "partition": "S001,S002,S004,S005,S008,S009,S010,S012,S013|S003,S007,S011,S014,S015|S006",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 17,
+      "scale": 47,
+      "cv": 0.604680461031042,
+      "partition": "S001,S002,S004,S005,S008,S009|S003,S007,S010,S011,S012,S013,S014,S015|S006",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590254,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 21,
+      "scale": 51,
+      "cv": 0.3349936459889301,
+      "partition": "S001,S002,S004,S005,S008,S009|S003,S007,S011,S014,S015|S006,S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 42,
+      "cv": 0.6186902165683755,
+      "partition": "S001,S002,S004,S005,S009,S010,S012,S013|S003,S007,S008,S011,S014,S015|S006",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 46,
+      "cv": 0.612169579221054,
+      "partition": "S001,S002,S004,S005,S009|S003,S007,S008,S010,S011,S012,S013,S014,S015|S006",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815832,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 20,
+      "scale": 50,
+      "cv": 0.298420254503171,
+      "partition": "S001,S002,S004,S005,S009|S003,S007,S008,S011,S014,S015|S006,S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.4656609484106729,
+      "partition": "S001,S002,S004,S005,S009,S010,S012,S013|S003,S007,S011,S014,S015|S006,S008",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 23,
+      "scale": 53,
+      "cv": 0.42794871180787253,
+      "partition": "S001,S002,S004,S005,S009|S003,S007,S010,S011,S012,S013,S014,S015|S006,S008",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.205781692207229,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 23,
+      "scale": 53,
+      "cv": 0.1643664650208413,
+      "partition": "S001,S002,S004,S005,S009|S003,S007,S011,S014,S015|S006,S008,S010,S012,S013",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.41310888747329877,
+      "partition": "S001,S003,S006,S007,S008,S011,S014,S015|S002,S004,S005,S009|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.39544752213131384,
+      "partition": "S001,S003,S006,S007,S011,S014,S015|S002,S004,S005,S008,S009|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 22,
+      "scale": 52,
+      "cv": 0.5593984610233987,
+      "partition": "S001,S003,S006,S007,S010,S011,S012,S013,S014,S015|S002,S004,S005,S009|S008",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.20578169220723,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.5231863729546286,
+      "partition": "S001,S003,S006,S007,S011,S014,S015|S002,S004,S005,S009,S010,S012,S013|S008",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 22,
+      "scale": 52,
+      "cv": 0.23903072284725085,
+      "partition": "S001,S003,S006,S007,S011,S014,S015|S002,S004,S005,S009|S008,S010,S012,S013",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 17,
+      "scale": 47,
+      "cv": 0.3953218623394982,
+      "partition": "S001,S003,S007,S008,S011,S014,S015|S002,S004,S005,S006,S009|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.411882411961224,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S006,S008,S009|S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 21,
+      "scale": 51,
+      "cv": 0.531324241784852,
+      "partition": "S001,S003,S007,S010,S011,S012,S013,S014,S015|S002,S004,S005,S006,S009|S008",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.20578169220723,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 17,
+      "scale": 47,
+      "cv": 0.5454733069803952,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S006,S009,S010,S012,S013|S008",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 21,
+      "scale": 51,
+      "cv": 0.2378113553562878,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S006,S009|S008,S010,S012,S013",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 46,
+      "cv": 0.6366673277833761,
+      "partition": "S001,S003,S007,S008,S010,S011,S012,S013,S014,S015|S002,S004,S005,S009|S006",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815833,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 42,
+      "cv": 0.602815164177182,
+      "partition": "S001,S003,S007,S008,S011,S014,S015|S002,S004,S005,S009,S010,S012,S013|S006",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.30302398037094785,
+      "partition": "S001,S003,S007,S008,S011,S014,S015|S002,S004,S005,S009|S006,S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 17,
+      "scale": 47,
+      "cv": 0.6087105869175625,
+      "partition": "S001,S003,S007,S010,S011,S012,S013,S014,S015|S002,S004,S005,S008,S009|S006",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590255,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 43,
+      "cv": 0.6251114783312067,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S008,S009,S010,S012,S013|S006",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 20,
+      "scale": 50,
+      "cv": 0.30227336943935995,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S008,S009|S006,S010,S012,S013",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 23,
+      "scale": 53,
+      "cv": 0.4468723999751809,
+      "partition": "S001,S003,S007,S010,S011,S012,S013,S014,S015|S002,S004,S005,S009|S006,S008",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.20578169220723,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.4317338134998219,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S009,S010,S012,S013|S006,S008",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 22,
+      "scale": 52,
+      "cv": 0.13652564100676332,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S009|S006,S008,S010,S012,S013",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.683241342909982,
+      "partition": "S001,S006,S008|S002,S003,S004,S005,S007,S009,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 12,
+      "scale": 41,
+      "cv": 0.8596874521233201,
+      "partition": "S001,S006|S002,S003,S004,S005,S007,S008,S009,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.7103059978230731,
+      "partition": "S001,S006,S010,S012,S013|S002,S003,S004,S005,S007,S009,S011,S014,S015|S008",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.9897340886563969,
+      "partition": "S001,S006|S002,S003,S004,S005,S007,S009,S010,S011,S012,S013,S014,S015|S008",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 45,
+      "cv": 0.7092671918774017,
+      "partition": "S001,S006|S002,S003,S004,S005,S007,S009,S011,S014,S015|S008,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 46,
+      "cv": 0.7901100210638478,
+      "partition": "S001,S008|S002,S003,S004,S005,S006,S007,S009,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 9,
+      "scale": 38,
+      "cv": 0.9784024597772215,
+      "partition": "S001|S002,S003,S004,S005,S006,S007,S008,S009,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 46,
+      "cv": 0.8010333460878776,
+      "partition": "S001,S010,S012,S013|S002,S003,S004,S005,S006,S007,S009,S011,S014,S015|S008",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 8,
+      "scale": 37,
+      "cv": 1.1070025007606974,
+      "partition": "S001|S002,S003,S004,S005,S006,S007,S009,S010,S011,S012,S013,S014,S015|S008",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 42,
+      "cv": 0.8297045952209873,
+      "partition": "S001|S002,S003,S004,S005,S006,S007,S009,S011,S014,S015|S008,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 45,
+      "cv": 0.7450191216415918,
+      "partition": "S001,S008,S010,S012,S013|S002,S003,S004,S005,S007,S009,S011,S014,S015|S006",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.9960308430950057,
+      "partition": "S001,S008|S002,S003,S004,S005,S007,S009,S010,S011,S012,S013,S014,S015|S006",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.688537506146512,
+      "partition": "S001,S008|S002,S003,S004,S005,S007,S009,S011,S014,S015|S006,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 12,
+      "scale": 41,
+      "cv": 0.8772654441733115,
+      "partition": "S001,S010,S012,S013|S002,S003,S004,S005,S007,S008,S009,S011,S014,S015|S006",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 5,
+      "scale": 32,
+      "cv": 1.1906716699720468,
+      "partition": "S001|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006",
+      "relay_sorties": 5,
+      "relay_energy_kwh": 3.5892503348321307,
+      "relay_components": 3,
+      "selected": true
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.8815866232668033,
+      "partition": "S001|S002,S003,S004,S005,S007,S008,S009,S011,S014,S015|S006,S010,S012,S013",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.6863884991802506,
+      "partition": "S001,S010,S012,S013|S002,S003,S004,S005,S007,S009,S011,S014,S015|S006,S008",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 10,
+      "scale": 39,
+      "cv": 0.9983899225212345,
+      "partition": "S001|S002,S003,S004,S005,S007,S009,S010,S011,S012,S013,S014,S015|S006,S008",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 43,
+      "cv": 0.7524057551938682,
+      "partition": "S001|S002,S003,S004,S005,S007,S009,S011,S014,S015|S006,S008,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 24,
+      "scale": 54,
+      "cv": 0.07066153070106912,
+      "partition": "S001,S006,S008,S010,S012,S013|S002,S004,S005,S009|S003,S007,S011,S014,S015",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 21,
+      "scale": 51,
+      "cv": 0.36557835644451936,
+      "partition": "S001,S006,S008|S002,S004,S005,S009,S010,S012,S013|S003,S007,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 24,
+      "scale": 54,
+      "cv": 0.3518308129265938,
+      "partition": "S001,S006,S008|S002,S004,S005,S009|S003,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.205781692207229,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 22,
+      "scale": 52,
+      "cv": 0.23758070297788347,
+      "partition": "S001,S006,S010,S012,S013|S002,S004,S005,S008,S009|S003,S007,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 45,
+      "cv": 0.5574752550046148,
+      "partition": "S001,S006|S002,S004,S005,S008,S009,S010,S012,S013|S003,S007,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 18,
+      "scale": 48,
+      "cv": 0.5165957011404396,
+      "partition": "S001,S006|S002,S004,S005,S008,S009|S003,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590254,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 21,
+      "scale": 51,
+      "cv": 0.21237758512867924,
+      "partition": "S001,S006,S010,S012,S013|S002,S004,S005,S009|S003,S007,S008,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 15,
+      "scale": 44,
+      "cv": 0.5194969507812941,
+      "partition": "S001,S006|S002,S004,S005,S009,S010,S012,S013|S003,S007,S008,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 17,
+      "scale": 47,
+      "cv": 0.5373939345188218,
+      "partition": "S001,S006|S002,S004,S005,S009|S003,S007,S008,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815832,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 23,
+      "scale": 53,
+      "cv": 0.1803479816516087,
+      "partition": "S001,S008,S010,S012,S013|S002,S004,S005,S006,S009|S003,S007,S011,S014,S015",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.48269018865499563,
+      "partition": "S001,S008|S002,S004,S005,S006,S009,S010,S012,S013|S003,S007,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 22,
+      "scale": 52,
+      "cv": 0.44175041826672334,
+      "partition": "S001,S008|S002,S004,S005,S006,S009|S003,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.205781692207229,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 20,
+      "scale": 50,
+      "cv": 0.35156016589252087,
+      "partition": "S001,S010,S012,S013|S002,S004,S005,S006,S008,S009|S003,S007,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 42,
+      "cv": 0.678785419882098,
+      "partition": "S001|S002,S004,S005,S006,S008,S009,S010,S012,S013|S003,S007,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 15,
+      "scale": 45,
+      "cv": 0.6200686927365361,
+      "partition": "S001|S002,S004,S005,S006,S008,S009|S003,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590254,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 19,
+      "scale": 49,
+      "cv": 0.3137197824326345,
+      "partition": "S001,S010,S012,S013|S002,S004,S005,S006,S009|S003,S007,S008,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 12,
+      "scale": 41,
+      "cv": 0.6357155993697562,
+      "partition": "S001|S002,S004,S005,S006,S009,S010,S012,S013|S003,S007,S008,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 44,
+      "cv": 0.6256382757666964,
+      "partition": "S001|S002,S004,S005,S006,S009|S003,S007,S008,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815832,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 24,
+      "scale": 54,
+      "cv": 0.15074545663136077,
+      "partition": "S001,S008,S010,S012,S013|S002,S004,S005,S009|S003,S006,S007,S011,S014,S015",
+      "relay_sorties": 13,
+      "relay_energy_kwh": 8.107545315758419,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 20,
+      "scale": 50,
+      "cv": 0.4442610843357499,
+      "partition": "S001,S008|S002,S004,S005,S009,S010,S012,S013|S003,S006,S007,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 6.718885996037713,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 23,
+      "scale": 53,
+      "cv": 0.46315507488474245,
+      "partition": "S001,S008|S002,S004,S005,S009|S003,S006,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 12,
+      "relay_energy_kwh": 7.205781692207229,
+      "relay_components": 8,
+      "selected": false
+    },
+    {
+      "gap": 21,
+      "scale": 51,
+      "cv": 0.31495745764042055,
+      "partition": "S001,S010,S012,S013|S002,S004,S005,S008,S009|S003,S006,S007,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.426967880141443,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 43,
+      "cv": 0.6375915923665245,
+      "partition": "S001|S002,S004,S005,S008,S009,S010,S012,S013|S003,S006,S007,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 16,
+      "scale": 46,
+      "cv": 0.62466521459837,
+      "partition": "S001|S002,S004,S005,S008,S009|S003,S006,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590254,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 20,
+      "scale": 50,
+      "cv": 0.31884118462991934,
+      "partition": "S001,S010,S012,S013|S002,S004,S005,S009|S003,S006,S007,S008,S011,S014,S015",
+      "relay_sorties": 11,
+      "relay_energy_kwh": 7.41378553936702,
+      "relay_components": 7,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 42,
+      "cv": 0.6176133758504069,
+      "partition": "S001|S002,S004,S005,S009,S010,S012,S013|S003,S006,S007,S008,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 15,
+      "scale": 45,
+      "cv": 0.6536190947263977,
+      "partition": "S001|S002,S004,S005,S009|S003,S006,S007,S008,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815832,
+      "relay_components": 6,
+      "selected": false
+    }
+  ]
+}

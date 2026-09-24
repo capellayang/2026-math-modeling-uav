@@ -1,0 +1,338 @@
+{
+  "k": 2,
+  "delta_gap": 1,
+  "delta_scale": 1,
+  "gap": 3,
+  "scale": 30,
+  "cv": 0.8863439676800174,
+  "partition": "S001,S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006",
+  "relay_sorties": 5,
+  "relay_energy_kwh": 3.5892503348321307,
+  "relay_components": 3,
+  "global_minimum": {
+    "A_UAV": 4,
+    "B_UAV": 2,
+    "C_UAV": 2,
+    "A_battery": 6,
+    "B_battery": 4,
+    "C_battery": 4,
+    "relay_UAV": 2,
+    "relay_component": 3
+  },
+  "validator": "PASS",
+  "validation_max_step_s": 4.0,
+  "issues": [],
+  "enumerated": 31,
+  "candidates": [
+    {
+      "gap": 7,
+      "scale": 36,
+      "cv": 0.6683637255732554,
+      "partition": "S001,S002,S003,S004,S005,S006,S007,S008,S009,S011,S014,S015|S010,S012,S013",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 6,
+      "scale": 35,
+      "cv": 0.8015605713448998,
+      "partition": "S001,S002,S003,S004,S005,S006,S007,S009,S010,S011,S012,S013,S014,S015|S008",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.4973726186041974,
+      "partition": "S001,S002,S003,S004,S005,S006,S007,S009,S011,S014,S015|S008,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 3,
+      "scale": 30,
+      "cv": 0.8863439676800174,
+      "partition": "S001,S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015|S006",
+      "relay_sorties": 5,
+      "relay_energy_kwh": 3.5892503348321307,
+      "relay_components": 3,
+      "selected": true
+    },
+    {
+      "gap": 9,
+      "scale": 38,
+      "cv": 0.5632131234084654,
+      "partition": "S001,S002,S003,S004,S005,S007,S008,S009,S011,S014,S015|S006,S010,S012,S013",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 8,
+      "scale": 37,
+      "cv": 0.6927744245263465,
+      "partition": "S001,S002,S003,S004,S005,S007,S009,S010,S011,S012,S013,S014,S015|S006,S008",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 12,
+      "scale": 41,
+      "cv": 0.39640370895513505,
+      "partition": "S001,S002,S003,S004,S005,S007,S009,S011,S014,S015|S006,S008,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.2738684518929868,
+      "partition": "S001,S002,S004,S005,S006,S008,S009,S010,S012,S013|S003,S007,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 44,
+      "cv": 0.07043640960315063,
+      "partition": "S001,S002,S004,S005,S006,S008,S009|S003,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590254,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 10,
+      "scale": 39,
+      "cv": 0.1682997881782391,
+      "partition": "S001,S002,S004,S005,S006,S009,S010,S012,S013|S003,S007,S008,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 43,
+      "cv": 0.03265193667584386,
+      "partition": "S001,S002,S004,S005,S006,S009|S003,S007,S008,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815832,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 12,
+      "scale": 41,
+      "cv": 0.17429428159609894,
+      "partition": "S001,S002,S004,S005,S008,S009,S010,S012,S013|S003,S006,S007,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 15,
+      "scale": 45,
+      "cv": 0.026691760021049622,
+      "partition": "S001,S002,S004,S005,S008,S009|S003,S006,S007,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590254,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.0686682144669684,
+      "partition": "S001,S002,S004,S005,S009,S010,S012,S013|S003,S006,S007,S008,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 44,
+      "cv": 0.129834723394365,
+      "partition": "S001,S002,S004,S005,S009|S003,S006,S007,S008,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815832,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 44,
+      "cv": 0.21289682146178748,
+      "partition": "S001,S003,S006,S007,S008,S010,S011,S012,S013,S014,S015|S002,S004,S005,S009",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815833,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.01648686109375383,
+      "partition": "S001,S003,S006,S007,S008,S011,S014,S015|S002,S004,S005,S009,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 15,
+      "scale": 45,
+      "cv": 0.10970717687467045,
+      "partition": "S001,S003,S006,S007,S010,S011,S012,S013,S014,S015|S002,S004,S005,S008,S009",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590255,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 12,
+      "scale": 41,
+      "cv": 0.08918826871608296,
+      "partition": "S001,S003,S006,S007,S011,S014,S015|S002,S004,S005,S008,S009,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 43,
+      "cv": 0.11571403474326625,
+      "partition": "S001,S003,S007,S008,S010,S011,S012,S013,S014,S015|S002,S004,S005,S006,S009",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.512021915815833,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 10,
+      "scale": 39,
+      "cv": 0.08314471261751702,
+      "partition": "S001,S003,S007,S008,S011,S014,S015|S002,S004,S005,S006,S009,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.025126219646316,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 44,
+      "cv": 0.012579007250470297,
+      "partition": "S001,S003,S007,S010,S011,S012,S013,S014,S015|S002,S004,S005,S006,S008,S009",
+      "relay_sorties": 10,
+      "relay_energy_kwh": 6.525204256590255,
+      "relay_components": 6,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.18876243901297077,
+      "partition": "S001,S003,S007,S011,S014,S015|S002,S004,S005,S006,S008,S009,S010,S012,S013",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 6.038308560420738,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 14,
+      "scale": 43,
+      "cv": 0.3101056127776485,
+      "partition": "S001,S006,S008,S010,S012,S013|S002,S003,S004,S005,S007,S009,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 10,
+      "scale": 39,
+      "cv": 0.5997949381324089,
+      "partition": "S001,S006,S008|S002,S003,S004,S005,S007,S009,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 11,
+      "scale": 40,
+      "cv": 0.4733409359175114,
+      "partition": "S001,S006,S010,S012,S013|S002,S003,S004,S005,S007,S008,S009,S011,S014,S015",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 5,
+      "scale": 32,
+      "cv": 0.7892021916383414,
+      "partition": "S001,S006|S002,S003,S004,S005,S007,S008,S009,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 5,
+      "relay_energy_kwh": 3.5892503348321307,
+      "relay_components": 3,
+      "selected": false
+    },
+    {
+      "gap": 13,
+      "scale": 42,
+      "cv": 0.4110745224267106,
+      "partition": "S001,S008,S010,S012,S013|S002,S003,S004,S005,S006,S007,S009,S011,S014,S015",
+      "relay_sorties": 9,
+      "relay_energy_kwh": 5.740891496115741,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 8,
+      "scale": 37,
+      "cv": 0.7085810849509621,
+      "partition": "S001,S008|S002,S003,S004,S005,S006,S007,S009,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 4.304658353782439,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 9,
+      "scale": 38,
+      "cv": 0.5784915380823015,
+      "partition": "S001,S010,S012,S013|S002,S003,S004,S005,S006,S007,S008,S009,S011,S014,S015",
+      "relay_sorties": 7,
+      "relay_energy_kwh": 5.025483477165433,
+      "relay_components": 5,
+      "selected": false
+    },
+    {
+      "gap": 2,
+      "scale": 29,
+      "cv": 0.9028582239583242,
+      "partition": "S001|S002,S003,S004,S005,S006,S007,S008,S009,S010,S011,S012,S013,S014,S015",
+      "relay_sorties": 5,
+      "relay_energy_kwh": 3.5892503348321307,
+      "relay_components": 3,
+      "selected": false
+    }
+  ]
+}
