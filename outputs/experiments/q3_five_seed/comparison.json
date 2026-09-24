@@ -1,0 +1,202 @@
+{
+  "fixed_config": {
+    "seed": 20260923,
+    "time_limit_s": 600.0,
+    "iterations": 2000,
+    "restarts": 6,
+    "search_step_s": 1.0,
+    "validation_step_s": 0.25,
+    "transition_tolerance_s": 0.05,
+    "hover_grid_m": 600.0,
+    "hover_altitudes_m": [
+      50,
+      100,
+      150,
+      200,
+      250,
+      300
+    ],
+    "hover_top_k": 20,
+    "cp_candidates": 12,
+    "tardiness_slack": 0.05,
+    "absolute_epsilon": 0.0,
+    "selection": "epsilon_makespan",
+    "relay_setup_energy_mode": "hover_plus_comm",
+    "max_relay_sorties": 6,
+    "tardiness_mode": "zero",
+    "hover_xy_mode": "local",
+    "hover_altitude_mode": "legacy",
+    "route_archive_mode": "scalar",
+    "joint_objective": "makespan"
+  },
+  "seeds": [
+    20260923,
+    20260924,
+    20260925,
+    20260926,
+    20260927
+  ],
+  "q3_source_sha256": "1887c366cf94cf3a2c23ba088f6020f6a70254197c9d1eb8ca5ee286d8cc0626",
+  "rows": [
+    {
+      "seed": 20260923,
+      "status": "PASS",
+      "fine_status": "PASS",
+      "q4_status": "PASS",
+      "pareto": false,
+      "near_pareto": false,
+      "final_choice": false,
+      "outage_s": 0,
+      "search_seconds": 913.7030000000086,
+      "alns_iterations": 2000,
+      "j1": 0.0,
+      "j2_s": 7368.139148248344,
+      "j3_kwh": 82.03351388394519,
+      "nt": 26,
+      "nr": 5,
+      "components": 3,
+      "largest_component": 13,
+      "k2": {
+        "legal_partitions": 3,
+        "gap": 3,
+        "scale": 30,
+        "cv": 0.8861641164534015
+      },
+      "k3": {
+        "legal_partitions": 1,
+        "gap": 7,
+        "scale": 34,
+        "cv": 1.1903180143744492
+      },
+      "note": "0.25s Q3 and independent exact Q4 PASS"
+    },
+    {
+      "seed": 20260924,
+      "status": "PASS",
+      "fine_status": "PASS",
+      "q4_status": "PASS",
+      "pareto": false,
+      "near_pareto": false,
+      "final_choice": false,
+      "outage_s": 0,
+      "search_seconds": 907.8589999999967,
+      "alns_iterations": 2000,
+      "j1": 0.0,
+      "j2_s": 7258.500356990602,
+      "j3_kwh": 81.98294874522996,
+      "nt": 26,
+      "nr": 4,
+      "components": 3,
+      "largest_component": 13,
+      "k2": {
+        "legal_partitions": 3,
+        "gap": 4,
+        "scale": 31,
+        "cv": 0.8865527998901367
+      },
+      "k3": {
+        "legal_partitions": 1,
+        "gap": 8,
+        "scale": 35,
+        "cv": 1.1910823135351905
+      },
+      "note": "0.25s Q3 and independent exact Q4 PASS"
+    },
+    {
+      "seed": 20260925,
+      "status": "PASS",
+      "fine_status": "PASS",
+      "q4_status": "PASS",
+      "pareto": false,
+      "near_pareto": false,
+      "final_choice": false,
+      "outage_s": 0,
+      "search_seconds": 872.6089999999967,
+      "alns_iterations": 2000,
+      "j1": 0.0,
+      "j2_s": 7147.273356990602,
+      "j3_kwh": 80.35457895130718,
+      "nt": 26,
+      "nr": 4,
+      "components": 3,
+      "largest_component": 13,
+      "k2": {
+        "legal_partitions": 3,
+        "gap": 2,
+        "scale": 29,
+        "cv": 0.8998301418333927
+      },
+      "k3": {
+        "legal_partitions": 1,
+        "gap": 6,
+        "scale": 33,
+        "cv": 1.183705120458068
+      },
+      "note": "0.25s Q3 and independent exact Q4 PASS"
+    },
+    {
+      "seed": 20260926,
+      "status": "PASS",
+      "fine_status": "PASS",
+      "q4_status": "PASS",
+      "pareto": false,
+      "near_pareto": false,
+      "final_choice": false,
+      "outage_s": 0,
+      "search_seconds": 908.5470000000205,
+      "alns_iterations": 2000,
+      "j1": 0.0,
+      "j2_s": 7260.113356990602,
+      "j3_kwh": 82.07598407072403,
+      "nt": 26,
+      "nr": 4,
+      "components": 3,
+      "largest_component": 13,
+      "k2": {
+        "legal_partitions": 3,
+        "gap": 2,
+        "scale": 29,
+        "cv": 0.9031161818291155
+      },
+      "k3": {
+        "legal_partitions": 1,
+        "gap": 6,
+        "scale": 33,
+        "cv": 1.1912651455693783
+      },
+      "note": "0.25s Q3 and independent exact Q4 PASS"
+    },
+    {
+      "seed": 20260927,
+      "status": "PASS",
+      "fine_status": "PASS",
+      "q4_status": "PASS",
+      "pareto": true,
+      "near_pareto": true,
+      "final_choice": true,
+      "outage_s": 0,
+      "search_seconds": 794.0,
+      "alns_iterations": 2000,
+      "j1": 0.0,
+      "j2_s": 6975.244356990602,
+      "j3_kwh": 80.08961337988009,
+      "nt": 26,
+      "nr": 4,
+      "components": 3,
+      "largest_component": 13,
+      "k2": {
+        "legal_partitions": 3,
+        "gap": 4,
+        "scale": 31,
+        "cv": 0.8825900780064836
+      },
+      "k3": {
+        "legal_partitions": 1,
+        "gap": 8,
+        "scale": 35,
+        "cv": 1.1832901651053964
+      },
+      "note": "0.25s Q3 and independent exact Q4 PASS"
+    }
+  ]
+}

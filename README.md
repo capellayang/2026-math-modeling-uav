@@ -578,3 +578,20 @@ python -m pytest tests -q
 工作簿的 `PASS` 必须结合验证步长解读。主实验先以 4 s 时间步独立筛选，关键候选再以 0.25 s 复核；任何检测出 OUTAGE 或资源冲突的候选均不得替换正式结果。`group_local_relay` 是题意歧义的敏感性分析，重新计算各组中继任务，不是唯一官方解释。能耗分项依然是项目假设，`energy_assumption_sensitivity.xlsx` 仅评估系数变化对已保存排程的影响。
 
 实验脚本会在本地产生每个候选完整 Q4 JSON，供 `q4_selection_sensitivity.xlsx` 重算与逐候选验证；这些约 8 MB/份的中间快照不纳入 Git，运行上述脚本可重建。实验工作簿、报告、图、Q3 候选快照和脚本纳入分支提交。
+
+## Q3 五随机种子复现实验
+
+在 `experiment/q3-q4-improvement` 提交基础上建立独立 worktree 后，执行：
+
+```powershell
+conda activate dl
+python scripts/q3_five_seed_batch.py
+```
+
+若当前 PowerShell 没有初始化 Conda 激活钩子，可用等价命令 `conda run -n dl --no-capture-output python -u scripts/q3_five_seed_batch.py`，并用 `python -c "import sys; print(sys.executable)"` 核实激活后的解释器。
+
+脚本依次运行 20260923–20260927 五个 seed。除 seed 外，均使用该分支 `Q3AlgorithmConfig` 默认值：每次搜索预算 600 s、ALNS 2000 次迭代、6 次重启、悬停候选上限 20、CP 路线候选上限 12、中继架次搜索槽位 6；能源组件按准备至充电结束的区间分配，充满后可复用。各 seed 有独立实验缓存；Q2-v2 基准快照相同。模型与数据指纹和完整配置写入结果工作簿的 `Fixed configuration` 页。
+
+每个 Q3 结果先保存为 `outputs/experiments/q3_five_seed/<seed>/q3.json`，再从磁盘读回，用独立 DEM/通信环境按 0.25 s 步长验证。只有验证通过且 OUTAGE=0 的方案才进入 strict Q4 完整枚举及独立 Q4 校验。`outputs/experiments/q3_five_seed/q3_five_seed_comparison.xlsx` 记录五个 seed 的 J1/J2/J3、运输与中继架次、strict 原子组件与最大组件大小、K2/K3 合法分区数和选中方案的 Gap/Scale/CV；失败 seed 保留原因为 FAIL，不会参与优选。`comparison.json` 是同一结果的机器可读版本。Q4 大型 JSON 保留本地但不提交 Git。
+
+最终候选先满足 J1=0、J2 不超过五个合法方案中最优值的 102%、J3 不超过最优值的 101%；再按 strict 组件数、最大组件大小、K3/K2 分区数与资源/均衡指标排序。表中另标出五轴 `(J1,J2,J3,NT,NR)` Pareto 状态。这是针对这五次随机运行的经验比较，不是全局最优证明。
